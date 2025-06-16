@@ -10,27 +10,27 @@ extends Resource
 #@export var flavor_text: String = ""
 
 var description: String :
-    get:
-        return get_description()
+	get:
+		return get_description()
 
 func applyEffects() -> void:
-    for effect in effects: 
-        effect.apply_effect()
+	for effect in effects: 
+		effect.apply_effect()
 
 func _to_string():
-    return name
+	return name
 
 func get_description() -> String:
-    if effects.size() < 1:
-        return "no effect"
-    
-    var output : String = ""
-    var is_first_effect : bool = true
-    for effect in effects: 
-        if is_first_effect:
-            is_first_effect = false
-        else:
-            output += ", "
-        output += effect.description
+	if effects.size() < 1:
+		return "no effect"
+	
+	var output : String = ""
+	var is_first_effect : bool = true
+	for effect in effects: 
+		if is_first_effect:
+			is_first_effect = false
+		else:
+			output += ", "
+		output += effect.description
 
-    return output
+	return output

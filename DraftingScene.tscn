@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="3_lhibb"]
 [ext_resource type="Script" uid="uid://bhuxken7wryy" path="res://One-off Scripts/gems_label.gd" id="4_itywg"]
 [ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="5_jpir3"]
-[ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/Deck.gd" id="6_itywg"]
+[ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="6_itywg"]
 [ext_resource type="Resource" uid="uid://371ombm5yhr5" path="res://Cards/card_dark_1.tres" id="7_0gfdv"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="7_jftys"]
 [ext_resource type="Resource" uid="uid://b8a7883akit3u" path="res://Cards/card_dark_2.tres" id="8_2bk3w"]
@@ -43,9 +43,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_udu1n")
 
-[node name="Deck" type="Node" parent="."]
+[node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("6_itywg")
-cards = Array[ExtResource("7_jftys")]([ExtResource("7_0gfdv"), ExtResource("8_2bk3w"), ExtResource("9_dd8nx"), ExtResource("10_vmhvt"), ExtResource("11_a7sb1"), ExtResource("12_3lh8g"), ExtResource("13_aoe5s"), ExtResource("14_krert"), ExtResource("15_qa5wp"), ExtResource("16_mi4s8"), ExtResource("17_u6upq"), ExtResource("18_mif7k"), ExtResource("19_253dc"), ExtResource("20_cei22"), ExtResource("21_ok0d3"), ExtResource("22_5n04o"), ExtResource("23_22083"), ExtResource("24_k28rq")])
+_cards_unaltered = Array[ExtResource("7_jftys")]([ExtResource("7_0gfdv"), ExtResource("8_2bk3w"), ExtResource("9_dd8nx"), ExtResource("10_vmhvt"), ExtResource("11_a7sb1"), ExtResource("12_3lh8g"), ExtResource("13_aoe5s"), ExtResource("14_krert"), ExtResource("15_qa5wp"), ExtResource("16_mi4s8"), ExtResource("17_u6upq"), ExtResource("18_mif7k"), ExtResource("19_253dc"), ExtResource("20_cei22"), ExtResource("21_ok0d3"), ExtResource("22_5n04o"), ExtResource("23_22083"), ExtResource("24_k28rq")])
 metadata/_custom_type_script = "uid://bn2ljivsrcld1"
 
 [node name="KeyboardCheats" type="Node2D" parent="."]

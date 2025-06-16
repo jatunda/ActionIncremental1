@@ -5,8 +5,7 @@ enum Rarity {
     COMMON,
     UNCOMMON,
     RARE,
-    EPIC,
-    LEGENDARY,
+    WALL,
 }
 
 enum Element {

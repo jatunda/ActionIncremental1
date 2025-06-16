@@ -1,6 +1,6 @@
 extends Control
 
-@onready var deck: Deck = $Deck
+@onready var card_offering_manager: CardOfferingManager = $CardOfferingManager
 
 @onready var renderedCardLeft : RenderedCard = $RenderedCardLeft
 @onready var renderedCardCenter : RenderedCard = $RenderedCardCenter
@@ -68,8 +68,9 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	pass
 
 func get_and_render_cards() -> void:
-	# query the deck and get 3 cards from it
-	var cards : Array[Card] = deck.get_cards(3)
+	# query the card_offering_manager and get 3 cards from it
+	var cards : Array[Card] = card_offering_manager.get_cards(3)
+	print(cards)
 	# fill the actual rendered card nodes with the correct data
 	renderedCardLeft.spawnCard(cards[0], get_modified_card(cards[0]))
 	renderedCardCenter.spawnCard(cards[1], get_modified_card(cards[1]))
@@ -96,7 +97,7 @@ func start_run() -> void:
 	GameplayManager.card_history = []
 	StatusManager.clear_all_statuses()
 
-	deck.populate_deck()
+	card_offering_manager.populate_offerings()
 	get_and_render_cards()
 	#reenable card buttons
 
