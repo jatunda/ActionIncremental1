@@ -10,4 +10,4 @@ func is_satisfied() -> bool:
 ## to be overridden by child classes
 ## [br] format: "if {return value}, then..."
 func _get_description() -> String:
-	return "%s is active" % [Status.Type.keys()[statusType]]
+	return "%s is active" % [Status.type_to_string(statusType)]

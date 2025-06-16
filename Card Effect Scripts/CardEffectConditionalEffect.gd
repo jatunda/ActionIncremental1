@@ -1,13 +1,11 @@
 class_name CardEffectConditionalEffect
 extends CardEffect
 
-enum ConditionalMode {
-	AND,
-	OR,
-	XOR,
-}
 
-@export var conditional_mode : ConditionalMode = ConditionalMode.AND
+
+
+
+@export var conditional_mode : Constants.BooleanOperator = Constants.BooleanOperator.AND
 @export var conditionals : Array[Conditional]
 @export var effects : Array[CardEffect]
 
@@ -17,11 +15,11 @@ func _is_satisfied() -> bool:
 		if conditional.is_satisfied():
 			conditional_true_count += 1
 
-	if conditional_mode == ConditionalMode.AND and conditional_true_count < conditionals.size():
+	if conditional_mode == Constants.BooleanOperator.AND and conditional_true_count < conditionals.size():
 		return false
-	if conditional_mode == ConditionalMode.OR and conditional_true_count < 1:
+	if conditional_mode == Constants.BooleanOperator.OR and conditional_true_count < 1:
 		return false
-	if conditional_mode == ConditionalMode.XOR and conditional_true_count != 1:
+	if conditional_mode == Constants.BooleanOperator.XOR and conditional_true_count != 1:
 		return false
 	return true
 
@@ -39,7 +37,7 @@ func _get_description() -> String:
 		if first:
 			first = false
 		else:
-			conditional_string += " %s " % [ConditionalMode.keys()[conditional_mode].to_lower()]
+			conditional_string += " %s " % [Constants.boolean_operator_to_string(conditional_mode)]
 		conditional_string += conditional.description
 
 	first = true

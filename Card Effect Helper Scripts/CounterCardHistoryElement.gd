@@ -14,5 +14,5 @@ func get_count() -> int:
 ## [br]format: "if {description} is greater than {other description}"
 ## [br]format: "for each {description}, do effect"
 func _get_description() -> String:
-	var element_string : String = Constants.Element.keys()[element]
+	var element_string : String = Constants.element_to_string(element)
 	return "%s runes you have" % [element_string]

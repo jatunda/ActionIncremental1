@@ -29,6 +29,9 @@ enum PriorityBracket {
 	END_OF_TURN,
 }
 
+static func type_to_string(p_type : Type) -> String:
+	return Type.keys()[p_type]
+
 var type : Type
 var positivity : Positivity
 var priority : PriorityBracket
@@ -37,7 +40,7 @@ var counter_type : CounterType
 var counter : int = 0
 var debug_text : String :
 	get:
-		var output : String = Type.keys()[type]
+		var output : String = type_to_string(type)
 		if counter_type == CounterType.COUNTER:
 			output += " " + str(counter) 
 		return output
@@ -53,5 +56,5 @@ func _init(p_type : Type, p_positivity : Positivity, p_priority : PriorityBracke
 
 func _to_string() -> String:
 	if counter_type == CounterType.COUNTER:
-		return "%s %s" % [Type.keys()[type], counter]
-	return Type.keys()[type]
+		return "%s %s" % [type_to_string(type), counter]
+	return type_to_string(type)

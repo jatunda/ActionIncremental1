@@ -18,6 +18,9 @@ enum Element {
     DARK,
 }
 
+static func element_to_string(element : Element) -> String:
+    return Element.keys()[element].to_lower()
+
 static func element_to_color(element: Element) -> Color:
     match element:
         Element.FIRE:
@@ -34,3 +37,12 @@ static func element_to_color(element: Element) -> Color:
             return Color.LIGHT_GRAY
         _: 
             return Color.WHITE
+
+enum BooleanOperator {
+	AND,
+	OR,
+	XOR,
+}
+
+static func boolean_operator_to_string(boolean_operator : BooleanOperator) -> String:
+    return BooleanOperator.keys()[boolean_operator].to_lower()
