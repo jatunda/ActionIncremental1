@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="Card" load_steps=15 format=3 uid="uid://hquexhvq7xhs"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_4wgil"]
+[ext_resource type="Script" uid="uid://dxpr2sftgcqpf" path="res://Card Effect Helper Scripts/Conditional.gd" id="2_4ssb6"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_7loh7"]
+[ext_resource type="Texture2D" uid="uid://d0puke3lx5oc8" path="res://rune images/light 2.png" id="3_4wgil"]
+[ext_resource type="Script" uid="uid://kgy8jn5i42t3" path="res://Card Effect Helper Scripts/CounterCardHistoryElement.gd" id="3_yxosk"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_d6nna"]
+[ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="4_i3g6p"]
+[ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="5_x4402"]
+[ext_resource type="Script" uid="uid://cox177eioo477" path="res://Card Effect Scripts/CardEffectConditionalEffect.gd" id="7_k0nen"]
+
+[sub_resource type="Resource" id="Resource_nkcq2"]
+script = ExtResource("3_yxosk")
+element = 4
+metadata/_custom_type_script = "uid://kgy8jn5i42t3"
+
+[sub_resource type="Resource" id="Resource_r3261"]
+script = ExtResource("4_i3g6p")
+number = 1
+metadata/_custom_type_script = "uid://dpsaemrg0nshs"
+
+[sub_resource type="Resource" id="Resource_fd0fw"]
+script = ExtResource("5_x4402")
+counter_a = SubResource("Resource_nkcq2")
+comparison_mode = 0
+counter_b = SubResource("Resource_r3261")
+metadata/_custom_type_script = "uid://ctyuy7784sdc2"
+
+[sub_resource type="Resource" id="Resource_bcygd"]
+script = ExtResource("2_7loh7")
+_gemsToGain = 8
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_jn7i2"]
+script = ExtResource("7_k0nen")
+conditional_mode = 0
+conditionals = Array[ExtResource("2_4ssb6")]([SubResource("Resource_fd0fw")])
+effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_bcygd")])
+metadata/_custom_type_script = "uid://cox177eioo477"
+
+[resource]
+script = ExtResource("4_d6nna")
+name = "Light 2"
+cost = 3
+image = ExtResource("3_4wgil")
+rarity = 0
+element = 4
+effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_jn7i2")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

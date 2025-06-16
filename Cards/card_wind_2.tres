@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Card" load_steps=11 format=3 uid="uid://d23xyf5j8x2q4"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_00rfb"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_fougf"]
+[ext_resource type="Script" uid="uid://dxpr2sftgcqpf" path="res://Card Effect Helper Scripts/Conditional.gd" id="2_sqfal"]
+[ext_resource type="Texture2D" uid="uid://jwkim8iwvs5u" path="res://rune images/wind 2.png" id="3_00rfb"]
+[ext_resource type="Script" uid="uid://2k0ui7hwmw5q" path="res://Card Effect Helper Scripts/ConditionalHasStatus.gd" id="3_87jf2"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_sqfal"]
+[ext_resource type="Script" uid="uid://cox177eioo477" path="res://Card Effect Scripts/CardEffectConditionalEffect.gd" id="5_eobsj"]
+
+[sub_resource type="Resource" id="Resource_d8k5e"]
+script = ExtResource("3_87jf2")
+statusType = 0
+metadata/_custom_type_script = "uid://2k0ui7hwmw5q"
+
+[sub_resource type="Resource" id="Resource_mtn85"]
+script = ExtResource("2_fougf")
+_gemsToGain = 10
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_puwwl"]
+script = ExtResource("5_eobsj")
+conditional_mode = 0
+conditionals = Array[ExtResource("2_sqfal")]([SubResource("Resource_d8k5e")])
+effects = Array[ExtResource("1_00rfb")]([SubResource("Resource_mtn85")])
+metadata/_custom_type_script = "uid://cox177eioo477"
+
+[resource]
+script = ExtResource("4_sqfal")
+name = "Wind 2"
+cost = 3
+image = ExtResource("3_00rfb")
+rarity = 0
+element = 3
+effects = Array[ExtResource("1_00rfb")]([SubResource("Resource_puwwl")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

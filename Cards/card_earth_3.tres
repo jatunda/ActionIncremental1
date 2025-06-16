@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://c728fcdm5sta1"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_ly2mt"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_7l4wi"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="3_7l4wi"]
+[ext_resource type="Texture2D" uid="uid://cxqpic3qmrcec" path="res://rune images/earth 3.png" id="3_ly2mt"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_sloaw"]
+
+[sub_resource type="Resource" id="Resource_jv40g"]
+script = ExtResource("2_7l4wi")
+_gemsToGain = 1
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_qk426"]
+script = ExtResource("3_7l4wi")
+statusType = 1
+counter = 4
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[resource]
+script = ExtResource("4_sloaw")
+name = "Earth 3"
+cost = 5
+image = ExtResource("3_ly2mt")
+rarity = 0
+element = 2
+effects = Array[ExtResource("1_ly2mt")]([SubResource("Resource_jv40g"), SubResource("Resource_qk426")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

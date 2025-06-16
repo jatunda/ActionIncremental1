@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://rgflvu6vvbrh"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_fk641"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_hj7qx"]
+[ext_resource type="Texture2D" uid="uid://djaixlacpmyku" path="res://rune images/fire 3.png" id="3_fk641"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_c685f"]
+
+[sub_resource type="Resource" id="Resource_jv40g"]
+script = ExtResource("2_hj7qx")
+_gemsToGain = 1
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[resource]
+script = ExtResource("4_c685f")
+name = "Fire 3"
+cost = 5
+image = ExtResource("3_fk641")
+rarity = 0
+element = 0
+effects = Array[ExtResource("1_fk641")]([SubResource("Resource_jv40g")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

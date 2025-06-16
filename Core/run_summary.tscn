@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://clg2pxw68uk01"]
+
+[ext_resource type="Script" uid="uid://dtvmh070rdupt" path="res://One-off Scripts/run_summary.gd" id="1_vobyg"]
+
+[sub_resource type="Gradient" id="Gradient_m3gt1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vobyg"]
+gradient = SubResource("Gradient_m3gt1")
+
+[node name="RunSummary" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_vobyg")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 50
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0.278431, 0.341176, 0.419608, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_vobyg")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Cards" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cards:"
+
+[node name="Card Count" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Num Cards:"
+
+[node name="Gems" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Total Gems:"
+
+[node name="StartNewRunButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Start New Run"

@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Card" load_steps=10 format=3 uid="uid://dxgdtyhof5gef"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_qnih6"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_nfu4b"]
+[ext_resource type="Script" uid="uid://kgy8jn5i42t3" path="res://Card Effect Helper Scripts/CounterCardHistoryElement.gd" id="2_y2607"]
+[ext_resource type="Texture2D" uid="uid://do3ahxrvygqgg" path="res://rune images/dark 3.png" id="3_qnih6"]
+[ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="4_momcs"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_rp46j"]
+
+[sub_resource type="Resource" id="Resource_34lcr"]
+script = ExtResource("2_y2607")
+element = 5
+metadata/_custom_type_script = "uid://kgy8jn5i42t3"
+
+[sub_resource type="Resource" id="Resource_hialm"]
+script = ExtResource("2_nfu4b")
+_gemsToGain = 7
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_krg8i"]
+script = ExtResource("4_momcs")
+counter = SubResource("Resource_34lcr")
+effects = Array[ExtResource("1_qnih6")]([SubResource("Resource_hialm")])
+metadata/_custom_type_script = "uid://bop3h6rky6gor"
+
+[resource]
+script = ExtResource("4_rp46j")
+name = "Dark 3"
+cost = 5
+image = ExtResource("3_qnih6")
+rarity = 0
+element = 5
+effects = Array[ExtResource("1_qnih6")]([SubResource("Resource_krg8i")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

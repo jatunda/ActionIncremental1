@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://wgm68pwoogbv"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_gvbjt"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_hpsbc"]
+[ext_resource type="Texture2D" uid="uid://cpqlglh2t6tuf" path="res://rune images/earth 1.png" id="3_gvbjt"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="3_hpsbc"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_o1kl1"]
+
+[sub_resource type="Resource" id="Resource_jv40g"]
+script = ExtResource("2_hpsbc")
+_gemsToGain = 1
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_271n2"]
+script = ExtResource("3_hpsbc")
+statusType = 1
+counter = 1
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[resource]
+script = ExtResource("4_o1kl1")
+name = "Earth 1"
+cost = 1
+image = ExtResource("3_gvbjt")
+rarity = 0
+element = 2
+effects = Array[ExtResource("1_gvbjt")]([SubResource("Resource_jv40g"), SubResource("Resource_271n2")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Card" load_steps=11 format=3 uid="uid://dmgwk3o1t26kk"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_ccquk"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_fykpy"]
+[ext_resource type="Script" uid="uid://dxpr2sftgcqpf" path="res://Card Effect Helper Scripts/Conditional.gd" id="2_yf1rl"]
+[ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="3_ccquk"]
+[ext_resource type="Script" uid="uid://2k0ui7hwmw5q" path="res://Card Effect Helper Scripts/ConditionalHasStatus.gd" id="3_y7b8k"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_yf1rl"]
+[ext_resource type="Script" uid="uid://cox177eioo477" path="res://Card Effect Scripts/CardEffectConditionalEffect.gd" id="5_i6tgr"]
+
+[sub_resource type="Resource" id="Resource_rij57"]
+script = ExtResource("3_y7b8k")
+statusType = 0
+metadata/_custom_type_script = "uid://2k0ui7hwmw5q"
+
+[sub_resource type="Resource" id="Resource_86xda"]
+script = ExtResource("2_fykpy")
+_gemsToGain = 5
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_up3ul"]
+script = ExtResource("5_i6tgr")
+conditional_mode = 0
+conditionals = Array[ExtResource("2_yf1rl")]([SubResource("Resource_rij57")])
+effects = Array[ExtResource("1_ccquk")]([SubResource("Resource_86xda")])
+metadata/_custom_type_script = "uid://cox177eioo477"
+
+[resource]
+script = ExtResource("4_yf1rl")
+name = "Wind 1"
+cost = 1
+image = ExtResource("3_ccquk")
+rarity = 0
+element = 3
+effects = Array[ExtResource("1_ccquk")]([SubResource("Resource_up3ul")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

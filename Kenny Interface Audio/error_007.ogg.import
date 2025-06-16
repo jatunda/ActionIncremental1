@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bchjatool4ava"
+path="res://.godot/imported/error_007.ogg-55600bdc15e94c8a14ae39c3480a285d.oggvorbisstr"
+
+[deps]
+
+source_file="res://Kenny Interface Audio/error_007.ogg"
+dest_files=["res://.godot/imported/error_007.ogg-55600bdc15e94c8a14ae39c3480a285d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
