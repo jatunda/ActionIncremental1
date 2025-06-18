@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://clg2pxw68uk01"]
+[gd_scene load_steps=5 format=3 uid="uid://clg2pxw68uk01"]
 
 [ext_resource type="Script" uid="uid://dtvmh070rdupt" path="res://One-off Scripts/run_summary.gd" id="1_vobyg"]
+[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="2_jb5pl"]
 
 [sub_resource type="Gradient" id="Gradient_m3gt1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -50,19 +51,23 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Cards" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="Runes Captured Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Cards:"
-
-[node name="Card Count" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Num Cards:"
+theme = ExtResource("2_jb5pl")
+text = "Runes Captured:"
 
 [node name="Gems" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_jb5pl")
+text = "Gems Gained:"
+
+[node name="Gems2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jb5pl")
 text = "Total Gems:"
 
 [node name="StartNewRunButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("2_jb5pl")
 text = "Start New Run"

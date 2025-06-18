@@ -8,6 +8,7 @@ signal capacity_left_changed(new_capacity_left:int)
 signal gems_changed(new_gems:int)
 signal card_history_update(card_history:Array[Card])
 
+var drafting_manager : DraftingManager = null
 
 var draws_max: int = 10
 var draws_left: int = 10 :

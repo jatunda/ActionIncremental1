@@ -1,14 +1,28 @@
-[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://dumb3xbymtlxr"]
+[gd_resource type="Resource" script_class="Card" load_steps=10 format=3 uid="uid://dumb3xbymtlxr"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_ff8n8"]
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_dpyp7"]
+[ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="3_1f87n"]
 [ext_resource type="Texture2D" uid="uid://dps1av5sob6il" path="res://rune images/fire 2.png" id="3_ff8n8"]
+[ext_resource type="Script" uid="uid://d3015pktn23aj" path="res://Card Effect Scripts/CardEffectPlayCard.gd" id="4_6ks3s"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_m32u6"]
 
 [sub_resource type="Resource" id="Resource_jv40g"]
 script = ExtResource("2_dpyp7")
 _gemsToGain = 1
 metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_yc123"]
+script = ExtResource("4_6ks3s")
+card = ExtResource("3_1f87n")
+should_randomize_element = true
+metadata/_custom_type_script = "uid://d3015pktn23aj"
+
+[sub_resource type="Resource" id="Resource_tcpuo"]
+script = ExtResource("4_6ks3s")
+card = ExtResource("3_1f87n")
+should_randomize_element = true
+metadata/_custom_type_script = "uid://d3015pktn23aj"
 
 [resource]
 script = ExtResource("4_m32u6")
@@ -17,5 +31,5 @@ cost = 3
 image = ExtResource("3_ff8n8")
 rarity = 0
 element = 0
-effects = Array[ExtResource("1_ff8n8")]([SubResource("Resource_jv40g")])
+effects = Array[ExtResource("1_ff8n8")]([SubResource("Resource_jv40g"), SubResource("Resource_yc123"), SubResource("Resource_tcpuo")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

@@ -1,3 +1,4 @@
+class_name DraftingManager
 extends Control
 
 @onready var card_offering_manager: CardOfferingManager = $CardOfferingManager
@@ -10,6 +11,7 @@ extends Control
 @onready var runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
 
 func _ready() -> void:
+	GameplayManager.drafting_manager = self
 	GameplayManager.draws_left = GameplayManager.draws_max
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	renderedCardLeft.card_clicked.connect(_on_card_clicked)
@@ -20,13 +22,23 @@ func _ready() -> void:
 	GameplayManager.card_history_update.connect(runes_chosen_display._on_card_history_update)
 	start_run()
 	
-
-func _on_card_clicked(renderedCard: RenderedCard) -> void:
+## return whether the card was played or not
+func try_play_card(card : Card) -> bool:
 	# if click is not allowed, make the card do a not allowed thing and return
-	if(renderedCard.card_modified.cost > GameplayManager.capacity_left):
+	if(card.cost > GameplayManager.capacity_left):
 		print("not enough capacity for this rune")
 		# run animation for not allowed
-		return
+		return false
+
+	# apply card effect(s)
+	add_card_to_history(card)
+	GameplayManager.capacity_left -= card.cost
+	card.applyEffects()
+	
+	return true
+
+func _on_card_clicked(renderedCard: RenderedCard) -> void:
+
 	if(GameplayManager.draws_left < 1):
 		# should never reach this code...
 		# if we reach here, end the session
@@ -34,18 +46,22 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 		end_run()
 		return
 
-	# past this point, the click was allowed    
+	var playedCard : bool = try_play_card(renderedCard.card_modified)
+	if(playedCard == false) :
+		# play effect for failing to play card
+		return
 
-	# apply card effect(s)
-	renderedCard.card_modified.applyEffects()
-	GameplayManager.draws_left -= 1
-	GameplayManager.capacity_left -= renderedCard.card_modified.cost
-	StatusManager.tick_statuses()
-	
+	# past this point, the click was allowed, card was played
+
 	# play animation for clicking on rune (collect resources/rune, remove other cards)
 	# wait for animations to finish (or maybe just a set time?)
+
+
+	# end of turn effects
+	StatusManager.tick_statuses()
 	
-	add_card_to_history(renderedCard.card_modified)
+
+	
 
 	# check if game should end
 	if(GameplayManager.draws_left < 1):
@@ -53,20 +69,13 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 		end_run()
 		return
 		
-
-
-	# else, game continues
-	# later, call an animation that does the following:
-		# runs the played card animations
-		# removes the unplayed cards
-		# waits a little bit 
-			# based on previous card animation time? 
-			# or just a fixed time
-		# then, get new cards, and have them appear in animation
 	get_and_render_cards()
+	# Start of turn effects go here
 	pass
 
 func get_and_render_cards() -> void:
+	GameplayManager.draws_left -= 1
+
 	# query the card_offering_manager and get 3 cards from it
 	var cards : Array[Card] = card_offering_manager.get_cards(3)
 	print(cards)
@@ -97,7 +106,9 @@ func start_run() -> void:
 	StatusManager.clear_all_statuses()
 
 	card_offering_manager.populate_offerings()
+
 	get_and_render_cards()
+	# start of turn effects go here
 	#reenable card buttons
 
 func add_card_to_history(card:Card) -> void:
@@ -134,3 +145,9 @@ func get_modified_card_element(card: Card) -> Constants.Element:
 
 func get_modified_card_effects(card: Card) -> Array[CardEffect]:
 	return card.effects.duplicate(true)
+
+func _notification(what: int) -> void:
+	match what:
+		# godot's version of a destructor
+		NOTIFICATION_PREDELETE:
+			GameplayManager.drafting_manager = null

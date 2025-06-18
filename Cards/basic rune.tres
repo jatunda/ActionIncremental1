@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Card" load_steps=4 format=3 uid="uid://bm3h1p7rctewg"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_lod2n"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_ayeyd"]
+[ext_resource type="Texture2D" uid="uid://260irdfk5u8k" path="res://rune images/no effect rune.png" id="2_rxiii"]
+
+[resource]
+script = ExtResource("2_ayeyd")
+name = "Basic Rune"
+cost = 0
+image = ExtResource("2_rxiii")
+rarity = 0
+element = 0
+effects = Array[ExtResource("1_lod2n")]([])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"
