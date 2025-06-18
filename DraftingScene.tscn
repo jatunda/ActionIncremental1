@@ -29,7 +29,7 @@
 [ext_resource type="Resource" uid="uid://bbcbguhghj0aa" path="res://Cards/card_wind_3.tres" id="24_k28rq"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="25_2bk3w"]
 [ext_resource type="Script" uid="uid://dgigo8bcfiqa1" path="res://One-off Scripts/runes_chosen_label.gd" id="26_dd8nx"]
-[ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://status_label.gd" id="28_a7sb1"]
+[ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://One-off Scripts/status_label.gd" id="28_a7sb1"]
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="29_vmhvt"]
 
 [sub_resource type="Theme" id="Theme_iq3rl"]

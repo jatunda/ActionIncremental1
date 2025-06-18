@@ -45,8 +45,7 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	# play animation for clicking on rune (collect resources/rune, remove other cards)
 	# wait for animations to finish (or maybe just a set time?)
 	
-	add_card_to_history(renderedCard.card_original)
-
+	add_card_to_history(renderedCard.card_modified)
 
 	# check if game should end
 	if(GameplayManager.draws_left < 1):
