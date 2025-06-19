@@ -1,19 +1,22 @@
 class_name RenderedCard
-extends Control
+extends PanelContainer
 
 signal card_clicked(renderedCard: RenderedCard)
 
 var card_original : Card
 var card_modified : Card
-@onready var nameLabel : RichTextLabel = $NameLabel
-@onready var descriptionLabel : RichTextLabel = $DescriptionLabel
-@onready var sprite : TextureRect = $TextureRect
-@onready var costLabel : RichTextLabel = $CostLabel
-@onready var textureButton : TextureButton = $TextureButton
-@onready var audioStreamPlayer: AudioStreamPlayer = $AudioStreamPlayer
+@export var nameLabel : RichTextLabel
+@export var descriptionLabel : RichTextLabel
+@export var sprite : TextureRect
+@export var costLabel : RichTextLabel
+@export var textureButton : TextureButton
+@export var audioStreamPlayer: AudioStreamPlayer
 
 
-# Display Card from beginning (spawn effect)
+## Display Card from beginning (spawn effect).
+## [br]Needs both the template card and the one with the currently active numbers
+## so that it can determine what effects to apply. 
+## [br]Example: Lower cost -> green cost text
 func spawnCard(p_card_original: Card, p_card_modified) -> void:
 	card_original = p_card_original
 	card_modified = p_card_modified
@@ -38,18 +41,10 @@ func _on_pressed():
 	audioStreamPlayer.play()
 	pass
 
-# effect for can't be played
+# add effect for can't be played
 
-# generate the text
-	# possible feature: color parts of the description 
-	# 	- red if cost is too high
-	# 	- red if a conditional won't activate
-	# 	- yellow if a conditional WILL activate
-	# 	- green if a number is increased
-	# 	- red if a number is decreased
-
-# display End of Life Effect
-	# display getting used
-	# display getting not drafted
-	# display getting consumed/burned
+# add displaying End of Life Effect
+	# getting used
+	# getting not drafted
+	# getting consumed/burned
 	# should end with the card disappearing completely (hide visuals)

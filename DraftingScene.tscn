@@ -42,6 +42,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_udu1n")
+rendered_card_scene = ExtResource("5_jpir3")
 
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("6_itywg")
@@ -50,35 +51,6 @@ metadata/_custom_type_script = "uid://bn2ljivsrcld1"
 
 [node name="KeyboardCheats" type="Node2D" parent="."]
 script = ExtResource("3_lhibb")
-
-[node name="RenderedCardLeft" parent="." instance=ExtResource("5_jpir3")]
-layout_mode = 1
-anchors_preset = 4
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 36.0
-offset_top = -199.0
-offset_right = 236.0
-offset_bottom = 81.0
-grow_horizontal = 1
-
-[node name="RenderedCardCenter" parent="." instance=ExtResource("5_jpir3")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -420.0
-offset_top = -200.0
-offset_right = -220.0
-offset_bottom = 80.0
-grow_horizontal = 0
-
-[node name="RenderedCardRight" parent="." instance=ExtResource("5_jpir3")]
-layout_mode = 1
-offset_left = 89.0
-offset_top = -199.0
-offset_right = 289.0
-offset_bottom = 81.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -138,6 +110,16 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
+[node name="RenderedCardsHolder" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
@@ -149,6 +131,7 @@ text = "Runes Chosen:"
 
 [node name="RunesChosenLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
@@ -161,6 +144,7 @@ autowrap_mode = 2
 script = ExtResource("26_dd8nx")
 
 [node name="OverlappingImageDisplay" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2

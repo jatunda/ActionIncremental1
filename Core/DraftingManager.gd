@@ -1,11 +1,10 @@
 class_name DraftingManager
 extends Control
 
-@onready var card_offering_manager: CardOfferingManager = $CardOfferingManager
+@export var rendered_card_scene : PackedScene
 
-@onready var renderedCardLeft : RenderedCard = $RenderedCardLeft
-@onready var renderedCardCenter : RenderedCard = $RenderedCardCenter
-@onready var renderedCardRight : RenderedCard = $RenderedCardRight
+@onready var card_offering_manager: CardOfferingManager = $CardOfferingManager
+@onready var rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
 @onready var end_run_button : Button = $VBoxContainer/EndRunButton
 @onready var run_summary : RunSummary = $RunSummary
 @onready var runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
@@ -14,9 +13,6 @@ func _ready() -> void:
 	GameplayManager.drafting_manager = self
 	GameplayManager.draws_left = GameplayManager.draws_max
 	GameplayManager.capacity_left = GameplayManager.capacity_max
-	renderedCardLeft.card_clicked.connect(_on_card_clicked)
-	renderedCardCenter.card_clicked.connect(_on_card_clicked)
-	renderedCardRight.card_clicked.connect(_on_card_clicked)
 	end_run_button.pressed.connect(end_run)
 	run_summary.start_new_run.connect(start_run)
 	GameplayManager.card_history_update.connect(runes_chosen_display._on_card_history_update)
@@ -77,14 +73,59 @@ func get_and_render_cards() -> void:
 	GameplayManager.draws_left -= 1
 
 	# query the card_offering_manager and get 3 cards from it
-	var cards : Array[Card] = card_offering_manager.get_cards(3)
-	print(cards)
+	var draft_size : int = get_draft_size()
+	var cards : Array[Card] = card_offering_manager.get_cards(draft_size)
+	
+	# spawn/delete renderedCards if need be
+	
+	# get current renderedCards
+	var potential_rendered_cards : Array[Node] = rendered_cards_holder.get_children()
+	var rendered_cards : Array[RenderedCard] = []
+	for potential_rendered_card in potential_rendered_cards: 
+		if potential_rendered_card is RenderedCard:
+			rendered_cards.append(potential_rendered_card as RenderedCard)
+
+	# count how many nodes we actually showing	
+	var num_cards_showing : int = 0
+	for rendered_card  in rendered_cards:
+		if rendered_card.visible:
+			num_cards_showing += 1
+
+	# if we got too many: hide them
+	if num_cards_showing > draft_size:
+		var num_left_to_hide : int = num_cards_showing - draft_size
+		for i in range(rendered_cards.size() - 1, -1, -1):
+			if rendered_cards[i].visible:
+				rendered_cards[i].visible = false
+				num_left_to_hide -= 1
+				if(num_left_to_hide <= 0):
+					break
+
+	# if we got not enough: unhide or add until we got enough
+	elif num_cards_showing < draft_size:
+		var num_left_to_show : int = draft_size - num_cards_showing
+		# unhide
+		for rendered_card in rendered_cards:
+			if(rendered_card.visible == false):
+				rendered_card.visible = true
+				num_left_to_show -= 1
+				if num_left_to_show <= 0:
+					break
+		# add more
+		for _i in range(num_left_to_show): 
+			var new_rendered_card : RenderedCard = rendered_card_scene.instantiate()
+			rendered_cards_holder.add_child(new_rendered_card)
+			rendered_cards.append(new_rendered_card)
+
 	# fill the actual rendered card nodes with the correct data
-	renderedCardLeft.spawnCard(cards[0], get_modified_card(cards[0]))
-	renderedCardCenter.spawnCard(cards[1], get_modified_card(cards[1]))
-	renderedCardRight.spawnCard(cards[2], get_modified_card(cards[2]))
+	for i in range(draft_size):
+		rendered_cards[i].spawnCard(cards[i], get_modified_card(cards[i]))
+
 	# have the cards play their initial render animations
 	
+	# connect the cards to our click function
+	for rendered_card in rendered_cards:
+		rendered_card.card_clicked.connect(_on_card_clicked)
 
 func end_run() -> void:
 	# show run summary
@@ -151,3 +192,7 @@ func _notification(what: int) -> void:
 		# godot's version of a destructor
 		NOTIFICATION_PREDELETE:
 			GameplayManager.drafting_manager = null
+
+func get_draft_size() -> int:
+	# might want to limit the draft size max (5? 6?)
+	return 3
