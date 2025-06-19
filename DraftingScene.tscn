@@ -42,7 +42,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_udu1n")
-rendered_card_scene = ExtResource("5_jpir3")
+_rendered_card_scene = ExtResource("5_jpir3")
 
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("6_itywg")

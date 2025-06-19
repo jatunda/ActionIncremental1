@@ -34,3 +34,18 @@ func get_description() -> String:
 		output += effect.description
 
 	return output
+
+func get_effects(p_class) -> Array[CardEffect]:
+	var output : Array[CardEffect] = []
+	for effect in effects:
+		if is_instance_of(effect, p_class):
+			output.append(effect)
+	return output
+
+func has_effect(p_class) -> bool:
+	return get_effects(p_class).size() > 0
+
+func remove_effects_of_type(p_class) -> void:
+	for effect in effects:
+		if is_instance_of(effect, p_class):
+			effects.erase(effect)

@@ -1,21 +1,24 @@
 class_name DraftingManager
 extends Control
 
-@export var rendered_card_scene : PackedScene
+@export var _rendered_card_scene : PackedScene
+var current_offered_cards : Array[Card] :
+	get:
+		return current_offered_cards
 
-@onready var card_offering_manager: CardOfferingManager = $CardOfferingManager
-@onready var rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
-@onready var end_run_button : Button = $VBoxContainer/EndRunButton
-@onready var run_summary : RunSummary = $RunSummary
-@onready var runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
+@onready var _card_offering_manager: CardOfferingManager = $CardOfferingManager
+@onready var _rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
+@onready var _end_run_button : Button = $VBoxContainer/EndRunButton
+@onready var _run_summary : RunSummary = $RunSummary
+@onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
 
 func _ready() -> void:
 	GameplayManager.drafting_manager = self
 	GameplayManager.draws_left = GameplayManager.draws_max
 	GameplayManager.capacity_left = GameplayManager.capacity_max
-	end_run_button.pressed.connect(end_run)
-	run_summary.start_new_run.connect(start_run)
-	GameplayManager.card_history_update.connect(runes_chosen_display._on_card_history_update)
+	_end_run_button.pressed.connect(end_run)
+	_run_summary.start_new_run.connect(start_run)
+	GameplayManager.card_history_update.connect(_runes_chosen_display._on_card_history_update)
 	start_run()
 	
 ## return whether the card was played or not
@@ -52,12 +55,8 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	# play animation for clicking on rune (collect resources/rune, remove other cards)
 	# wait for animations to finish (or maybe just a set time?)
 
-
 	# end of turn effects
 	StatusManager.tick_statuses()
-	
-
-	
 
 	# check if game should end
 	if(GameplayManager.draws_left < 1):
@@ -72,14 +71,14 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 func get_and_render_cards() -> void:
 	GameplayManager.draws_left -= 1
 
-	# query the card_offering_manager and get 3 cards from it
+	# query the _card_offering_manager and get 3 cards from it
 	var draft_size : int = get_draft_size()
-	var cards : Array[Card] = card_offering_manager.get_cards(draft_size)
+	var cards : Array[Card] = _card_offering_manager.get_cards(draft_size)
 	
 	# spawn/delete renderedCards if need be
 	
 	# get current renderedCards
-	var potential_rendered_cards : Array[Node] = rendered_cards_holder.get_children()
+	var potential_rendered_cards : Array[Node] = _rendered_cards_holder.get_children()
 	var rendered_cards : Array[RenderedCard] = []
 	for potential_rendered_card in potential_rendered_cards: 
 		if potential_rendered_card is RenderedCard:
@@ -97,6 +96,7 @@ func get_and_render_cards() -> void:
 		for i in range(rendered_cards.size() - 1, -1, -1):
 			if rendered_cards[i].visible:
 				rendered_cards[i].visible = false
+				rendered_cards[i].card_clicked.disconnect(_on_card_clicked)
 				num_left_to_hide -= 1
 				if(num_left_to_hide <= 0):
 					break
@@ -108,36 +108,39 @@ func get_and_render_cards() -> void:
 		for rendered_card in rendered_cards:
 			if(rendered_card.visible == false):
 				rendered_card.visible = true
+				rendered_card.card_clicked.connect(_on_card_clicked)
 				num_left_to_show -= 1
 				if num_left_to_show <= 0:
 					break
 		# add more
 		for _i in range(num_left_to_show): 
-			var new_rendered_card : RenderedCard = rendered_card_scene.instantiate()
-			rendered_cards_holder.add_child(new_rendered_card)
+			var new_rendered_card : RenderedCard = _rendered_card_scene.instantiate()
+			_rendered_cards_holder.add_child(new_rendered_card)
 			rendered_cards.append(new_rendered_card)
+			new_rendered_card.card_clicked.connect(_on_card_clicked)
 
 	# fill the actual rendered card nodes with the correct data
+	current_offered_cards = []
 	for i in range(draft_size):
-		rendered_cards[i].spawnCard(cards[i], get_modified_card(cards[i]))
+		var original_card : Card = cards[i]
+		var offered_card : Card = get_modified_card(cards[i])
+		rendered_cards[i].spawnCard(original_card, offered_card)
+		current_offered_cards.append(offered_card)
 
 	# have the cards play their initial render animations
 	
-	# connect the cards to our click function
-	for rendered_card in rendered_cards:
-		rendered_card.card_clicked.connect(_on_card_clicked)
 
 func end_run() -> void:
 	# show run summary
-	run_summary.show()
-	run_summary.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_run_summary.show()
+	_run_summary.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	# disable card buttons
 	pass
 
 func start_run() -> void:
-	run_summary.hide()
-	run_summary.mouse_filter = Control.MOUSE_FILTER_STOP
+	_run_summary.hide()
+	_run_summary.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	GameplayManager.gems = 0
 	GameplayManager.capacity_left = GameplayManager.capacity_max
@@ -146,7 +149,7 @@ func start_run() -> void:
 	GameplayManager.card_history = []
 	StatusManager.clear_all_statuses()
 
-	card_offering_manager.populate_offerings()
+	_card_offering_manager.populate_offerings()
 
 	get_and_render_cards()
 	# start of turn effects go here
