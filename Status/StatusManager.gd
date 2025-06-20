@@ -6,20 +6,19 @@ signal on_status_update(new_active_statuses : Array[Status])
 var active_statuses : Array[Status] = []
 var status_queue : Array[Status] = []
 
-## adds a status to the queue, to start taking effect at the start of next turn.
-## If you your status has a countdown, or is a single-turn status, use this.
-## [br]If you want your status to take effect immediately, before the end of the turn, 
-## use [add_status] instead
-func queue_status(status_type: Status.Type, counter:int = 0):
+## applys the given status type, with counter if relevant
+func apply_status(status_type : Status.Type, counter:int = 0, ) -> void:
+	var status: Status = _generate_status(status_type, counter)
+	if status.application_timing == Status.ApplicationTiming.IMMEDIATE:
+		_add_status(status_type, counter)
+	elif status.application_timing == Status.ApplicationTiming.NEXT_TURN:
+		_queue_status(status_type, counter)
+	
+func _queue_status(status_type: Status.Type, counter:int):
 	var status : Status = _generate_status(status_type, counter)
 	status_queue.append(status)
 
-## Add a status to the list of current active statuses. 
-## If this status already exists, it will increase the counter of the status by the given amount.
-## [br]Use this funtion if you want your status to take effect immediately 
-## (and therefore count down immediately). If you are creating a status that expires based on turns,
-## you should probably use [queue_status] instead
-func _add_status(status_type: Status.Type, counter:int = 0) -> void:
+func _add_status(status_type: Status.Type, counter:int) -> void:
 	var existing_status : Status = _get_status(status_type)
 	if existing_status != null: # status of this type already exists
 		# depending on the type of status, add to it, or override the counter
@@ -75,23 +74,43 @@ static func _generate_status(status_type : Status.Type, counter : int = 0) -> St
 					Status.Positivity.POSTIVE,
 					Status.DurationType.ONE_TURN,
 					Status.CounterType.COUNTER,
+					Status.ApplicationTiming.NEXT_TURN,
+					Status.TriggerTiming.NONE,
 					counter)
 		Status.Type.GEM_ADD:
 			return Status.new(Status.Type.GEM_ADD,
 					Status.Positivity.POSTIVE,
 					Status.DurationType.INFINITE,
 					Status.CounterType.COUNTER,
+					Status.ApplicationTiming.IMMEDIATE,
+					Status.TriggerTiming.NONE,
 					counter)
 		Status.Type.DRAFT_SIZE:
 			return Status.new(Status.Type.DRAFT_SIZE,
 					Status.Positivity.POSTIVE,
 					Status.DurationType.INFINITE,
 					Status.CounterType.COUNTER,
+					Status.ApplicationTiming.IMMEDIATE,
+					Status.TriggerTiming.NONE,
+					counter)
+		Status.Type.GEMS_PER_TURN:
+			return Status.new(Status.Type.GEMS_PER_TURN,
+					Status.Positivity.POSTIVE,
+					Status.DurationType.COUNT_DOWN,
+					Status.CounterType.COUNTER,
+					Status.ApplicationTiming.IMMEDIATE,
+					Status.TriggerTiming.END_OF_TURN,
 					counter)
 		_:
 			return null
 
 func tick_statuses() -> void:
+
+	# apply any end of turn effects
+	for status in active_statuses:
+		if status.trigger_timing == Status.TriggerTiming.END_OF_TURN:
+			_trigger_status_effect(status.type)
+
 	var statuses_to_remove : Array[Status] = []
 	for status in active_statuses:
 		if status.duration_type == Status.DurationType.ONE_TURN:
@@ -116,3 +135,9 @@ func tick_statuses() -> void:
 func clear_all_statuses() -> void:
 	active_statuses = []
 	on_status_update.emit(active_statuses)
+
+func _trigger_status_effect(type: Status.Type) -> void:
+	match type:
+		Status.Type.GEMS_PER_TURN:
+			print("adding %s gems" % [get_status_value(Status.Type.GEMS_PER_TURN)])
+			GameplayManager.gems += get_status_value(Status.Type.GEMS_PER_TURN)
