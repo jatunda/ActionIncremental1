@@ -6,6 +6,7 @@ extends Node
 signal draws_left_changed(new_draws_left:int)
 signal capacity_left_changed(new_capacity_left:int)
 signal gems_changed(new_gems:int)
+signal skips_changed(new_skips:int)
 signal card_history_add_one()
 signal card_history_reset()
 
@@ -36,3 +37,10 @@ var gems: int = 0 :
 
 var card_history : Array[Card] = [] 
 		
+var skips : int = 0 :
+	get:
+		return skips
+	set(value):
+		skips = max(0, value)
+		skips_changed.emit(skips)
+	

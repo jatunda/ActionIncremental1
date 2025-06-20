@@ -24,7 +24,3 @@ func _input(event: InputEvent) -> void:
 			var status_type : Status.Type = Status.Type.GEMS_PER_TURN
 			StatusManager.apply_status(status_type, 10)
 			print("Cheat: gain status %s" % Status.type_to_string(status_type))
-
-		
-
-	

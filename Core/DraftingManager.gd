@@ -13,6 +13,7 @@ var current_offered_cards : Array[Card] :
 @onready var _end_run_button : Button = $VBoxContainer/EndRunButton
 @onready var _run_summary : RunSummary = $RunSummary
 @onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
+@onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
 
 func _ready() -> void:
 	GameplayManager.drafting_manager = self
@@ -20,6 +21,7 @@ func _ready() -> void:
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	_end_run_button.pressed.connect(end_run)
 	_run_summary.start_new_run.connect(start_run)
+	_skip_button.pressed.connect(try_skip)
 	GameplayManager.card_history_add_one.connect(_runes_chosen_display._on_card_history_add_one)
 	GameplayManager.card_history_reset.connect(_runes_chosen_display._on_card_history_reset)
 	start_run()
@@ -48,28 +50,15 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 		end_run()
 		return
 
-	var playedCard : bool = try_play_card(renderedCard.card_modified)
-	if(playedCard == false) :
+	var was_card_played : bool = try_play_card(renderedCard.card_modified)
+	if(was_card_played == false) :
 		# play effect for failing to play card
 		return
 
-	# past this point, the click was allowed, card was played
-
-	# play animation for clicking on rune (collect resources/rune, remove other cards)
-	# wait for animations to finish (or maybe just a set time?)
-
-	# end of turn effects
-	StatusManager.tick_statuses()
-
-	# check if game should end
-	if(GameplayManager.draws_left < 1):
-		print("no draws left! ending run")
-		end_run()
-		return
-		
-	get_and_render_cards()
-	# Start of turn effects go here
-	pass
+	# play animation for clicking on rune (collect resources/rune)
+	
+	# do other things
+	end_turn()
 
 func get_and_render_cards() -> void:
 	GameplayManager.draws_left -= 1
@@ -133,6 +122,31 @@ func get_and_render_cards() -> void:
 	# have the cards play their initial render animations
 	
 
+func try_skip() -> void:
+	if GameplayManager.skips <= 0:
+		print("can't skip! no skips left")
+		return
+	GameplayManager.skips -= 1
+	print("skip")
+	end_turn()
+
+func end_turn() -> void:
+	# play animation for removing unclicked cards
+	# wait for animations to finish (or maybe just a set time?)
+
+	# end of turn effects
+	StatusManager.tick_statuses()
+
+	# check if game should end
+	if(GameplayManager.draws_left < 1):
+		print("no draws left! ending run")
+		end_run()
+		return
+		
+	get_and_render_cards()
+	# Start of turn effects go here
+	
+
 func end_run() -> void:
 	# show run summary
 	_run_summary.show()
@@ -148,6 +162,7 @@ func start_run() -> void:
 	GameplayManager.gems = 0
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	GameplayManager.draws_left = GameplayManager.draws_max
+	GameplayManager.skips = 3
 
 	GameplayManager.card_history = [] 
 	GameplayManager.card_history_reset.emit()
@@ -204,3 +219,4 @@ func get_draft_size() -> int:
 	# might want to limit the draft size max (5? 6?)
 	var draft_size = 3 + StatusManager.get_status_value(Status.Type.DRAFT_SIZE)
 	return max(1,draft_size)
+	
