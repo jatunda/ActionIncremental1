@@ -3,6 +3,7 @@ class_name Status
 enum Type {
 	REDUCE_NEXT_CARD_COST,
 	GEM_ADD,
+	DRAFT_SIZE,
 }
 
 enum Positivity {
@@ -22,19 +23,12 @@ enum CounterType {
 	NO_COUNTER
 }
 
-enum PriorityBracket {
-	START_OF_TURN,
-	ADDITIVE,
-	MULTIPLICATIVE,
-	END_OF_TURN,
-}
 
 static func type_to_string(p_type : Type) -> String:
 	return Type.keys()[p_type]
 
 var type : Type
 var positivity : Positivity
-var priority : PriorityBracket
 var duration_type : DurationType
 var counter_type : CounterType 
 var counter : int = 0
@@ -45,11 +39,10 @@ var debug_text : String :
 			output += " " + str(counter) 
 		return output
 
-func _init(p_type : Type, p_positivity : Positivity, p_priority : PriorityBracket,
+func _init(p_type : Type, p_positivity : Positivity,
 		p_duration_type : DurationType, p_counter_type : CounterType, p_counter : int = 0):
 	self.type = p_type
 	self.positivity = p_positivity
-	self.priority = p_priority
 	self.duration_type = p_duration_type
 	self.counter_type = p_counter_type
 	self.counter = p_counter

@@ -1,12 +1,13 @@
 extends Node
-## Global state/functionality
+## Global state/functionality. Godot Singleton
 ## For stuff that needs to persist between the 
 ## drafting scene and the upgrades scene.
 
 signal draws_left_changed(new_draws_left:int)
 signal capacity_left_changed(new_capacity_left:int)
 signal gems_changed(new_gems:int)
-signal card_history_update(card_history:Array[Card])
+signal card_history_add_one()
+signal card_history_reset()
 
 var drafting_manager : DraftingManager = null
 
@@ -33,10 +34,5 @@ var gems: int = 0 :
 		gems = max(0, value)
 		gems_changed.emit(gems)
 
-var card_history : Array[Card] = [] :
-	get:
-		return card_history
-	set(value):
-		card_history = value
-		card_history_update.emit(card_history)
+var card_history : Array[Card] = [] 
 		

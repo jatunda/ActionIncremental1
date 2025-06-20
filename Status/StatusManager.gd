@@ -1,3 +1,4 @@
+## Singleton class
 extends Node
 
 signal on_status_update(new_active_statuses : Array[Status])
@@ -54,12 +55,12 @@ func _get_status(status_type : Status.Type) -> Status:
 	return active_statuses[index]
 
 ## returns the counter value of the status type.
-## [br]returns -1 if the status is not active.
+## [br] returns 0 if the status is not active.
 ## [br] returns 0 if the status does not have a counter.
 func get_status_value(status_type : Status.Type) -> int:
 	var status = _get_status(status_type)
 	if status == null or status.counter_type == Status.CounterType.NO_COUNTER:
-		return -1
+		return 0
 	return status.counter
 	
 ## returns true if the status is active. returns false otherwise.
@@ -72,14 +73,18 @@ static func _generate_status(status_type : Status.Type, counter : int = 0) -> St
 		Status.Type.REDUCE_NEXT_CARD_COST:
 			return Status.new(Status.Type.REDUCE_NEXT_CARD_COST,
 					Status.Positivity.POSTIVE,
-					Status.PriorityBracket.ADDITIVE,
 					Status.DurationType.ONE_TURN,
 					Status.CounterType.COUNTER,
 					counter)
 		Status.Type.GEM_ADD:
 			return Status.new(Status.Type.GEM_ADD,
 					Status.Positivity.POSTIVE,
-					Status.PriorityBracket.ADDITIVE,
+					Status.DurationType.INFINITE,
+					Status.CounterType.COUNTER,
+					counter)
+		Status.Type.DRAFT_SIZE:
+			return Status.new(Status.Type.DRAFT_SIZE,
+					Status.Positivity.POSTIVE,
 					Status.DurationType.INFINITE,
 					Status.CounterType.COUNTER,
 					counter)

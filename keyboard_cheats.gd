@@ -20,5 +20,7 @@ func _input(event: InputEvent) -> void:
             print("Cheat: gain 100 capacity")
         KEY_D:
             GameplayManager.draws_left += 100
+            StatusManager._add_status(Status.Type.DRAFT_SIZE,1)
             print("Cheat: gain 100 draws")
+
     

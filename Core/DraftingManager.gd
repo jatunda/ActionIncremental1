@@ -1,3 +1,5 @@
+## Registers self with GameplayManager on creation
+
 class_name DraftingManager
 extends Control
 
@@ -18,7 +20,8 @@ func _ready() -> void:
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	_end_run_button.pressed.connect(end_run)
 	_run_summary.start_new_run.connect(start_run)
-	GameplayManager.card_history_update.connect(_runes_chosen_display._on_card_history_update)
+	GameplayManager.card_history_add_one.connect(_runes_chosen_display._on_card_history_add_one)
+	GameplayManager.card_history_reset.connect(_runes_chosen_display._on_card_history_reset)
 	start_run()
 	
 ## return whether the card was played or not
@@ -146,7 +149,8 @@ func start_run() -> void:
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	GameplayManager.draws_left = GameplayManager.draws_max
 
-	GameplayManager.card_history = []
+	GameplayManager.card_history = [] 
+	GameplayManager.card_history_reset.emit()
 	StatusManager.clear_all_statuses()
 
 	_card_offering_manager.populate_offerings()
@@ -157,7 +161,7 @@ func start_run() -> void:
 
 func add_card_to_history(card:Card) -> void:
 	GameplayManager.card_history.append(card)
-	GameplayManager.card_history_update.emit(GameplayManager.card_history)
+	GameplayManager.card_history_add_one.emit()
 
 func get_modified_card(p_card : Card) -> Card:
 	var new_card = Card.new()
@@ -179,7 +183,7 @@ func get_modified_card_cost(card : Card) -> int:
 	return max(0, cost)
 
 func get_modified_card_image(card: Card) -> Texture2D:
-	return card.image.duplicate()
+	return card.image
 
 func get_modified_card_rarity(card: Card) -> Constants.Rarity:
 	return card.rarity
@@ -198,4 +202,5 @@ func _notification(what: int) -> void:
 
 func get_draft_size() -> int:
 	# might want to limit the draft size max (5? 6?)
-	return 3
+	var draft_size = 3 + StatusManager.get_status_value(Status.Type.DRAFT_SIZE)
+	return max(1,draft_size)

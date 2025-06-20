@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=32 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_udu1n"]
 [ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="3_lhibb"]
@@ -28,7 +28,6 @@
 [ext_resource type="Resource" uid="uid://d23xyf5j8x2q4" path="res://Cards/card_wind_2.tres" id="23_22083"]
 [ext_resource type="Resource" uid="uid://bbcbguhghj0aa" path="res://Cards/card_wind_3.tres" id="24_k28rq"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="25_2bk3w"]
-[ext_resource type="Script" uid="uid://dgigo8bcfiqa1" path="res://One-off Scripts/runes_chosen_label.gd" id="26_dd8nx"]
 [ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://One-off Scripts/status_label.gd" id="28_a7sb1"]
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="29_vmhvt"]
 
@@ -128,20 +127,6 @@ mouse_filter = 2
 layout_mode = 2
 theme = ExtResource("25_2bk3w")
 text = "Runes Chosen:"
-
-[node name="RunesChosenLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme = ExtResource("25_2bk3w")
-bbcode_enabled = true
-text = "Runes Captured: "
-fit_content = true
-scroll_active = false
-autowrap_mode = 2
-script = ExtResource("26_dd8nx")
 
 [node name="OverlappingImageDisplay" type="Control" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
