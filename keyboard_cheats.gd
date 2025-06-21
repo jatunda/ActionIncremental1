@@ -21,6 +21,11 @@ func _input(event: InputEvent) -> void:
 			GameplayManager.draws_left += 100
 			print("Cheat: gain 100 draws")
 		KEY_S:
-			var status_type : Status.Type = Status.Type.GEMS_PER_TURN
+			var status_type : Status.Type = Status.Type.MOTES
 			StatusManager.apply_status(status_type, 10)
 			print("Cheat: gain status %s" % Status.type_to_string(status_type))
+		KEY_Q:
+			var status_type : Status.Type = Status.Type.MOTES
+			StatusManager.apply_status(status_type, -1)
+			print("Cheat: decrease status %s" % Status.type_to_string(status_type))
+		

@@ -1,43 +1,33 @@
-[gd_resource type="Resource" script_class="Card" load_steps=15 format=3 uid="uid://hquexhvq7xhs"]
+[gd_resource type="Resource" script_class="Card" load_steps=12 format=3 uid="uid://hquexhvq7xhs"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_4wgil"]
-[ext_resource type="Script" uid="uid://dxpr2sftgcqpf" path="res://Card Effect Helper Scripts/Conditional.gd" id="2_4ssb6"]
-[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_7loh7"]
 [ext_resource type="Texture2D" uid="uid://d0puke3lx5oc8" path="res://rune images/light 2.png" id="3_4wgil"]
-[ext_resource type="Script" uid="uid://kgy8jn5i42t3" path="res://Card Effect Helper Scripts/CounterCardHistoryElement.gd" id="3_yxosk"]
+[ext_resource type="Script" uid="uid://kr3xcc75mp3k" path="res://Card Effect Helper Scripts/CounterStatusValue.gd" id="3_d6nna"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_d6nna"]
 [ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="4_i3g6p"]
-[ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="5_x4402"]
-[ext_resource type="Script" uid="uid://cox177eioo477" path="res://Card Effect Scripts/CardEffectConditionalEffect.gd" id="7_k0nen"]
+[ext_resource type="Script" uid="uid://b66wxltlug1lg" path="res://Card Effect Scripts/CardEffectGainGemsCounter.gd" id="4_uf1h2"]
+[ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="5_4ssb6"]
 
-[sub_resource type="Resource" id="Resource_nkcq2"]
-script = ExtResource("3_yxosk")
-element = 4
-metadata/_custom_type_script = "uid://kgy8jn5i42t3"
-
-[sub_resource type="Resource" id="Resource_r3261"]
+[sub_resource type="Resource" id="Resource_yxosk"]
 script = ExtResource("4_i3g6p")
-number = 1
+number = 2
 metadata/_custom_type_script = "uid://dpsaemrg0nshs"
 
-[sub_resource type="Resource" id="Resource_fd0fw"]
-script = ExtResource("5_x4402")
-counter_a = SubResource("Resource_nkcq2")
-comparison_mode = 0
-counter_b = SubResource("Resource_r3261")
-metadata/_custom_type_script = "uid://ctyuy7784sdc2"
+[sub_resource type="Resource" id="Resource_i3g6p"]
+script = ExtResource("3_d6nna")
+status_type = 4
+metadata/_custom_type_script = "uid://kr3xcc75mp3k"
 
-[sub_resource type="Resource" id="Resource_bcygd"]
-script = ExtResource("2_7loh7")
-_gemsToGain = 8
-metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+[sub_resource type="Resource" id="Resource_x4402"]
+script = ExtResource("4_uf1h2")
+counter = SubResource("Resource_i3g6p")
+metadata/_custom_type_script = "uid://b66wxltlug1lg"
 
-[sub_resource type="Resource" id="Resource_jn7i2"]
-script = ExtResource("7_k0nen")
-conditional_mode = 0
-conditionals = Array[ExtResource("2_4ssb6")]([SubResource("Resource_fd0fw")])
-effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_bcygd")])
-metadata/_custom_type_script = "uid://cox177eioo477"
+[sub_resource type="Resource" id="Resource_k0nen"]
+script = ExtResource("5_4ssb6")
+counter = SubResource("Resource_yxosk")
+effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_x4402")])
+metadata/_custom_type_script = "uid://bop3h6rky6gor"
 
 [resource]
 script = ExtResource("4_d6nna")
@@ -46,5 +36,5 @@ cost = 3
 image = ExtResource("3_4wgil")
 rarity = 0
 element = 4
-effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_jn7i2")])
+effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_k0nen")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

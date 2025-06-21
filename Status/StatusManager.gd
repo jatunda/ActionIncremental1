@@ -43,6 +43,8 @@ func decrease_status(status_type: Status.Type, counter: int) -> void:
 	var status : Status = _get_status(status_type)
 	if status == null:
 		return
+	if status.counter_type == Status.CounterType.NO_COUNTER:
+		return
 	status.counter -= counter
 	on_status_update.emit(active_statuses)
 
@@ -100,6 +102,14 @@ static func _generate_status(status_type : Status.Type, counter : int = 0) -> St
 					Status.CounterType.COUNTER,
 					Status.ApplicationTiming.IMMEDIATE,
 					Status.TriggerTiming.END_OF_TURN,
+					counter)
+		Status.Type.MOTES:
+			return Status.new(Status.Type.MOTES,
+					Status.Positivity.POSTIVE,
+					Status.DurationType.INFINITE,
+					Status.CounterType.COUNTER,
+					Status.ApplicationTiming.IMMEDIATE,
+					Status.TriggerTiming.NONE,
 					counter)
 		_:
 			return null

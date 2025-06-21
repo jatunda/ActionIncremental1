@@ -5,6 +5,7 @@ enum Type {
 	GEM_ADD,
 	DRAFT_SIZE,
 	GEMS_PER_TURN,
+	MOTES,
 }
 
 enum Positivity {
