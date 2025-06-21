@@ -24,6 +24,8 @@ func _add_status(status_type: Status.Type, counter:int) -> void:
 		# depending on the type of status, add to it, or override the counter
 		if existing_status.counter_type == Status.CounterType.COUNTER:
 			existing_status.counter += counter
+			if existing_status.counter == 0:
+				active_statuses.erase(existing_status)
 		else: # no counter
 			# do nothing
 			pass
@@ -46,6 +48,8 @@ func decrease_status(status_type: Status.Type, counter: int) -> void:
 	if status.counter_type == Status.CounterType.NO_COUNTER:
 		return
 	status.counter -= counter
+	if status.counter == 0:
+		active_statuses.erase(status)
 	on_status_update.emit(active_statuses)
 
 ## returns the status, or null if it is not active.
