@@ -6,34 +6,17 @@ extends CardEffect
 
 func apply_effect() -> void:
 
-	# get all cards
-	var all_cards : Array[Card] = GameplayManager.drafting_manager.current_offered_cards
-	# remove me from list of cards
-	var cards_to_play : Array[Card] = []
-	for card in all_cards:
-		if card.name == card_name_that_this_effect_is_on:
-			pass
-		else:
-			cards_to_play.append(card.duplicate())
+	var cards_to_play : Array[Card] = GameplayManager.drafting_manager.get_current_offered_cards([card_name_that_this_effect_is_on])
 		
-	# if required, make copies of all cards where they are 0 cost
-	if(should_play_with_zero_cost):
-		var original_cards_to_play = cards_to_play
-		cards_to_play = []
-		for card in original_cards_to_play:
-			var zero_cost_card : Card = card.duplicate()
-			zero_cost_card.cost = 0
-			cards_to_play.append(zero_cost_card)
-
-	# prevent recursion
-	for card in cards_to_play:
-		if card.has_effect(CardEffectPlayOtherCards):
-			card.remove_effects_of_type(CardEffectPlayOtherCards)
+	# if required, change cards to be 0 cost
+	if should_play_with_zero_cost:
+		for card in cards_to_play:
+			card.cost = 0
 
 	# play cards
 	for card in cards_to_play:
 		GameplayManager.drafting_manager.try_play_card(card)
-	pass
+	
 
 func _get_description() -> String:
 	# this method is to be overridden by subclasses

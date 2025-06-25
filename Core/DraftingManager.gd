@@ -4,9 +4,8 @@ class_name DraftingManager
 extends Control
 
 @export var _rendered_card_scene : PackedScene
-var current_offered_cards : Array[Card] :
-	get:
-		return current_offered_cards
+var _current_offered_cards : Array[Card] 
+var num_cards_played_this_turn : int
 
 @onready var _card_offering_manager: CardOfferingManager = $CardOfferingManager
 @onready var _rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
@@ -28,14 +27,30 @@ func _ready() -> void:
 	
 ## return whether the card was played or not
 func try_play_card(card : Card) -> bool:
-	# if click is not allowed, make the card do a not allowed thing and return
+
+	var can_play : bool = true
+	if card.played:
+		print("can't play a card that's already been played")
+		can_play = false
 	if(card.cost > GameplayManager.capacity_left):
 		print("not enough capacity for this rune")
 		# run animation for not allowed
+		can_play = false
+	if(num_cards_played_this_turn > 100):
+		print("Can't play more cards - already played 100 cards this turn")
+		can_play = false
+
+	# if click is not allowed, 
+	if can_play == false:
+		# make the card do a not allowed animation and return
 		return false
 
+
+
 	# apply card effect(s)
+	card.played = true
 	add_card_to_history(card)
+	num_cards_played_this_turn += 1
 	GameplayManager.capacity_left -= card.cost
 	card.applyEffects()
 	
@@ -61,6 +76,7 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	end_turn()
 
 func get_and_render_cards() -> void:
+	num_cards_played_this_turn = 0
 	GameplayManager.draws_left -= 1
 
 	# query the _card_offering_manager and get 3 cards from it
@@ -112,15 +128,34 @@ func get_and_render_cards() -> void:
 			new_rendered_card.card_clicked.connect(_on_card_clicked)
 
 	# fill the actual rendered card nodes with the correct data
-	current_offered_cards = []
+	_current_offered_cards = []
 	for i in range(draft_size):
 		var original_card : Card = cards[i]
 		var offered_card : Card = get_modified_card(cards[i])
 		rendered_cards[i].spawnCard(original_card, offered_card)
-		current_offered_cards.append(offered_card)
+		_current_offered_cards.append(offered_card)
 
 	# have the cards play their initial render animations
 	
+## Returns of all the cards on offer
+## These cards are the modified version being shown
+## (for example, if there is something reducing card cost, 
+## the returned card will have reduced cost)
+## [br] The optional parameter [card_names_to_exclude] 
+## will filter those cards out of the returned cards.
+func get_current_offered_cards(card_names_to_exclude:Array[String] = []):
+	var output : Array[Card] = []
+
+	# return all cards if none are to excluded
+	if card_names_to_exclude == null or card_names_to_exclude.size() == 0:
+		return _current_offered_cards
+
+	# go through all cards, return all except those excluded
+	for card in _current_offered_cards:
+		var i : int = card_names_to_exclude.find_custom(func(s:String)->bool: return s == card.name)
+		if i == -1: # not in our exclude list
+			output.append(card)
+	return output
 
 func try_skip() -> void:
 	if GameplayManager.skips <= 0:

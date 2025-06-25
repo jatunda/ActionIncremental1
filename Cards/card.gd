@@ -7,6 +7,7 @@ extends Resource
 @export var rarity: Constants.Rarity = Constants.Rarity.COMMON
 @export var element: Constants.Element
 @export var effects: Array[CardEffect] = []
+var played : bool = false
 #@export var flavor_text: String = ""
 
 var description: String :
