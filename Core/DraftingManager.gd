@@ -15,6 +15,7 @@ var num_cards_played_this_turn : int
 @onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
 
 func _ready() -> void:
+	SceneManager.current_scene = self
 	GameplayManager.drafting_manager = self
 	GameplayManager.draws_left = GameplayManager.draws_max
 	GameplayManager.capacity_left = GameplayManager.capacity_max

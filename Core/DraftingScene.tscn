@@ -1,0 +1,184 @@
+[gd_scene load_steps=34 format=3 uid="uid://bw6bslu5s3rsa"]
+
+[ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
+[ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="2_hdtuk"]
+[ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_out8n"]
+[ext_resource type="Resource" uid="uid://371ombm5yhr5" path="res://Cards/card_dark_1.tres" id="5_imfhw"]
+[ext_resource type="Resource" uid="uid://b8a7883akit3u" path="res://Cards/card_dark_2.tres" id="6_b3jjt"]
+[ext_resource type="Resource" uid="uid://dxgdtyhof5gef" path="res://Cards/card_dark_3.tres" id="7_oyo5w"]
+[ext_resource type="Resource" uid="uid://wgm68pwoogbv" path="res://Cards/card_earth_1.tres" id="8_rwgyj"]
+[ext_resource type="Resource" uid="uid://cigwers3by8gj" path="res://Cards/card_earth_2.tres" id="9_kc0f7"]
+[ext_resource type="Resource" uid="uid://c728fcdm5sta1" path="res://Cards/card_earth_3.tres" id="10_k5kpq"]
+[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/card_fire_1.tres" id="11_g1bd5"]
+[ext_resource type="Resource" uid="uid://dumb3xbymtlxr" path="res://Cards/card_fire_2.tres" id="12_iujlw"]
+[ext_resource type="Resource" uid="uid://rgflvu6vvbrh" path="res://Cards/card_fire_3.tres" id="13_mtyv4"]
+[ext_resource type="Resource" uid="uid://xm84qd1ueidu" path="res://Cards/card_light_1.tres" id="14_tbqta"]
+[ext_resource type="Resource" uid="uid://hquexhvq7xhs" path="res://Cards/card_light_2.tres" id="15_gpe5d"]
+[ext_resource type="Resource" uid="uid://bjfwwd8emidhu" path="res://Cards/card_light_3.tres" id="16_8us6n"]
+[ext_resource type="Resource" uid="uid://bm178b2hmasnx" path="res://Cards/card_water_1.tres" id="17_8kqkb"]
+[ext_resource type="Resource" uid="uid://c682lpwiwqng2" path="res://Cards/card_water_2.tres" id="18_di4d5"]
+[ext_resource type="Resource" uid="uid://biublqmt6st8o" path="res://Cards/card_water_3.tres" id="19_bdfkd"]
+[ext_resource type="Resource" uid="uid://dmgwk3o1t26kk" path="res://Cards/card_wind_1.tres" id="20_3ll2a"]
+[ext_resource type="Resource" uid="uid://d23xyf5j8x2q4" path="res://Cards/card_wind_2.tres" id="21_d6dfa"]
+[ext_resource type="Resource" uid="uid://bbcbguhghj0aa" path="res://Cards/card_wind_3.tres" id="22_36yxu"]
+[ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="23_ixidi"]
+[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="24_w5b5c"]
+[ext_resource type="Script" uid="uid://b7y1btgwrbfee" path="res://One-off Scripts/capacity_label.gd" id="25_ymio7"]
+[ext_resource type="Script" uid="uid://ctsn1qeeq2f22" path="res://One-off Scripts/draws_left_label.gd" id="26_ilw77"]
+[ext_resource type="Script" uid="uid://bhuxken7wryy" path="res://One-off Scripts/gems_label.gd" id="27_md253"]
+[ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://One-off Scripts/status_label.gd" id="28_8uvl3"]
+[ext_resource type="Script" uid="uid://b1veclfjoxp4e" path="res://SkipButton.gd" id="29_t2qhj"]
+[ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="30_db78w"]
+[ext_resource type="PackedScene" uid="uid://clg2pxw68uk01" path="res://Core/run_summary.tscn" id="31_qkybh"]
+[ext_resource type="PackedScene" uid="uid://dejqsh6ify1ik" path="res://altered_cards_screen.tscn" id="32_jli5d"]
+
+[sub_resource type="Theme" id="Theme_iq3rl"]
+
+[node name="DraftingManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_navk4")
+_rendered_card_scene = ExtResource("2_hdtuk")
+
+[node name="CardOfferingManager" type="Node" parent="."]
+script = ExtResource("3_r85dy")
+_cards_unaltered = Array[ExtResource("4_out8n")]([ExtResource("5_imfhw"), ExtResource("6_b3jjt"), ExtResource("7_oyo5w"), ExtResource("8_rwgyj"), ExtResource("9_kc0f7"), ExtResource("10_k5kpq"), ExtResource("11_g1bd5"), ExtResource("12_iujlw"), ExtResource("13_mtyv4"), ExtResource("14_tbqta"), ExtResource("15_gpe5d"), ExtResource("16_8us6n"), ExtResource("17_8kqkb"), ExtResource("18_di4d5"), ExtResource("19_bdfkd"), ExtResource("20_3ll2a"), ExtResource("21_d6dfa"), ExtResource("22_36yxu")])
+metadata/_custom_type_script = "uid://bn2ljivsrcld1"
+
+[node name="KeyboardCheats" type="Node2D" parent="."]
+script = ExtResource("23_ixidi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CapacityLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("24_w5b5c")
+bbcode_enabled = true
+text = "capacity: 0
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("25_ymio7")
+
+[node name="DrawsLeftLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("24_w5b5c")
+bbcode_enabled = true
+text = "draws left: 0
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("26_ilw77")
+
+[node name="GemsLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("24_w5b5c")
+bbcode_enabled = true
+text = "gems: 0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("27_md253")
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlteredCardsScreenButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+visible = false
+layout_mode = 2
+theme = ExtResource("24_w5b5c")
+text = "Altered Cards"
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("24_w5b5c")
+text = "Status:"
+script = ExtResource("28_8uvl3")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="RenderedCardsHolder" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 31.0
+grow_horizontal = 2
+
+[node name="SkipButton" type="Button" parent="VBoxContainer/Control2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("24_w5b5c")
+text = "Skip"
+script = ExtResource("29_t2qhj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("24_w5b5c")
+text = "Runes Chosen:"
+
+[node name="OverlappingImageDisplay" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+script = ExtResource("30_db78w")
+image_overlap_x = 16
+image_overlap_y = 12
+metadata/_custom_type_script = "uid://cjqlg3wyix45s"
+
+[node name="EndRunButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("24_w5b5c")
+text = "End Run"
+
+[node name="RunSummary" parent="." instance=ExtResource("31_qkybh")]
+visible = false
+layout_mode = 1
+theme = SubResource("Theme_iq3rl")
+
+[node name="AlteredCardsScreen" parent="." instance=ExtResource("32_jli5d")]
+visible = false
+layout_mode = 1

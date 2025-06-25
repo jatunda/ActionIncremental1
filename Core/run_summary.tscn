@@ -66,8 +66,16 @@ layout_mode = 2
 theme = ExtResource("2_jb5pl")
 text = "Total Gems:"
 
-[node name="StartNewRunButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StartNewRunButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("2_jb5pl")
 text = "Start New Run"
+
+[node name="UpgradesScreneButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jb5pl")
+text = "Go to Upgrades"
