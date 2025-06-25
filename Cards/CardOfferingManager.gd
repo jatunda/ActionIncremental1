@@ -21,6 +21,10 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 func _ready() -> void:
 	pass
 
+func get_altered_common_cards() -> Array[CardState]:
+	return common_cards.filter(
+			func(c): return c.occurance_rate < 0.9999 or c.occurance_rate > 1.0001)
+
 func populate_offerings() -> void:
 	for card_unaltered : Card in _cards_unaltered:
 		var card_state : CardState = CardState.new(card_unaltered)		
@@ -28,7 +32,7 @@ func populate_offerings() -> void:
 			rare_cards.append(card_state)
 		elif card_state.card.rarity == Constants.Rarity.WALL:
 			pass # to be implemented once the upgrade screen exists
-		else:
+		else: # common and uncommon rarities
 			common_cards.append(card_state)
 
 func get_cards(numCards:int) -> Array[Card]:
