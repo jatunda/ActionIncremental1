@@ -12,7 +12,6 @@ signal card_history_reset()
 
 var drafting_manager : DraftingManager = null
 
-var draws_max: int = 10
 var draws_left: int = 10 :
 	get: 
 		return draws_left
@@ -20,7 +19,6 @@ var draws_left: int = 10 :
 		draws_left = max(0, value)
 		draws_left_updated.emit()
 
-var capacity_max : int = 20
 var capacity_left: int = 20 :
 	get: 
 		return capacity_left

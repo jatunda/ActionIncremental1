@@ -204,9 +204,9 @@ func start_run() -> void:
 
 	GameplayManager.gems_this_run = {Constants.GemTier.TIER1:0}
 	GameplayManager.gems_updated.emit()
-	GameplayManager.capacity_left = GameplayManager.capacity_max
-	GameplayManager.draws_left = GameplayManager.draws_max
-	GameplayManager.skips = 3
+	GameplayManager.capacity_left = get_starting_capacity()
+	GameplayManager.draws_left = get_starting_draws()
+	GameplayManager.skips = get_starting_skips()
 
 	GameplayManager.card_history = [] 
 	GameplayManager.card_history_reset.emit()
@@ -264,3 +264,14 @@ func get_draft_size() -> int:
 	var draft_size = 3 + StatusManager.get_status_value(Status.Type.DRAFT_SIZE)
 	return max(1,draft_size)
 	
+func get_starting_capacity() -> int:
+	var output : int = 20
+	if GameplayManager.upgrades.has(Constants.UpgradeType.CAPACITY_1):
+		output += 10 * GameplayManager.upgrades[Constants.UpgradeType.CAPACITY_1]
+	return output
+
+func get_starting_draws() -> int:
+	return 10
+
+func get_starting_skips() -> int:
+	return 3
