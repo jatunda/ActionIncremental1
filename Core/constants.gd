@@ -51,11 +51,17 @@ enum UpgradeType {
     DRAW_1,
 }
 
+
+static func upgrade_type_to_string(upgrade_type : UpgradeType) -> String:
+    var output : String = UpgradeType.keys()[upgrade_type].to_lower()
+    return output.replace("_", " ")
+
 enum GemTier {
     TIER1,
     WALL,
 }
 
-static func upgrade_type_to_string(upgrade_type : UpgradeType) -> String:
-    var output : String = UpgradeType.keys()[upgrade_type].to_lower()
+static func gem_tier_to_string(gem_tier : GemTier) -> String:
+    var output : String = GemTier.keys()[gem_tier].to_lower()
     return output.replace("_", " ")
+

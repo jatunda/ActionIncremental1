@@ -31,14 +31,14 @@ func try_play_card(card : Card) -> bool:
 
 	var can_play : bool = true
 	if card.played:
-		print("can't play a card that's already been played")
+		print_debug("can't play a card that's already been played")
 		can_play = false
 	if(card.cost > GameplayManager.capacity_left):
-		print("not enough capacity for this rune")
+		print_debug("not enough capacity for this rune")
 		# run animation for not allowed
 		can_play = false
 	if(num_cards_played_this_turn > 100):
-		print("Can't play more cards - already played 100 cards this turn")
+		print_debug("Can't play more cards - already played 100 cards this turn")
 		can_play = false
 
 	# if click is not allowed, 
@@ -62,7 +62,7 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	if(GameplayManager.draws_left < 1):
 		# should never reach this code...
 		# if we reach here, end the session
-		print("no draws left! ending run")
+		print_debug("no draws left! ending run")
 		end_run()
 		return
 
@@ -160,10 +160,10 @@ func get_current_offered_cards(card_names_to_exclude:Array[String] = []):
 
 func try_skip() -> void:
 	if GameplayManager.skips <= 0:
-		print("can't skip! no skips left")
+		print_debug("can't skip! no skips left")
 		return
 	GameplayManager.skips -= 1
-	print("skip")
+	print_debug("skip")
 	end_turn()
 
 func end_turn() -> void:
@@ -175,7 +175,7 @@ func end_turn() -> void:
 
 	# check if game should end
 	if(GameplayManager.draws_left < 1):
-		print("no draws left! ending run")
+		print_debug("no draws left! ending run")
 		end_run()
 		return
 		
@@ -188,6 +188,13 @@ func end_run() -> void:
 	_run_summary.show()
 	_run_summary.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+	for key in GameplayManager.gems_this_run.keys():
+		var value : int = GameplayManager.gems_this_run[key]
+		if not GameplayManager.gems_total.has(key):
+			GameplayManager.gems_total[key] = 0
+		GameplayManager.gems_total[key] += value
+	GameplayManager.gems_updated.emit()
+
 	# disable card buttons
 	pass
 
@@ -195,7 +202,8 @@ func start_run() -> void:
 	_run_summary.hide()
 	_run_summary.mouse_filter = Control.MOUSE_FILTER_STOP
 
-	GameplayManager.gems = 0
+	GameplayManager.gems_this_run = {Constants.GemTier.TIER1:0}
+	GameplayManager.gems_updated.emit()
 	GameplayManager.capacity_left = GameplayManager.capacity_max
 	GameplayManager.draws_left = GameplayManager.draws_max
 	GameplayManager.skips = 3

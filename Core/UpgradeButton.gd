@@ -17,16 +17,17 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	# if can't press
 	if level >= cost_per_level.size():
-		print("can't buy maxed upgrade: %s" % Constants.upgrade_type_to_string(upgrade_type))
+		print_debug("can't buy maxed upgrade: %s" % Constants.upgrade_type_to_string(upgrade_type))
 		return
-	if GameplayManager.gems < cost_per_level[level]:
-		print("can't afford %s" % Constants.upgrade_type_to_string(upgrade_type))
+	if GameplayManager.gems_total[Constants.GemTier.TIER1] < cost_per_level[level]:
+		print_debug("can't afford %s" % Constants.upgrade_type_to_string(upgrade_type))
 		return
 
 	# if we here, we can press
 
 	# subtract cost
-	GameplayManager.gems -= cost_per_level[level]
+	GameplayManager.gems_total[Constants.GemTier.TIER1] -= cost_per_level[level]
+	GameplayManager.gems_updated.emit()
 	# add upgrade
 	level += 1
 	_update_text()

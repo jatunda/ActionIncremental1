@@ -7,17 +7,17 @@ const start_scene_path : String = ""
 var current_scene : Node
 
 func go_to_drafting_scene() -> void:
-	print("go to drafting scene")
+	print_debug("go to drafting scene")
 	_go_to_scene(drafting_scene_path)
 	pass
 
 func go_to_upgrades_scene() -> void:
-	print("go to upgrades scene")
+	print_debug("go to upgrades scene")
 	_go_to_scene(upgrades_scene_path)
 	pass
 
 func go_to_start_scene() -> void:
-	print("go to start scene")
+	print_debug("go to start scene")
 	_go_to_scene(start_scene_path)
 	pass
 

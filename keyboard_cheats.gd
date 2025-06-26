@@ -12,20 +12,21 @@ func _input(event: InputEvent) -> void:
 
 	match inputEventKey.keycode:
 		KEY_G:
-			GameplayManager.gems += 100
-			print("Cheat: Gained 100 gems, +5 gems per turn")
+			GameplayManager.gems_this_run[Constants.GemTier.TIER1] += 100
+			GameplayManager.gems_updated.emit()
+			print_debug("Cheat: Gained 100 gems, +5 gems per turn")
 		KEY_C:
 			GameplayManager.capacity_left += 100
-			print("Cheat: gain 100 capacity")
+			print_debug("Cheat: gain 100 capacity")
 		KEY_D:
 			GameplayManager.draws_left += 100
-			print("Cheat: gain 100 draws")
+			print_debug("Cheat: gain 100 draws")
 		KEY_S:
 			var status_type : Status.Type = Status.Type.MOTES
 			StatusManager.apply_status(status_type, 10)
-			print("Cheat: gain status %s" % Status.type_to_string(status_type))
+			print_debug("Cheat: gain status %s" % Status.type_to_string(status_type))
 		KEY_Q:
 			var status_type : Status.Type = Status.Type.MOTES
 			StatusManager.apply_status(status_type, -1)
-			print("Cheat: decrease status %s" % Status.type_to_string(status_type))
+			print_debug("Cheat: decrease status %s" % Status.type_to_string(status_type))
 		

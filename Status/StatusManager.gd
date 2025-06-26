@@ -153,5 +153,6 @@ func clear_all_statuses() -> void:
 func _trigger_status_effect(type: Status.Type) -> void:
 	match type:
 		Status.Type.GEMS_PER_TURN:
-			print("adding %s gems" % [get_status_value(Status.Type.GEMS_PER_TURN)])
-			GameplayManager.gems += get_status_value(Status.Type.GEMS_PER_TURN)
+			print_debug("adding %s gems" % [get_status_value(Status.Type.GEMS_PER_TURN)])
+			GameplayManager.gems_this_run[Constants.GemTier.TIER1] += get_status_value(Status.Type.GEMS_PER_TURN)
+			GameplayManager.gems_updated.emit()
