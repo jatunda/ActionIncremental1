@@ -72,10 +72,12 @@ layout_mode = 2
 [node name="StartNewRunButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "click to start a new run immediately"
 theme = ExtResource("2_jb5pl")
 text = "Start New Run"
 
 [node name="UpgradesScreneButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "click to go to the upgrades screen"
 theme = ExtResource("2_jb5pl")
 text = "Go to Upgrades"

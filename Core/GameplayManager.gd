@@ -44,3 +44,4 @@ var skips : int = 0 :
 		skips = max(0, value)
 		skips_changed.emit(skips)
 	
+var upgrades : Dictionary[Constants.UpgradeType, int] = {}

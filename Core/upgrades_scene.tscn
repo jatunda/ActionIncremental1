@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbkutwyta3rpl"]
+[gd_scene load_steps=6 format=3 uid="uid://dbkutwyta3rpl"]
 
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_30eoe"]
 [ext_resource type="Script" uid="uid://c04bj1txwqyur" path="res://Core/UpgradesScene.gd" id="1_38nk8"]
 [ext_resource type="Script" uid="uid://4hwe6ecx61b1" path="res://Core/StartRunButton.gd" id="2_06gj8"]
+[ext_resource type="Texture2D" uid="uid://1vc543kfcseb" path="res://icon.svg" id="2_bnj8x"]
+[ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="3_gpnv5"]
 
 [node name="UpgradesScene" type="Control"]
 layout_mode = 3
@@ -21,9 +23,88 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+scroll_deadzone = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 129.0
+offset_right = 238.0
+offset_bottom = 169.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = -87.0
+offset_right = 326.0
+offset_bottom = 41.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2"]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 221.0
+offset_right = 106.0
+offset_bottom = 349.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2/TextureRect3"]
+layout_mode = 0
+offset_left = 566.0
+offset_top = 421.0
+offset_right = 694.0
+offset_bottom = 549.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2/TextureRect3"]
+layout_mode = 0
+offset_left = 489.0
+offset_top = -81.0
+offset_right = 617.0
+offset_bottom = 47.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2"]
+layout_mode = 0
+offset_left = -251.0
+offset_top = 450.0
+offset_right = -123.0
+offset_bottom = 578.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2/TextureRect5"]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 35.0
+offset_right = 649.0
+offset_bottom = 163.0
+texture = ExtResource("2_bnj8x")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/ScrollContainer/Control/TextureRect/TextureRect2/TextureRect5"]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 206.0
+offset_right = 369.0
+offset_bottom = 334.0
+texture = ExtResource("2_bnj8x")
+
+[node name="UpgradeButton" parent="VBoxContainer/ScrollContainer/Control" instance=ExtResource("3_gpnv5")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 64.0
+offset_bottom = 64.0
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
