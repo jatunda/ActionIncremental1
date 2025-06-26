@@ -17,8 +17,6 @@ var num_cards_played_this_turn : int
 func _ready() -> void:
 	SceneManager.current_scene = self
 	GameplayManager.drafting_manager = self
-	GameplayManager.draws_left = GameplayManager.draws_max
-	GameplayManager.capacity_left = GameplayManager.capacity_max
 	_end_run_button.pressed.connect(end_run)
 	_run_summary.start_new_run.connect(start_run)
 	_skip_button.pressed.connect(try_skip)
@@ -271,7 +269,10 @@ func get_starting_capacity() -> int:
 	return output
 
 func get_starting_draws() -> int:
-	return 10
-
+	var output : int = 10
+	if GameplayManager.upgrades.has(Constants.UpgradeType.DRAW_1):
+		output += 3 * GameplayManager.upgrades[Constants.UpgradeType.DRAW_1]
+	return output
+	
 func get_starting_skips() -> int:
 	return 3
