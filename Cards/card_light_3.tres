@@ -20,6 +20,7 @@ metadata/_custom_type_script = "uid://kr3xcc75mp3k"
 
 [sub_resource type="Resource" id="Resource_uy8g1"]
 script = ExtResource("4_mr8u8")
+gem_tier = 0
 counter = SubResource("Resource_q83ax")
 metadata/_custom_type_script = "uid://b66wxltlug1lg"
 

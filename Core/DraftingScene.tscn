@@ -26,7 +26,7 @@
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="24_w5b5c"]
 [ext_resource type="Script" uid="uid://b7y1btgwrbfee" path="res://One-off Scripts/capacity_label.gd" id="25_ymio7"]
 [ext_resource type="Script" uid="uid://ctsn1qeeq2f22" path="res://One-off Scripts/draws_left_label.gd" id="26_ilw77"]
-[ext_resource type="Script" uid="uid://bhuxken7wryy" path="res://One-off Scripts/gems_label.gd" id="27_md253"]
+[ext_resource type="Script" path="res://One-off Scripts/GemsLabelThisRun.gd" id="27_md253"]
 [ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://One-off Scripts/status_label.gd" id="28_8uvl3"]
 [ext_resource type="Script" uid="uid://b1veclfjoxp4e" path="res://SkipButton.gd" id="29_t2qhj"]
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="30_db78w"]
@@ -42,6 +42,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_navk4")
 _rendered_card_scene = ExtResource("2_hdtuk")
 

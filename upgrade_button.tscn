@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6c36uop4f47l"]
+[gd_scene load_steps=5 format=3 uid="uid://b6c36uop4f47l"]
 
 [ext_resource type="Texture2D" uid="uid://w1jojeu08au7" path="res://rune images/light 3.png" id="1_gwg2v"]
 [ext_resource type="Script" uid="uid://yrsj2kvrype3" path="res://Core/UpgradeButton.gd" id="2_lcpy1"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="3_lcpy1"]
+[ext_resource type="Gradient" uid="uid://w376v23vhhs2" path="res://upgrade_line_gradient.tres" id="4_21fsu"]
 
 [node name="UpgradeButton" type="TextureButton" node_paths=PackedStringArray("_label", "_line")]
 offset_left = 139.0
 offset_top = 149.0
 offset_right = 203.0
 offset_bottom = 213.0
+theme = ExtResource("3_lcpy1")
 texture_normal = ExtResource("1_gwg2v")
 script = ExtResource("2_lcpy1")
+faded_line_gradient = ExtResource("4_21fsu")
 _label = NodePath("Label")
 _line = NodePath("Line2D")
 
@@ -37,4 +40,5 @@ vertical_alignment = 2
 [node name="Line2D" type="Line2D" parent="."]
 z_index = -1
 position = Vector2(32, 32)
-default_color = Color(0.516319, 0.516318, 3.85046e-07, 1)
+width = 2.0
+default_color = Color(1, 1, 0, 1)

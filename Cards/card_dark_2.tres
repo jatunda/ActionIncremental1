@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://kgy8jn5i42t3"
 
 [sub_resource type="Resource" id="Resource_14kpx"]
 script = ExtResource("2_7xu7m")
+_gem_tier = 0
 _gemsToGain = 3
 metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 

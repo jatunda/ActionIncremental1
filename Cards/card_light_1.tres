@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://kr3xcc75mp3k"
 
 [sub_resource type="Resource" id="Resource_easg0"]
 script = ExtResource("2_gd7ix")
+gem_tier = 0
 counter = SubResource("Resource_mtcjw")
 metadata/_custom_type_script = "uid://b66wxltlug1lg"
 
@@ -45,6 +46,7 @@ metadata/_custom_type_script = "uid://kr3xcc75mp3k"
 
 [sub_resource type="Resource" id="Resource_s1wyl"]
 script = ExtResource("2_gd7ix")
+gem_tier = 0
 counter = SubResource("Resource_q6bu7")
 metadata/_custom_type_script = "uid://b66wxltlug1lg"
 
