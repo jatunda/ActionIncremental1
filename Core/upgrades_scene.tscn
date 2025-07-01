@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c04bj1txwqyur" path="res://Core/UpgradesScene.gd" id="1_38nk8"]
 [ext_resource type="Script" uid="uid://4hwe6ecx61b1" path="res://Core/StartRunButton.gd" id="2_06gj8"]
 [ext_resource type="Script" uid="uid://dg6ftg6vs62so" path="res://One-off Scripts/GemsLabelTotal.gd" id="3_3xrho"]
-[ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="3_gpnv5"]
+[ext_resource type="PackedScene" uid="uid://bxrc3vl8sxnpv" path="res://UpgradesPane.tscn" id="4_gpnv5"]
 
 [node name="UpgradesScene" type="Control"]
 layout_mode = 3
@@ -41,51 +41,8 @@ horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 scroll_deadzone = 1
 
-[node name="Control" type="Control" parent="VBoxContainer/ScrollContainer"]
-custom_minimum_size = Vector2(1000, 1000)
+[node name="UpgradesPane" parent="VBoxContainer/ScrollContainer" instance=ExtResource("4_gpnv5")]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="UpgradeButtonRoot" parent="VBoxContainer/ScrollContainer/Control" instance=ExtResource("3_gpnv5")]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 0.0
-offset_right = 63.0
-offset_bottom = 64.0
-cost_per_level = Array[int]([1, 1, 1, 1, 1])
-
-[node name="UpgradeButtonA" parent="VBoxContainer/ScrollContainer/Control/UpgradeButtonRoot" instance=ExtResource("3_gpnv5")]
-layout_mode = 0
-offset_left = 78.0
-offset_top = 121.0
-offset_right = 142.0
-offset_bottom = 185.0
-prerequisite_type = 2
-cost_per_level = Array[int]([2, 2, 2])
-
-[node name="UpgradeButton2" parent="VBoxContainer/ScrollContainer/Control/UpgradeButtonRoot" instance=ExtResource("3_gpnv5")]
-layout_mode = 0
-offset_left = 187.0
-offset_top = 31.0
-offset_right = 251.0
-offset_bottom = 95.0
-upgrade_type = 1
-prerequisite_type = 1
-cost_per_level = Array[int]([10])
-
-[node name="UpgradeButton3" parent="VBoxContainer/ScrollContainer/Control/UpgradeButtonRoot/UpgradeButton2" instance=ExtResource("3_gpnv5")]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 20.0
-offset_right = 256.0
-offset_bottom = 84.0
-
-[node name="UpgradeButton4" parent="VBoxContainer/ScrollContainer/Control/UpgradeButtonRoot/UpgradeButton2" instance=ExtResource("3_gpnv5")]
-layout_mode = 0
-offset_left = 35.0
-offset_top = 93.0
-offset_right = 99.0
-offset_bottom = 157.0
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2

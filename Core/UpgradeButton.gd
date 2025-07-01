@@ -11,6 +11,8 @@ extends TextureButton
 
 @export var _label : Label
 @export var _line : Line2D
+@export var _background : TextureRect
+@export var _border : NinePatchRect
 
 enum State {
 	Enabled, 
@@ -86,17 +88,19 @@ func _update_button() -> void:
 	# disable/enable color
 	if _state == State.Enabled:
 		self_modulate = Color.WHITE
+		_label.self_modulate = Color.WHITE
+		_border.self_modulate = Color.WHITE
 	else:
 		self_modulate = Color.GRAY
+		_label.self_modulate = Color.GRAY
+		_border.self_modulate = Color.GRAY
 
 	# show or no show
 	if _state == State.NotShown:
-		self_modulate.a = 0
-		_label.self_modulate.a = 0
+		_set_button_alpha(0.0)
 		tooltip_text = ""
 	else:
-		self_modulate.a = 1
-		_label.self_modulate.a = 1
+		_set_button_alpha(1.0)
 		tooltip_text = _get_tooltip_text_internal()
 
 	# line or no line
@@ -107,7 +111,6 @@ func _update_button() -> void:
 			_line.self_modulate.a = 1
 			_line.gradient = null
 			if _state == State.NotShown:
-				#_line.self_modulate.a = 0.5
 				_line.gradient = faded_line_gradient
 
 	# update text
@@ -167,3 +170,9 @@ func _get_tooltip_text_internal() -> String:
 		else:
 			output += 	"\nCost: %s Gems" % [cost_per_level[level]]
 	return output 
+
+func _set_button_alpha(a : float) -> void:
+	self_modulate.a = a
+	_label.self_modulate.a = a
+	_background.self_modulate.a = a
+	_border.self_modulate.a = a

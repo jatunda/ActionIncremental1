@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxrc3vl8sxnpv"]
+
+[ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="1_slhsx"]
+[ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="2_si66j"]
+[ext_resource type="Texture2D" uid="uid://cpr7keadbaf6p" path="res://upgrade_icon_clock.png" id="3_vlqc3"]
+[ext_resource type="Texture2D" uid="uid://b4vlm5komak6x" path="res://rune images/fire 1.png" id="4_cn55x"]
+[ext_resource type="Texture2D" uid="uid://cglfvhc7abway" path="res://upgrade_icon_draw_size.png" id="4_si66j"]
+[ext_resource type="Texture2D" uid="uid://c6mxemoh3uttm" path="res://upgrade_icon_capacity.png" id="5_dlmuu"]
+[ext_resource type="Texture2D" uid="uid://cpqlglh2t6tuf" path="res://rune images/earth 1.png" id="6_7ho0r"]
+[ext_resource type="Texture2D" uid="uid://c6jv4wwuv6a5a" path="res://rune images/water 1.png" id="7_oaef2"]
+[ext_resource type="Texture2D" uid="uid://c6yymtefrt12n" path="res://upgrade_icon_strength.png" id="8_cn55x"]
+[ext_resource type="Texture2D" uid="uid://dyex0do8vm8xx" path="res://upgrade_icon_flow.png" id="9_vlqc3"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="UpgradeWind1" parent="." instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 113.0
+offset_right = 362.0
+offset_bottom = 177.0
+texture_normal = ExtResource("2_si66j")
+cost_per_level = Array[int]([1, 1, 1, 1, 1])
+
+[node name="UpgradeDraw1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -61.0
+offset_top = -85.0
+offset_right = 3.0
+offset_bottom = -21.0
+texture_normal = ExtResource("3_vlqc3")
+prerequisite_type = 2
+cost_per_level = Array[int]([2, 2, 2])
+
+[node name="UpgradeDrawSize1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 58.0
+offset_top = -84.0
+offset_right = 122.0
+offset_bottom = -20.0
+texture_normal = ExtResource("4_si66j")
+prerequisite_type = 2
+cost_per_level = Array[int]([2, 2, 2])
+
+[node name="UpgradeFire1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 84.0
+offset_right = 151.0
+offset_bottom = 148.0
+texture_normal = ExtResource("4_cn55x")
+upgrade_type = 1
+prerequisite_type = 1
+cost_per_level = Array[int]([10])
+
+[node name="UpgradeCapacity1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 95.0
+offset_top = -60.0
+offset_right = 159.0
+offset_bottom = 4.0
+texture_normal = ExtResource("5_dlmuu")
+
+[node name="UpgradeFirePlus" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 61.0
+offset_right = 162.0
+offset_bottom = 125.0
+texture_normal = ExtResource("4_cn55x")
+
+[node name="UpgradeEarth1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -85.0
+offset_top = 93.0
+offset_right = -21.0
+offset_bottom = 157.0
+texture_normal = ExtResource("6_7ho0r")
+
+[node name="UpgradeCapacity" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 95.0
+offset_right = 132.0
+offset_bottom = 159.0
+texture_normal = ExtResource("5_dlmuu")
+
+[node name="UpgradeStartSTR" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -68.0
+offset_top = 93.0
+offset_right = -4.0
+offset_bottom = 157.0
+texture_normal = ExtResource("8_cn55x")
+
+[node name="UpgradeWater1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -85.0
+offset_top = -89.0
+offset_right = -21.0
+offset_bottom = -25.0
+texture_normal = ExtResource("7_oaef2")
+
+[node name="UpgradeDraws" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -97.0
+offset_top = -77.0
+offset_right = -33.0
+offset_bottom = -13.0
+texture_normal = ExtResource("3_vlqc3")
+
+[node name="UpgradeStartFlow1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = -97.0
+offset_top = 78.0
+offset_right = -33.0
+offset_bottom = 142.0
+texture_normal = ExtResource("9_vlqc3")

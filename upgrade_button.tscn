@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6c36uop4f47l"]
+[gd_scene load_steps=8 format=3 uid="uid://b6c36uop4f47l"]
 
 [ext_resource type="Texture2D" uid="uid://w1jojeu08au7" path="res://rune images/light 3.png" id="1_gwg2v"]
 [ext_resource type="Script" uid="uid://yrsj2kvrype3" path="res://Core/UpgradeButton.gd" id="2_lcpy1"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="3_lcpy1"]
 [ext_resource type="Gradient" uid="uid://w376v23vhhs2" path="res://upgrade_line_gradient.tres" id="4_21fsu"]
+[ext_resource type="Texture2D" uid="uid://4sjxfrbf4aty" path="res://NineBoxPrototype.png" id="5_m2cuk"]
 
-[node name="UpgradeButton" type="TextureButton" node_paths=PackedStringArray("_label", "_line")]
+[sub_resource type="Gradient" id="Gradient_m2cuk"]
+offsets = PackedFloat32Array(0, 0.545045, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1atmq"]
+gradient = SubResource("Gradient_m2cuk")
+width = 64
+
+[node name="UpgradeButton" type="TextureButton" node_paths=PackedStringArray("_label", "_line", "_background", "_border")]
 offset_left = 139.0
 offset_top = 149.0
 offset_right = 203.0
@@ -16,6 +25,36 @@ script = ExtResource("2_lcpy1")
 faded_line_gradient = ExtResource("4_21fsu")
 _label = NodePath("Label")
 _line = NodePath("Line2D")
+_background = NodePath("TextureRect")
+_border = NodePath("NinePatchRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.223103, 0.223103, 0.223103, 1)
+show_behind_parent = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_1atmq")
+expand_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_m2cuk")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 12
+patch_margin_top = 11
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
