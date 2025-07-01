@@ -2,17 +2,16 @@
 class_name UpgradeButton
 extends TextureButton
 
-
-@export var upgrade_type : Constants.UpgradeType
+@export var unique_button_id : UpgradeManager.UBID
 @export var prerequisite_type : ParentUnlockPrerequisite = ParentUnlockPrerequisite.SingleLevel
 @export var cost_gem_type : Constants.GemTier
 @export var cost_per_level : Array[int] = [1]
-@export var faded_line_gradient : Gradient
 
+@export var faded_line_gradient : Gradient
 @export var _label : Label
 @export var _line : Line2D
 @export var _background : TextureRect
-@export var _border : NinePatchRect
+@export var _border : NinePatchRect  
 
 enum State {
 	Enabled, 
@@ -33,10 +32,11 @@ var _parent_upgrade_button : UpgradeButton
 var _state : State = State.NotShown
 
 func _ready() -> void:
-	pressed.connect(_on_pressed)
-	if GameplayManager.upgrades.has(upgrade_type):
-		level = GameplayManager.upgrades[upgrade_type]
-	_update_button()
+	if not Engine.is_editor_hint():
+		pressed.connect(_on_pressed)
+		if UpgradeManager.upgrades.has(unique_button_id):
+			level = UpgradeManager.upgrades[unique_button_id]
+		_update_button()
 	_update_line_locations()
 
 func _process(_delta: float) -> void:
@@ -52,11 +52,11 @@ func _on_pressed() -> void:
 		return
 
 	if level >= max_level:
-		print_debug("can't buy maxed upgrade: %s" % Constants.upgrade_type_to_string(upgrade_type))
+		print_debug("can't buy maxed upgrade: %s" % UpgradeManager.ubid_to_string(unique_button_id))
 		return
 
 	if GameplayManager.gems_total.get_or_add(Constants.GemTier.TIER1,0) < cost_per_level[level]:
-		print_debug("can't afford %s" % Constants.upgrade_type_to_string(upgrade_type))
+		print_debug("can't afford %s" % UpgradeManager.ubid_to_string(unique_button_id))
 		return
 
 	# if we here, we can press
@@ -68,7 +68,7 @@ func _on_pressed() -> void:
 	level += 1
 	_update_button()
 	_update_line_locations()
-	GameplayManager.upgrades[upgrade_type] = level
+	UpgradeManager.upgrades[unique_button_id] = level 
 
 
 func _update_line_locations() -> void:
@@ -156,10 +156,10 @@ func _get_parent_unlock_threshold() -> int:
 func _get_tooltip_text_internal() -> String:
 	if _state == State.NotShown:
 		return ""
-	var output : String = "%s" % [Constants.upgrade_type_to_string(upgrade_type)]
+	var output : String = "%s" % [UpgradeManager.ubid_to_string(unique_button_id)]
 	if _state == State.ShownDisabled:
 		output += 	"\n%s %s/%s to Unlock" % [
-			Constants.upgrade_type_to_string(_parent_upgrade_button.upgrade_type), #parent upgrade name
+			UpgradeManager.ubid_to_string(_parent_upgrade_button.unique_button_id), #parent upgrade name
 			_get_parent_unlock_threshold(), #threshold
 			_parent_upgrade_button.max_level #parent max leve
 		]

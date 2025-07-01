@@ -24,25 +24,28 @@ offset_top = 113.0
 offset_right = 362.0
 offset_bottom = 177.0
 texture_normal = ExtResource("2_si66j")
+unique_button_id = 4000
 cost_per_level = Array[int]([1, 1, 1, 1, 1])
 
-[node name="UpgradeDraw1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+[node name="UpgradeTime1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = -61.0
 offset_top = -85.0
 offset_right = 3.0
 offset_bottom = -21.0
 texture_normal = ExtResource("3_vlqc3")
+unique_button_id = 2000
 prerequisite_type = 2
 cost_per_level = Array[int]([2, 2, 2])
 
-[node name="UpgradeDrawSize1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+[node name="UpgradeDraftSize1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = 58.0
 offset_top = -84.0
 offset_right = 122.0
 offset_bottom = -20.0
 texture_normal = ExtResource("4_si66j")
+unique_button_id = 3000
 prerequisite_type = 2
 cost_per_level = Array[int]([2, 2, 2])
 
@@ -53,17 +56,18 @@ offset_top = 84.0
 offset_right = 151.0
 offset_bottom = 148.0
 texture_normal = ExtResource("4_cn55x")
-upgrade_type = 1
+unique_button_id = 4001
 prerequisite_type = 1
 cost_per_level = Array[int]([10])
 
 [node name="UpgradeCapacity1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = 95.0
-offset_top = -60.0
+offset_top = -74.0
 offset_right = 159.0
-offset_bottom = 4.0
+offset_bottom = -10.0
 texture_normal = ExtResource("5_dlmuu")
+unique_button_id = 1000
 
 [node name="UpgradeFirePlus" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -72,6 +76,7 @@ offset_top = 61.0
 offset_right = 162.0
 offset_bottom = 125.0
 texture_normal = ExtResource("4_cn55x")
+unique_button_id = 5000
 
 [node name="UpgradeEarth1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -80,14 +85,16 @@ offset_top = 93.0
 offset_right = -21.0
 offset_bottom = 157.0
 texture_normal = ExtResource("6_7ho0r")
+unique_button_id = 4002
 
-[node name="UpgradeCapacity" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+[node name="UpgradeCapacity2" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = 68.0
 offset_top = 95.0
 offset_right = 132.0
 offset_bottom = 159.0
 texture_normal = ExtResource("5_dlmuu")
+unique_button_id = 1001
 
 [node name="UpgradeStartSTR" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -96,6 +103,7 @@ offset_top = 93.0
 offset_right = -4.0
 offset_bottom = 157.0
 texture_normal = ExtResource("8_cn55x")
+unique_button_id = 6000
 
 [node name="UpgradeWater1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -104,14 +112,16 @@ offset_top = -89.0
 offset_right = -21.0
 offset_bottom = -25.0
 texture_normal = ExtResource("7_oaef2")
+unique_button_id = 4003
 
-[node name="UpgradeDraws" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
+[node name="UpgradeTime2" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = -97.0
 offset_top = -77.0
 offset_right = -33.0
 offset_bottom = -13.0
 texture_normal = ExtResource("3_vlqc3")
+unique_button_id = 2001
 
 [node name="UpgradeStartFlow1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -120,3 +130,4 @@ offset_top = 78.0
 offset_right = -33.0
 offset_bottom = 142.0
 texture_normal = ExtResource("9_vlqc3")
+unique_button_id = 6001

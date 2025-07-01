@@ -14,6 +14,11 @@ var num_cards_played_this_turn : int
 @onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
 @onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
 
+const STARTING_CAPACITY : int = 1
+const STARTING_DRAFT_SIZE : int = 1
+const STARTING_TIME : int = 2
+const STARTING_SKIPS : int = 0
+
 func _ready() -> void:
 	SceneManager.current_scene = self
 	GameplayManager.drafting_manager = self
@@ -44,8 +49,6 @@ func try_play_card(card : Card) -> bool:
 		# make the card do a not allowed animation and return
 		return false
 
-
-
 	# apply card effect(s)
 	card.played = true
 	add_card_to_history(card)
@@ -57,10 +60,10 @@ func try_play_card(card : Card) -> bool:
 
 func _on_card_clicked(renderedCard: RenderedCard) -> void:
 
-	if(GameplayManager.draws_left < 1):
+	if(GameplayManager.time_left < 1):
 		# should never reach this code...
 		# if we reach here, end the session
-		print_debug("no draws left! ending run")
+		print_debug("no time left! ending run")
 		end_run()
 		return
 
@@ -76,11 +79,10 @@ func _on_card_clicked(renderedCard: RenderedCard) -> void:
 
 func get_and_render_cards() -> void:
 	num_cards_played_this_turn = 0
-	GameplayManager.draws_left -= 1
+	GameplayManager.time_left -= 1
 
 	# query the _card_offering_manager and get 3 cards from it
-	var draft_size : int = get_draft_size()
-	var cards : Array[Card] = _card_offering_manager.get_cards(draft_size)
+	var cards : Array[Card] = _card_offering_manager.get_cards(GameplayManager.draft_size)
 	
 	# spawn/delete renderedCards if need be
 	
@@ -98,8 +100,8 @@ func get_and_render_cards() -> void:
 			num_cards_showing += 1
 
 	# if we got too many: hide them
-	if num_cards_showing > draft_size:
-		var num_left_to_hide : int = num_cards_showing - draft_size
+	if num_cards_showing > GameplayManager.draft_size:
+		var num_left_to_hide : int = num_cards_showing - GameplayManager.draft_size
 		for i in range(rendered_cards.size() - 1, -1, -1):
 			if rendered_cards[i].visible:
 				rendered_cards[i].visible = false
@@ -109,8 +111,8 @@ func get_and_render_cards() -> void:
 					break
 
 	# if we got not enough: unhide or add until we got enough
-	elif num_cards_showing < draft_size:
-		var num_left_to_show : int = draft_size - num_cards_showing
+	elif num_cards_showing < GameplayManager.draft_size:
+		var num_left_to_show : int = GameplayManager.draft_size - num_cards_showing
 		# unhide
 		for rendered_card in rendered_cards:
 			if(rendered_card.visible == false):
@@ -128,7 +130,7 @@ func get_and_render_cards() -> void:
 
 	# fill the actual rendered card nodes with the correct data
 	_current_offered_cards = []
-	for i in range(draft_size):
+	for i in range(GameplayManager.draft_size):
 		var original_card : Card = cards[i]
 		var offered_card : Card = get_modified_card(cards[i])
 		rendered_cards[i].spawnCard(original_card, offered_card)
@@ -172,8 +174,8 @@ func end_turn() -> void:
 	StatusManager.tick_statuses()
 
 	# check if game should end
-	if(GameplayManager.draws_left < 1):
-		print_debug("no draws left! ending run")
+	if(GameplayManager.time_left < 1):
+		print_debug("no time left! ending run")
 		end_run()
 		return
 		
@@ -202,15 +204,18 @@ func start_run() -> void:
 
 	GameplayManager.gems_this_run = {Constants.GemTier.TIER1:0}
 	GameplayManager.gems_updated.emit()
-	GameplayManager.capacity_left = get_starting_capacity()
-	GameplayManager.draws_left = get_starting_draws()
-	GameplayManager.skips = get_starting_skips()
+	GameplayManager.capacity_left = STARTING_CAPACITY
+	GameplayManager.time_left = STARTING_TIME
+	GameplayManager.skips = STARTING_SKIPS
+	GameplayManager.draft_size = STARTING_DRAFT_SIZE
 
 	GameplayManager.card_history = [] 
 	GameplayManager.card_history_reset.emit()
 	StatusManager.clear_all_statuses()
 
 	_card_offering_manager.populate_offerings()
+
+	UpgradeManager.apply_upgrades()
 
 	get_and_render_cards()
 	# start of turn effects go here
@@ -256,23 +261,3 @@ func _notification(what: int) -> void:
 		# godot's version of a destructor
 		NOTIFICATION_PREDELETE:
 			GameplayManager.drafting_manager = null
-
-func get_draft_size() -> int:
-	# might want to limit the draft size max (5? 6?)
-	var draft_size = 3 + StatusManager.get_status_value(Status.Type.DRAFT_SIZE)
-	return max(1,draft_size)
-	
-func get_starting_capacity() -> int:
-	var output : int = 20
-	if GameplayManager.upgrades.has(Constants.UpgradeType.CAPACITY_1):
-		output += 10 * GameplayManager.upgrades[Constants.UpgradeType.CAPACITY_1]
-	return output
-
-func get_starting_draws() -> int:
-	var output : int = 10
-	if GameplayManager.upgrades.has(Constants.UpgradeType.DRAW_1):
-		output += 3 * GameplayManager.upgrades[Constants.UpgradeType.DRAW_1]
-	return output
-	
-func get_starting_skips() -> int:
-	return 3

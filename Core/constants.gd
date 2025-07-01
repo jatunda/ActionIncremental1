@@ -46,16 +46,6 @@ enum BooleanOperator {
 static func boolean_operator_to_string(boolean_operator : BooleanOperator) -> String:
     return BooleanOperator.keys()[boolean_operator].to_lower()
 
-enum UpgradeType {
-    CAPACITY_1,
-    DRAW_1,
-}
-
-
-static func upgrade_type_to_string(upgrade_type : UpgradeType) -> String:
-    var output : String = UpgradeType.keys()[upgrade_type].to_lower()
-    return output.replace("_", " ")
-
 enum GemTier {
     TIER1,
     WALL,

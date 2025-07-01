@@ -3,7 +3,7 @@ extends Node
 ## For stuff that needs to persist between the 
 ## drafting scene and the upgrades scene.
 
-signal draws_left_updated()
+signal time_left_updated()
 signal capacity_left_updated()
 signal gems_updated()
 signal skips_updated()
@@ -12,12 +12,12 @@ signal card_history_reset()
 
 var drafting_manager : DraftingManager = null
 
-var draws_left: int = 10 :
+var time_left: int = 10 :
 	get: 
-		return draws_left
+		return time_left
 	set(value):
-		draws_left = max(0, value)
-		draws_left_updated.emit()
+		time_left = max(0, value)
+		time_left_updated.emit()
 
 var capacity_left: int = 20 :
 	get: 
@@ -48,4 +48,4 @@ var skips : int = 0 :
 		skips = max(0, value)
 		skips_updated.emit()
 	
-var upgrades : Dictionary[Constants.UpgradeType, int] = {}
+var draft_size : int = 2

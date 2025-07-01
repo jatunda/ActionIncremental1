@@ -19,8 +19,8 @@ func _input(event: InputEvent) -> void:
 			GameplayManager.capacity_left += 100
 			print_debug("Cheat: gain 100 capacity")
 		KEY_D:
-			GameplayManager.draws_left += 100
-			print_debug("Cheat: gain 100 draws")
+			GameplayManager.time_left += 100
+			print_debug("Cheat: gain 100 time")
 		KEY_S:
 			var status_type : Status.Type = Status.Type.MOTES
 			StatusManager.apply_status(status_type, 10)
