@@ -7,10 +7,13 @@ signal time_left_updated()
 signal capacity_left_updated()
 signal gems_updated()
 signal skips_updated()
+@warning_ignore("unused_signal")
 signal card_history_add_one()
+@warning_ignore("unused_signal")
 signal card_history_reset()
 
 var drafting_manager : DraftingManager = null
+var card_offering_manager : CardOfferingManager = null
 
 var time_left: int = 10 :
 	get: 

@@ -15,6 +15,7 @@ enum Element {
     AIR,
     LIGHT,
     DARK,
+    NONE,
 }
 
 static func element_to_string(element : Element) -> String:

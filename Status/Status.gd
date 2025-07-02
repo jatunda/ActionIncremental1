@@ -6,6 +6,7 @@ enum Type {
 	DRAFT_SIZE,
 	GEMS_PER_TURN,
 	MOTES,
+	NONE,
 }
 
 enum Positivity {

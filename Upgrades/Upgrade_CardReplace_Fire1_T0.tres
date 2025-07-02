@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=4 format=3 uid="uid://bjtnuujsgjlee"]
+
+[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/card_fire_1.tres" id="1_knx3n"]
+[ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_3umrn"]
+[ext_resource type="Resource" uid="uid://dumb3xbymtlxr" path="res://Cards/card_fire_2.tres" id="2_5wpop"]
+
+[resource]
+script = ExtResource("2_3umrn")
+ubid = 5000
+upgrade_type = 600
+magnitude = 1.0
+status_type = 5
+card_1 = ExtResource("1_knx3n")
+card_2 = ExtResource("2_5wpop")
+metadata/_custom_type_script = "uid://sgth25wex5mo"

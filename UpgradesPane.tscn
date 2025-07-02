@@ -1,15 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxrc3vl8sxnpv"]
+[gd_scene load_steps=23 format=3 uid="uid://bxrc3vl8sxnpv"]
 
 [ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="1_slhsx"]
 [ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="2_si66j"]
+[ext_resource type="Resource" uid="uid://dqekaf1521tq0" path="res://Upgrades/Upgrade_CardAdd_Wind1.tres" id="3_2skrs"]
 [ext_resource type="Texture2D" uid="uid://cpr7keadbaf6p" path="res://upgrade_icon_clock.png" id="3_vlqc3"]
 [ext_resource type="Texture2D" uid="uid://b4vlm5komak6x" path="res://rune images/fire 1.png" id="4_cn55x"]
 [ext_resource type="Texture2D" uid="uid://cglfvhc7abway" path="res://upgrade_icon_draw_size.png" id="4_si66j"]
 [ext_resource type="Texture2D" uid="uid://c6mxemoh3uttm" path="res://upgrade_icon_capacity.png" id="5_dlmuu"]
+[ext_resource type="Resource" uid="uid://dnlwtendbfdo6" path="res://Upgrades/Upgrade_Time_T0_1.tres" id="5_s26su"]
 [ext_resource type="Texture2D" uid="uid://cpqlglh2t6tuf" path="res://rune images/earth 1.png" id="6_7ho0r"]
 [ext_resource type="Texture2D" uid="uid://c6jv4wwuv6a5a" path="res://rune images/water 1.png" id="7_oaef2"]
+[ext_resource type="Resource" uid="uid://csqddcn0mmrfv" path="res://Upgrades/Upgrade_DraftSize_1.tres" id="7_wi5ca"]
 [ext_resource type="Texture2D" uid="uid://c6yymtefrt12n" path="res://upgrade_icon_strength.png" id="8_cn55x"]
+[ext_resource type="Resource" uid="uid://dywqled0hc11b" path="res://Upgrades/Upgrade_CardAdd_Fire1.tres" id="9_blcsj"]
 [ext_resource type="Texture2D" uid="uid://dyex0do8vm8xx" path="res://upgrade_icon_flow.png" id="9_vlqc3"]
+[ext_resource type="Resource" uid="uid://ds4b4lm3erl0" path="res://Upgrades/Upgrade_Capacity_T0_1.tres" id="11_1vkrj"]
+[ext_resource type="Resource" uid="uid://bjtnuujsgjlee" path="res://Upgrades/Upgrade_CardReplace_Fire1_T0.tres" id="12_ks2rd"]
+[ext_resource type="Resource" uid="uid://cin8se0vju3td" path="res://Upgrades/Upgrade_CardAdd_Earth1.tres" id="14_6v8d7"]
+[ext_resource type="Resource" uid="uid://dd3pefv5eqexk" path="res://Upgrades/Upgrade_Capacity_T0_2.tres" id="15_52rmh"]
+[ext_resource type="Resource" uid="uid://dw7bpdqkt6lfx" path="res://Upgrades/Upgrade_Status_STR_T0_1.tres" id="17_cccuf"]
+[ext_resource type="Resource" uid="uid://nx8880s0xd1n" path="res://Upgrades/Upgrade_CardAdd_Water1.tres" id="19_gmcnn"]
+[ext_resource type="Resource" uid="uid://byfmx4aqlnjd6" path="res://Upgrades/Upgrade_Time_T0_2.tres" id="20_tx616"]
+[ext_resource type="Resource" uid="uid://d207mj4dfrp2o" path="res://Upgrades/Upgrade_Status_FLOW_T0_1.tres" id="22_cefxt"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(1000, 1000)
@@ -17,117 +29,154 @@ layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="UpgradeWind1" parent="." instance=ExtResource("1_slhsx")]
+[node name="Tier 0" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Wind1" parent="Tier 0" instance=ExtResource("1_slhsx")]
 layout_mode = 0
 offset_left = 298.0
 offset_top = 113.0
 offset_right = 362.0
 offset_bottom = 177.0
 texture_normal = ExtResource("2_si66j")
-unique_button_id = 4000
-cost_per_level = Array[int]([1, 1, 1, 1, 1])
+upgrade = ExtResource("3_2skrs")
+should_print_debug = null
 
-[node name="UpgradeTime1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+[node name="Time1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -61.0
-offset_top = -85.0
-offset_right = 3.0
-offset_bottom = -21.0
+offset_left = 237.0
+offset_top = 28.0
+offset_right = 301.0
+offset_bottom = 92.0
 texture_normal = ExtResource("3_vlqc3")
-unique_button_id = 2000
+upgrade = ExtResource("5_s26su")
+_parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
-cost_per_level = Array[int]([2, 2, 2])
+cost_per_level = Array[int]([2, 2, 2, 3, 4])
+should_print_debug = null
 
-[node name="UpgradeDraftSize1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+[node name="DraftSize1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 58.0
-offset_top = -84.0
-offset_right = 122.0
-offset_bottom = -20.0
+offset_left = 356.0
+offset_top = 29.0
+offset_right = 420.0
+offset_bottom = 93.0
 texture_normal = ExtResource("4_si66j")
-unique_button_id = 3000
+upgrade = ExtResource("7_wi5ca")
+_parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
-cost_per_level = Array[int]([2, 2, 2])
+should_print_debug = null
 
-[node name="UpgradeFire1" parent="UpgradeWind1" instance=ExtResource("1_slhsx")]
+[node name="Fire1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 87.0
-offset_top = 84.0
-offset_right = 151.0
-offset_bottom = 148.0
+offset_left = 385.0
+offset_top = 197.0
+offset_right = 449.0
+offset_bottom = 261.0
 texture_normal = ExtResource("4_cn55x")
-unique_button_id = 4001
+upgrade = ExtResource("9_blcsj")
+_parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 1
 cost_per_level = Array[int]([10])
 
-[node name="UpgradeCapacity1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+[node name="Capacity1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 95.0
-offset_top = -74.0
-offset_right = 159.0
-offset_bottom = -10.0
+offset_left = 480.0
+offset_top = 123.0
+offset_right = 544.0
+offset_bottom = 187.0
 texture_normal = ExtResource("5_dlmuu")
-unique_button_id = 1000
+upgrade = ExtResource("11_1vkrj")
+_parent_upgrade_button = NodePath("../Fire1")
+cost_per_level = Array[int]([4, 5, 6, 7, 8])
+should_print_debug = null
 
-[node name="UpgradeFirePlus" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+[node name="Fire1Plus" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 98.0
-offset_top = 61.0
-offset_right = 162.0
-offset_bottom = 125.0
+offset_left = 483.0
+offset_top = 258.0
+offset_right = 547.0
+offset_bottom = 322.0
 texture_normal = ExtResource("4_cn55x")
-unique_button_id = 5000
+upgrade = ExtResource("12_ks2rd")
+_parent_upgrade_button = NodePath("../Fire1")
+cost_per_level = Array[int]([15])
+should_print_debug = null
 
-[node name="UpgradeEarth1" parent="UpgradeWind1/UpgradeFire1" instance=ExtResource("1_slhsx")]
+[node name="Earth1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -85.0
-offset_top = 93.0
-offset_right = -21.0
-offset_bottom = 157.0
+offset_left = 300.0
+offset_top = 290.0
+offset_right = 364.0
+offset_bottom = 354.0
 texture_normal = ExtResource("6_7ho0r")
-unique_button_id = 4002
+upgrade = ExtResource("14_6v8d7")
+_parent_upgrade_button = NodePath("../Fire1")
+cost_per_level = Array[int]([15])
+should_print_debug = null
 
-[node name="UpgradeCapacity2" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+[node name="Capacity2" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 95.0
-offset_right = 132.0
-offset_bottom = 159.0
+offset_left = 368.0
+offset_top = 385.0
+offset_right = 432.0
+offset_bottom = 449.0
 texture_normal = ExtResource("5_dlmuu")
-unique_button_id = 1001
+upgrade = ExtResource("15_52rmh")
+_parent_upgrade_button = NodePath("../Earth1")
+cost_per_level = Array[int]([12, 14, 16, 18, 20])
+should_print_debug = null
 
-[node name="UpgradeStartSTR" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+[node name="StatusSTR" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -68.0
-offset_top = 93.0
-offset_right = -4.0
-offset_bottom = 157.0
+offset_left = 232.0
+offset_top = 383.0
+offset_right = 296.0
+offset_bottom = 447.0
 texture_normal = ExtResource("8_cn55x")
-unique_button_id = 6000
+upgrade = ExtResource("17_cccuf")
+_parent_upgrade_button = NodePath("../Earth1")
+cost_per_level = Array[int]([20])
+should_print_debug = null
 
-[node name="UpgradeWater1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1" instance=ExtResource("1_slhsx")]
+[node name="Water1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -85.0
-offset_top = -89.0
-offset_right = -21.0
-offset_bottom = -25.0
+offset_left = 215.0
+offset_top = 201.0
+offset_right = 279.0
+offset_bottom = 265.0
 texture_normal = ExtResource("7_oaef2")
-unique_button_id = 4003
+upgrade = ExtResource("19_gmcnn")
+_parent_upgrade_button = NodePath("../Earth1")
+cost_per_level = Array[int]([20])
+should_print_debug = null
 
-[node name="UpgradeTime2" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
+[node name="Time2" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -97.0
-offset_top = -77.0
-offset_right = -33.0
-offset_bottom = -13.0
+offset_left = 118.0
+offset_top = 124.0
+offset_right = 182.0
+offset_bottom = 188.0
 texture_normal = ExtResource("3_vlqc3")
-unique_button_id = 2001
+upgrade = ExtResource("20_tx616")
+_parent_upgrade_button = NodePath("../Water1")
+cost_per_level = Array[int]([20, 30, 40, 50, 60])
+should_print_debug = null
 
-[node name="UpgradeStartFlow1" parent="UpgradeWind1/UpgradeFire1/UpgradeEarth1/UpgradeWater1" instance=ExtResource("1_slhsx")]
+[node name="StatusFLOW" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = -97.0
-offset_top = 78.0
-offset_right = -33.0
-offset_bottom = 142.0
+offset_left = 118.0
+offset_top = 279.0
+offset_right = 182.0
+offset_bottom = 343.0
 texture_normal = ExtResource("9_vlqc3")
-unique_button_id = 6001
+upgrade = ExtResource("22_cefxt")
+_parent_upgrade_button = NodePath("../Water1")
+cost_per_level = Array[int]([10, 15, 20])
+should_print_debug = null

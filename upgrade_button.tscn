@@ -22,12 +22,12 @@ offset_bottom = 213.0
 theme = ExtResource("3_lcpy1")
 texture_normal = ExtResource("1_gwg2v")
 script = ExtResource("2_lcpy1")
-unique_button_id = "DEFAULT"
 faded_line_gradient = ExtResource("4_21fsu")
 _label = NodePath("Label")
 _line = NodePath("Line2D")
 _background = NodePath("TextureRect")
 _border = NodePath("NinePatchRect")
+should_print_debug = null
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.223103, 0.223103, 0.223103, 1)

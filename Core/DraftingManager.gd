@@ -7,7 +7,6 @@ extends Control
 var _current_offered_cards : Array[Card] 
 var num_cards_played_this_turn : int
 
-@onready var _card_offering_manager: CardOfferingManager = $CardOfferingManager
 @onready var _rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
 @onready var _end_run_button : Button = $VBoxContainer/EndRunButton
 @onready var _run_summary : RunSummary = $RunSummary
@@ -82,8 +81,8 @@ func get_and_render_cards() -> void:
 	GameplayManager.time_left -= 1
 
 	# query the _card_offering_manager and get 3 cards from it
-	var cards : Array[Card] = _card_offering_manager.get_cards(GameplayManager.draft_size)
-	
+	var cards : Array[Card] = GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
+	var num_cards_to_show = min(GameplayManager.draft_size, cards.size())
 	# spawn/delete renderedCards if need be
 	
 	# get current renderedCards
@@ -100,8 +99,8 @@ func get_and_render_cards() -> void:
 			num_cards_showing += 1
 
 	# if we got too many: hide them
-	if num_cards_showing > GameplayManager.draft_size:
-		var num_left_to_hide : int = num_cards_showing - GameplayManager.draft_size
+	if num_cards_showing > num_cards_to_show:
+		var num_left_to_hide : int = num_cards_showing - num_cards_to_show
 		for i in range(rendered_cards.size() - 1, -1, -1):
 			if rendered_cards[i].visible:
 				rendered_cards[i].visible = false
@@ -111,8 +110,8 @@ func get_and_render_cards() -> void:
 					break
 
 	# if we got not enough: unhide or add until we got enough
-	elif num_cards_showing < GameplayManager.draft_size:
-		var num_left_to_show : int = GameplayManager.draft_size - num_cards_showing
+	elif num_cards_showing < num_cards_to_show:
+		var num_left_to_show : int = num_cards_to_show - num_cards_showing
 		# unhide
 		for rendered_card in rendered_cards:
 			if(rendered_card.visible == false):
@@ -130,7 +129,7 @@ func get_and_render_cards() -> void:
 
 	# fill the actual rendered card nodes with the correct data
 	_current_offered_cards = []
-	for i in range(GameplayManager.draft_size):
+	for i in range(num_cards_to_show):
 		var original_card : Card = cards[i]
 		var offered_card : Card = get_modified_card(cards[i])
 		rendered_cards[i].spawnCard(original_card, offered_card)
@@ -213,7 +212,7 @@ func start_run() -> void:
 	GameplayManager.card_history_reset.emit()
 	StatusManager.clear_all_statuses()
 
-	_card_offering_manager.populate_offerings()
+	GameplayManager.card_offering_manager.populate_starting_offerings()
 
 	UpgradeManager.apply_upgrades()
 

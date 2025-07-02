@@ -2,16 +2,21 @@
 class_name UpgradeButton
 extends TextureButton
 
-@export var unique_button_id : UpgradeManager.UBID
+@export var upgrade : Upgrade = null
+@export var _parent_upgrade_button : UpgradeButton
 @export var prerequisite_type : ParentUnlockPrerequisite = ParentUnlockPrerequisite.SingleLevel
 @export var cost_gem_type : Constants.GemTier
 @export var cost_per_level : Array[int] = [1]
 
+@export_group("Self References")
 @export var faded_line_gradient : Gradient
 @export var _label : Label
 @export var _line : Line2D
 @export var _background : TextureRect
 @export var _border : NinePatchRect  
+
+@export_group("Debug")
+@export var should_print_debug : bool = false
 
 enum State {
 	Enabled, 
@@ -25,17 +30,29 @@ enum ParentUnlockPrerequisite {
 	HalfLevel,
 }
 
-var level :int = 0
 var max_level : int:
 	get: return cost_per_level.size()
-var _parent_upgrade_button : UpgradeButton
 var _state : State = State.NotShown
+var children_upgrade_buttons : Array[UpgradeButton] = []
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		pressed.connect(_on_pressed)
-		if UpgradeManager.upgrades.has(unique_button_id):
-			level = UpgradeManager.upgrades[unique_button_id]
+
+		# assign self as child of parent 
+		if _parent_upgrade_button:
+			if _parent_upgrade_button.children_upgrade_buttons == null:
+				_parent_upgrade_button.children_upgrade_buttons = []
+			_parent_upgrade_button.children_upgrade_buttons.append(self)
+		
+		# set my parent_ubid
+		if _parent_upgrade_button and upgrade and _parent_upgrade_button.upgrade:
+			upgrade.parent_ubid = _parent_upgrade_button.upgrade.ubid
+
+		# register upgrade with UpgradeManager
+		if upgrade.level > 0:
+			UpgradeManager.upgrades[upgrade.ubid] = upgrade
+
 		_update_button()
 	_update_line_locations()
 
@@ -51,28 +68,29 @@ func _on_pressed() -> void:
 		print_debug("this button is not enabled. cannot buy")
 		return
 
-	if level >= max_level:
-		print_debug("can't buy maxed upgrade: %s" % UpgradeManager.ubid_to_string(unique_button_id))
+	if upgrade.level >= max_level:
+		print_debug("can't buy maxed upgrade: %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
-	if GameplayManager.gems_total.get_or_add(Constants.GemTier.TIER1,0) < cost_per_level[level]:
-		print_debug("can't afford %s" % UpgradeManager.ubid_to_string(unique_button_id))
+	if GameplayManager.gems_total.get_or_add(Constants.GemTier.TIER1,0) < cost_per_level[upgrade.level]:
+		print_debug("can't afford %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
-	# if we here, we can press
+	# if we are here, we can press
 
 	# subtract cost
-	GameplayManager.gems_total[Constants.GemTier.TIER1] -= cost_per_level[level]
+	GameplayManager.gems_total[Constants.GemTier.TIER1] -= cost_per_level[upgrade.level]
 	GameplayManager.gems_updated.emit()
-	# add upgrade
-	level += 1
+
+	# add/update upgrade
+	upgrade.level += 1
+	UpgradeManager.upgrades[upgrade.ubid] = upgrade
 	_update_button()
 	_update_line_locations()
-	UpgradeManager.upgrades[unique_button_id] = level 
+ 
 
 
 func _update_line_locations() -> void:
-	_parent_upgrade_button = get_parent() as UpgradeButton
 	_line.clear_points()
 	if _parent_upgrade_button:
 		var parent_pos : Vector2 = _parent_upgrade_button.global_position + _parent_upgrade_button.size/2
@@ -81,9 +99,10 @@ func _update_line_locations() -> void:
 		_line.add_point(Vector2.ZERO)
 
 func _update_button() -> void:
-	_parent_upgrade_button = get_parent() as UpgradeButton
 
 	_state = _get_state_based_on_parent()
+
+	_print_debug(_state)
 
 	# disable/enable color
 	if _state == State.Enabled:
@@ -114,10 +133,10 @@ func _update_button() -> void:
 				_line.gradient = faded_line_gradient
 
 	# update text
-	_label.text = "%s/%s" % [level, max_level]
+	_label.text = "%s/%s" % [upgrade.level, max_level]
 
-	# update children
-	for child in get_children():
+	# update children_upgrade_buttons
+	for child in children_upgrade_buttons:
 		var child_upgrade_button : UpgradeButton = child as UpgradeButton
 		if child_upgrade_button:
 			child_upgrade_button._update_button()
@@ -126,7 +145,7 @@ func _update_button() -> void:
 func _get_state_based_on_parent() -> State:
 
 	# no parent means are are enabled (root upgrade)
-	if not _parent_upgrade_button:
+	if _parent_upgrade_button == null:
 		return State.Enabled
 	
 	# if our parents are not even enabled, then we should hide
@@ -137,14 +156,14 @@ func _get_state_based_on_parent() -> State:
 	# parent is enabled. show ourselves. Determine if we are unlocked based on threshold
 	var threshold:int = _get_parent_unlock_threshold()
 	
-	if _parent_upgrade_button.level >= threshold:
+	if _parent_upgrade_button.upgrade.level >= threshold:
 		return State.Enabled
 	else:
 		return State.ShownDisabled
 
 func _get_parent_unlock_threshold() -> int:
-	if not _parent_upgrade_button:
-		return 1
+	if _parent_upgrade_button == null:
+		return 0
 	var threshold = 1
 	if prerequisite_type == ParentUnlockPrerequisite.MaxLevel:
 		threshold = _parent_upgrade_button.max_level
@@ -156,19 +175,19 @@ func _get_parent_unlock_threshold() -> int:
 func _get_tooltip_text_internal() -> String:
 	if _state == State.NotShown:
 		return ""
-	var output : String = "%s" % [UpgradeManager.ubid_to_string(unique_button_id)]
+	var output : String = "%s" % [Upgrade.ubid_to_string(upgrade.ubid)]
 	if _state == State.ShownDisabled:
 		output += 	"\n%s %s/%s to Unlock" % [
-			UpgradeManager.ubid_to_string(_parent_upgrade_button.unique_button_id), #parent upgrade name
+			Upgrade.ubid_to_string(_parent_upgrade_button.upgrade.ubid), #parent upgrade name
 			_get_parent_unlock_threshold(), #threshold
 			_parent_upgrade_button.max_level #parent max leve
 		]
 	
 	elif _state == State.Enabled:
-		if level >= max_level:
+		if upgrade.level >= max_level:
 			output += "\nMax Level"
 		else:
-			output += 	"\nCost: %s Gems" % [cost_per_level[level]]
+			output += 	"\nCost: %s Gems" % [cost_per_level[upgrade.level]]
 	return output 
 
 func _set_button_alpha(a : float) -> void:
@@ -176,3 +195,7 @@ func _set_button_alpha(a : float) -> void:
 	_label.self_modulate.a = a
 	_background.self_modulate.a = a
 	_border.self_modulate.a = a
+
+func _print_debug(v : Variant) -> void:
+	if should_print_debug:
+		print_debug(v)
