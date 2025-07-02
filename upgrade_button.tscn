@@ -27,7 +27,6 @@ _label = NodePath("Label")
 _line = NodePath("Line2D")
 _background = NodePath("TextureRect")
 _border = NodePath("NinePatchRect")
-should_print_debug = null
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.223103, 0.223103, 0.223103, 1)

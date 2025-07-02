@@ -1,5 +1,5 @@
 class_name OverlappingImage
-extends Resource
+extends Object
 
 
 @export var texture: Texture2D = null

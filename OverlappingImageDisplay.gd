@@ -5,7 +5,7 @@ extends Control
 
 @export var image_overlap_x : int = 10
 @export var image_overlap_y : int = 0
-@export var image_data: Array[OverlappingImage] = []
+var image_data: Array[OverlappingImage] = []
 var layout: Array = []
 
 var wrap_width: int:
