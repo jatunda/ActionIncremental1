@@ -34,6 +34,17 @@ func populate_starting_offerings() -> void:
 func add_common_offering(card:Card) -> void:
 	common_cards.append(CardState.new(card))
 
+# returns true if card was found and replaced. returns false if card was not found.
+func replace_card(old_card:Card, new_card:Card) -> bool:
+	# find card
+	var i : int = common_cards.find_custom(func(c:CardState)->bool: return c.card.name == old_card.name)
+	if i == -1:
+		return false
+	# replace card
+	common_cards[i] = CardState.new(new_card)
+	return true
+
+
 func get_draft(draft_size:int) -> Array[Card]:
 	if draft_size < 1:
 		return []

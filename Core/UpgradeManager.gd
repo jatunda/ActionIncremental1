@@ -1,32 +1,36 @@
 extends Node
 
-## unique button ID
-
-
 var upgrades : Dictionary[Upgrade.UBID, Upgrade] = {}
 
-
+# use a breadth-first search to apply upgrades
 func apply_upgrades() -> void:
-	print_debug("applying all upgrades")
-	
-	# loop through upgrades, applying the ones we can. 
-	# some upgrades have dependencies, so we should keep trying until 
-	# we finish them all, or no more apply. 
-	# TODO: apply upgrades using a bfs instead of this repeat loop structure?
-	var upgrades_to_apply : Array[Upgrade] = upgrades.values()
-	while true: #gdscript version of a do while
-		var upgrades_that_failed_to_apply : Array[Upgrade] = []
-		for upgrade_to_apply in upgrades_to_apply:
-			var was_effect_applied = upgrade_to_apply.apply_effect()
-			if not was_effect_applied:
-				upgrades_that_failed_to_apply.append(upgrade_to_apply)
+
+	# using dictionary for quick lookup
+	var applied : Dictionary[Upgrade.UBID,bool] = {Upgrade.UBID.NONE:true}
+	var queue : Array[Upgrade] = []
+
+	# add all root upgrades to the queue
+	for upgrade:Upgrade in upgrades.values():
+		if upgrade.parent_ubid == Upgrade.UBID.NONE:
+			queue.append(upgrade)
+
+	# while queue has stuff
+	while queue.is_empty() == false:
+		# get frontmost upgrade
+		var current_upgrade : Upgrade = queue.pop_front()
+		# if it has been applied, continue
+		if applied.has(current_upgrade.ubid):
+			continue
+		# if all dependencies have been applied 
+		# (current implementation only has single dependency)
+		if applied.has(current_upgrade.parent_ubid):
+			current_upgrade.apply_effect()
+			applied[current_upgrade.ubid] = true
+			# add children to queue
+			for child_upgrade:Upgrade in current_upgrade.children_upgrades.values():
+				if child_upgrade.level > 0:
+					queue.append(child_upgrade)
+		else: # not all dependencies have been applied
+			# requeue at the end for later
+			queue.append(current_upgrade)
 		
-		if upgrades_that_failed_to_apply.size() == 0:
-			# finished applying
-			break;
-		if upgrades_that_failed_to_apply.size() == upgrades_to_apply.size():
-			# we couldn't apply any upgrades this round
-			break
-		
-		# Keep reiterating on the upgrades list until it does not shrink
-		upgrades_to_apply = upgrades_that_failed_to_apply

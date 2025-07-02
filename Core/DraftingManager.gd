@@ -232,6 +232,7 @@ func get_modified_card(p_card : Card) -> Card:
 	new_card.rarity = get_modified_card_rarity(p_card)
 	new_card.element = get_modified_card_element(p_card)
 	new_card.effects = get_modified_card_effects(p_card)
+	new_card.played = false																	 
 	return new_card
 
 func get_modified_card_name(card: Card) -> String:

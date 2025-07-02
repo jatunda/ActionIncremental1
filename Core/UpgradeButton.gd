@@ -39,15 +39,16 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		pressed.connect(_on_pressed)
 
-		# assign self as child of parent 
+		# assign self as child of parent button
 		if _parent_upgrade_button:
 			if _parent_upgrade_button.children_upgrade_buttons == null:
 				_parent_upgrade_button.children_upgrade_buttons = []
 			_parent_upgrade_button.children_upgrade_buttons.append(self)
 		
-		# set my parent_ubid
+		# two-way link of my upgrade to my parent's upgrade
 		if _parent_upgrade_button and upgrade and _parent_upgrade_button.upgrade:
 			upgrade.parent_ubid = _parent_upgrade_button.upgrade.ubid
+			_parent_upgrade_button.upgrade.children_upgrades[upgrade.ubid] = upgrade
 
 		# register upgrade with UpgradeManager
 		if upgrade.level > 0:

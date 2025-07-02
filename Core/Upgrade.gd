@@ -59,9 +59,9 @@ static func type_to_string(p_upgrade_type : Type) -> String:
 	var output : String = Type.keys()[Type.values().find(p_upgrade_type)].to_lower()
 	return output.replace("_", " ")
 
-@export var ubid : UBID
-var parent_ubid : UBID
-var children_ubid : Array[UBID]
+@export var ubid : UBID = UBID.NONE
+var parent_ubid : UBID = UBID.NONE
+var children_upgrades : Dictionary[UBID, Upgrade] = {}
 var level : int = 0
 @export var upgrade_type : Type = Type.NONE
 ## different uses depending on upgrade type. 
@@ -70,47 +70,39 @@ var level : int = 0
 @export var card_1 : Card = null
 @export var card_2 : Card = null
 
-## returns true if the affect was applied. false otherwise.
-func apply_effect() -> bool:
-	print_debug("applying upgrade: ubid:%s, upgrade type:%s, level:%s, mag:%s, status_type:%s, card_1:%s, card_2:%s" % 
-			[
-				ubid_to_string(ubid), 
-				type_to_string(upgrade_type),
-				level,
-				magnitude,
-				Status.type_to_string(status_type),
-				"null" if not card_1 else card_1.name,
-				"null" if not card_2 else card_2.name,
-			])
-
+## applies the upgrade effect
+func apply_effect() -> void:
 	match upgrade_type:
 
 		Type.CAPACITY: 
 			GameplayManager.capacity_left += int(magnitude * level)
-			return true
 		Type.TIME:
 			GameplayManager.time_left += int(magnitude * level)
-			return true
 		Type.DRAFT_SIZE:
 			GameplayManager.draft_size += int(magnitude * level)
-			return true
 
 		Type.STATUS:
 			# using _add_status here instead of _apply_status because we want it to happen
 			# immediately, regardless of the type of status_type
+			# because it's the start of the game
 			StatusManager._add_status(Status.Type.GEM_ADD, level)
-			return true
 
 		Type.CARD_ADD:
 			GameplayManager.card_offering_manager.add_common_offering(card_1)
-			return true
+
 		Type.CARD_REPLACE:
-			# TODO CARD_REPLACE upgrade
-			# find card in GameplayManager.card_offering_manager
-			# if card not found, return false
-			# remove card_1
-			# add card_2
-			GameplayManager.card_offering_manager.add_common_offering(card_2)
-			return true
+			GameplayManager.card_offering_manager.replace_card(card_1, card_2)
 		_:
-			return true
+			pass
+
+func _to_string() -> String:
+	return ubid_to_string(ubid)
+	# return "UPGRADE{ubid:%s, type:%s, lvl:%s, mag:%s, status:%s, card_1:%s, card_2:%s}" % [
+	# 		ubid_to_string(ubid), 
+	# 		type_to_string(upgrade_type),
+	# 		level,
+	# 		magnitude,
+	# 		Status.type_to_string(status_type),
+	# 		"null" if not card_1 else card_1.name,
+	# 		"null" if not card_2 else card_2.name,
+	# 		]
