@@ -47,10 +47,11 @@ func try_play_card(card_state : CardState) -> bool:
 		can_play = false
 	if card_state.play_condition != null:
 		if  card_state.play_condition.is_satisfied() == false:
-			print_debug("card play condition not met.")
+			print_debug("can't play - card play condition not met.")
 			can_play = false
 		else:
-			print_debug("card play condition met")
+			#print_debug("card play condition met")
+			pass
 
 	# if click is not allowed, 
 	if can_play == false:
