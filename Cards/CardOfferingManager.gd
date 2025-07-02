@@ -1,18 +1,8 @@
 class_name CardOfferingManager
 extends Node
 
-class CardState :
-	var _original_card : Card
-	var occurance_rate : float
-	var card : Card
-
-	func _init(p_original_card : Card, p_occurance_rate : float = 1.0) -> void:
-		_original_card = p_original_card.duplicate()
-		occurance_rate = p_occurance_rate
-		card = _original_card.duplicate()
-
 @export var starting_common_cards : Array[Card]
-var common_cards : Array[CardState]
+var common_cards : Array[CardState] 
 #var rare_cards: Array[CardState]
 #var wall_cards: Array[CardState]
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -37,7 +27,7 @@ func add_common_offering(card:Card) -> void:
 # returns true if card was found and replaced. returns false if card was not found.
 func replace_card(old_card:Card, new_card:Card) -> bool:
 	# find card
-	var i : int = common_cards.find_custom(func(c:CardState)->bool: return c.card.name == old_card.name)
+	var i : int = common_cards.find_custom(func(c:CardState)->bool: return c.name == old_card.name)
 	if i == -1:
 		return false
 	# replace card
@@ -45,7 +35,7 @@ func replace_card(old_card:Card, new_card:Card) -> bool:
 	return true
 
 
-func get_draft(draft_size:int) -> Array[Card]:
+func get_draft(draft_size:int) -> Array[CardState]:
 	if draft_size < 1:
 		return []
 
@@ -53,9 +43,9 @@ func get_draft(draft_size:int) -> Array[Card]:
 	var card_pool : Array[CardState] = common_cards
 
 	if draft_size > card_pool.size():
-		var small_offerings_output : Array[Card] = []
+		var small_offerings_output : Array[CardState] = []
 		for cardState in card_pool:
-			small_offerings_output.append(cardState.card)
+			small_offerings_output.append(cardState)
 		return small_offerings_output
 
 
@@ -66,11 +56,11 @@ func get_draft(draft_size:int) -> Array[Card]:
 		cardWeights.append(card.occurance_rate as float)
 
 	var while_counter = 0
-	var output : Array[Card] = []
+	var output : Array[CardState] = []
 	while(output.size() < draft_size or while_counter > 30) :
-		var chosenCard : Card = card_pool[rng.rand_weighted(cardWeights)].card
-		if output.find(chosenCard) == -1:
-			output.append(chosenCard)
+		var chosenCardState : CardState = card_pool[rng.rand_weighted(cardWeights)]
+		if output.find(chosenCardState) == -1:
+			output.append(chosenCardState)
 		while_counter += 1
 	
 	return output

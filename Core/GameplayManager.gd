@@ -42,7 +42,7 @@ var gems_this_run : Dictionary[Constants.GemTier, int]:
 		gems_this_run = value
 		gems_updated.emit()
 
-var card_history : Array[Card] = [] 
+var card_history : Array[CardState] = [] 
 		
 var skips : int = 0 :
 	get:

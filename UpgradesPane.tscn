@@ -46,7 +46,6 @@ offset_right = 362.0
 offset_bottom = 177.0
 texture_normal = ExtResource("2_si66j")
 upgrade = ExtResource("3_2skrs")
-should_print_debug = false
 
 [node name="Time1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -59,7 +58,6 @@ upgrade = ExtResource("5_s26su")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
 cost_per_level = Array[int]([2, 2, 2, 3, 4])
-should_print_debug = false
 
 [node name="DraftSize1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -71,7 +69,6 @@ texture_normal = ExtResource("4_si66j")
 upgrade = ExtResource("7_wi5ca")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
-should_print_debug = false
 
 [node name="Fire1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -84,7 +81,6 @@ upgrade = ExtResource("9_blcsj")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 1
 cost_per_level = Array[int]([10])
-should_print_debug = false
 
 [node name="Capacity1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -96,7 +92,6 @@ texture_normal = ExtResource("5_dlmuu")
 upgrade = ExtResource("11_1vkrj")
 _parent_upgrade_button = NodePath("../Fire1")
 cost_per_level = Array[int]([4, 5, 6, 7, 8])
-should_print_debug = false
 
 [node name="Fire1Plus" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -108,7 +103,6 @@ texture_normal = ExtResource("4_cn55x")
 upgrade = ExtResource("12_ks2rd")
 _parent_upgrade_button = NodePath("../Fire1")
 cost_per_level = Array[int]([15])
-should_print_debug = false
 
 [node name="Earth1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -120,7 +114,6 @@ texture_normal = ExtResource("6_7ho0r")
 upgrade = ExtResource("14_6v8d7")
 _parent_upgrade_button = NodePath("../Fire1")
 cost_per_level = Array[int]([15])
-should_print_debug = false
 
 [node name="Capacity2" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -132,7 +125,6 @@ texture_normal = ExtResource("5_dlmuu")
 upgrade = ExtResource("15_52rmh")
 _parent_upgrade_button = NodePath("../Earth1")
 cost_per_level = Array[int]([12, 14, 16, 18, 20])
-should_print_debug = false
 
 [node name="StatusSTR" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -144,7 +136,6 @@ texture_normal = ExtResource("8_cn55x")
 upgrade = ExtResource("17_cccuf")
 _parent_upgrade_button = NodePath("../Earth1")
 cost_per_level = Array[int]([20])
-should_print_debug = false
 
 [node name="Water1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -156,7 +147,6 @@ texture_normal = ExtResource("7_oaef2")
 upgrade = ExtResource("19_gmcnn")
 _parent_upgrade_button = NodePath("../Earth1")
 cost_per_level = Array[int]([20])
-should_print_debug = false
 
 [node name="Time2" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -168,7 +158,6 @@ texture_normal = ExtResource("3_vlqc3")
 upgrade = ExtResource("20_tx616")
 _parent_upgrade_button = NodePath("../Water1")
 cost_per_level = Array[int]([20, 30, 40, 50, 60])
-should_print_debug = false
 
 [node name="StatusFLOW" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -180,4 +169,3 @@ texture_normal = ExtResource("9_vlqc3")
 upgrade = ExtResource("22_cefxt")
 _parent_upgrade_button = NodePath("../Water1")
 cost_per_level = Array[int]([10, 15, 20])
-should_print_debug = false

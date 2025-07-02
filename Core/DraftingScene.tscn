@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
 [ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="2_hdtuk"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_out8n"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_fewhq"]
 [ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="5_fewhq"]
 [ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="23_ixidi"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="24_w5b5c"]
@@ -32,7 +32,7 @@ _rendered_card_scene = ExtResource("2_hdtuk")
 
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("3_r85dy")
-starting_common_cards = Array[ExtResource("4_out8n")]([ExtResource("5_fewhq")])
+starting_common_cards = Array[ExtResource("4_fewhq")]([ExtResource("5_fewhq")])
 metadata/_custom_type_script = "uid://bn2ljivsrcld1"
 
 [node name="KeyboardCheats" type="Node2D" parent="."]

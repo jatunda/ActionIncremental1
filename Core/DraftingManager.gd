@@ -4,7 +4,7 @@ class_name DraftingManager
 extends Control
 
 @export var _rendered_card_scene : PackedScene
-var _current_offered_cards : Array[Card] 
+var _current_offered_cards : Array[CardState] 
 var num_cards_played_this_turn : int
 
 @onready var _rendered_cards_holder : HBoxContainer = $VBoxContainer/RenderedCardsHolder
@@ -29,19 +29,28 @@ func _ready() -> void:
 	start_run()
 	
 ## return whether the card was played or not
-func try_play_card(card : Card) -> bool:
+func try_play_card(card_state : CardState) -> bool:
 
 	var can_play : bool = true
-	if card.played:
+	if card_state == null:
+		print_debug("cannot play a null card!!")
+		can_play = false
+	if card_state.played:
 		print_debug("can't play a card that's already been played")
 		can_play = false
-	if(card.cost > GameplayManager.capacity_left):
+	if(card_state.cost > GameplayManager.capacity_left):
 		print_debug("not enough capacity for this rune")
 		# run animation for not allowed
 		can_play = false
 	if(num_cards_played_this_turn > 100):
 		print_debug("Can't play more cards - already played 100 cards this turn")
 		can_play = false
+	if card_state.play_condition != null:
+		if  card_state.play_condition.is_satisfied() == false:
+			print_debug("card play condition not met.")
+			can_play = false
+		else:
+			print_debug("card play condition met")
 
 	# if click is not allowed, 
 	if can_play == false:
@@ -49,24 +58,16 @@ func try_play_card(card : Card) -> bool:
 		return false
 
 	# apply card effect(s)
-	card.played = true
-	add_card_to_history(card)
+	card_state.played = true
+	add_card_to_history(card_state)
 	num_cards_played_this_turn += 1
-	GameplayManager.capacity_left -= card.cost
-	card.applyEffects()
+	GameplayManager.capacity_left -= card_state.cost
+	card_state.applyEffects()
 	
 	return true
 
 func _on_card_clicked(renderedCard: RenderedCard) -> void:
-
-	if(GameplayManager.time_left < 1):
-		# should never reach this code...
-		# if we reach here, end the session
-		print_debug("no time left! ending run")
-		end_run()
-		return
-
-	var was_card_played : bool = try_play_card(renderedCard.card_modified)
+	var was_card_played : bool = try_play_card(renderedCard.card_state)
 	if(was_card_played == false) :
 		# play effect for failing to play card
 		return
@@ -81,8 +82,8 @@ func get_and_render_cards() -> void:
 	GameplayManager.time_left -= 1
 
 	# query the _card_offering_manager and get 3 cards from it
-	var cards : Array[Card] = GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
-	var num_cards_to_show = min(GameplayManager.draft_size, cards.size())
+	var cardStates : Array[CardState] = GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
+	var num_cards_to_show = min(GameplayManager.draft_size, cardStates.size())
 	# spawn/delete renderedCards if need be
 	
 	# get current renderedCards
@@ -130,9 +131,8 @@ func get_and_render_cards() -> void:
 	# fill the actual rendered card nodes with the correct data
 	_current_offered_cards = []
 	for i in range(num_cards_to_show):
-		var original_card : Card = cards[i]
-		var offered_card : Card = get_modified_card(cards[i])
-		rendered_cards[i].spawnCard(original_card, offered_card)
+		var offered_card : CardState = get_modified_card(cardStates[i])
+		rendered_cards[i].spawnCard(offered_card)
 		_current_offered_cards.append(offered_card)
 
 	# have the cards play their initial render animations
@@ -143,8 +143,8 @@ func get_and_render_cards() -> void:
 ## the returned card will have reduced cost)
 ## [br] The optional parameter [card_names_to_exclude] 
 ## will filter those cards out of the returned cards.
-func get_current_offered_cards(card_names_to_exclude:Array[String] = []):
-	var output : Array[Card] = []
+func get_current_offered_cards(card_names_to_exclude:Array[String] = []) -> Array[CardState]:
+	var output : Array[CardState] = []
 
 	# return all cards if none are to excluded
 	if card_names_to_exclude == null or card_names_to_exclude.size() == 0:
@@ -220,40 +220,40 @@ func start_run() -> void:
 	# start of turn effects go here
 	#reenable card buttons
 
-func add_card_to_history(card:Card) -> void:
-	GameplayManager.card_history.append(card)
+func add_card_to_history(card_state:CardState) -> void:
+	GameplayManager.card_history.append(card_state)
 	GameplayManager.card_history_add_one.emit()
 
-func get_modified_card(p_card : Card) -> Card:
-	var new_card = Card.new()
-	new_card.cost = get_modified_card_cost(p_card)
-	new_card.name = get_modified_card_name(p_card)
-	new_card.image = get_modified_card_image(p_card)
-	new_card.rarity = get_modified_card_rarity(p_card)
-	new_card.element = get_modified_card_element(p_card)
-	new_card.effects = get_modified_card_effects(p_card)
-	new_card.played = false																	 
-	return new_card
+func get_modified_card(card_state : CardState) -> CardState:
+	var new_card_state = CardState.new_from_other_card_state(card_state)
+	new_card_state.cost = get_modified_card_cost(new_card_state)
+	new_card_state.name = get_modified_card_name(new_card_state)
+	new_card_state.image = get_modified_card_image(new_card_state)
+	new_card_state.rarity = get_modified_card_rarity(new_card_state)
+	new_card_state.element = get_modified_card_element(new_card_state)
+	new_card_state.effects = get_modified_card_effects(new_card_state)
+	new_card_state.played = false																	 
+	return new_card_state
 
-func get_modified_card_name(card: Card) -> String:
+func get_modified_card_name(card: CardState) -> String:
 	return card.name
 
-func get_modified_card_cost(card : Card) -> int:
+func get_modified_card_cost(card : CardState) -> int:
 	var cost = card.cost
 	if(StatusManager.has_status(Status.Type.REDUCE_NEXT_CARD_COST)):
 		cost -= StatusManager.get_status_value(Status.Type.REDUCE_NEXT_CARD_COST)
-	return max(0, cost)
+	return max(0, cost) 
 
-func get_modified_card_image(card: Card) -> Texture2D:
+func get_modified_card_image(card: CardState) -> Texture2D:
 	return card.image
 
-func get_modified_card_rarity(card: Card) -> Constants.Rarity:
+func get_modified_card_rarity(card: CardState) -> Constants.Rarity:
 	return card.rarity
 
-func get_modified_card_element(card: Card) -> Constants.Element:
+func get_modified_card_element(card: CardState) -> Constants.Element:
 	return card.element
 
-func get_modified_card_effects(card: Card) -> Array[CardEffect]:
+func get_modified_card_effects(card: CardState) -> Array[CardEffect]:
 	return card.effects.duplicate(true)
 
 func _notification(what: int) -> void:
