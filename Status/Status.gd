@@ -34,6 +34,7 @@ enum ApplicationTiming {
 enum TriggerTiming {
 	END_OF_TURN,
 	NONE,
+	START_OF_TURN,
 }
 
 

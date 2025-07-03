@@ -118,12 +118,13 @@ static func _generate_status(status_type : Status.Type, counter : int = 0) -> St
 		_:
 			return null
 
-func tick_statuses() -> void:
-
+func trigger_status_effects(trigger_timing: Status.TriggerTiming):
 	# apply any end of turn effects
 	for status in active_statuses:
-		if status.trigger_timing == Status.TriggerTiming.END_OF_TURN:
+		if status.trigger_timing == trigger_timing:
 			_trigger_status_effect(status.type)
+
+func tick_statuses() -> void:
 
 	var statuses_to_remove : Array[Status] = []
 	for status in active_statuses:

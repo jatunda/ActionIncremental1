@@ -35,14 +35,14 @@ func replace_card(old_card:Card, new_card:Card) -> bool:
 	return true
 
 
-func get_draft(draft_size:int) -> Array[CardState]:
-	if draft_size < 1:
+func get_draft(requested_draft_size:int) -> Array[CardState]:
+	if requested_draft_size < 1:
 		return []
 
 	# logic for choosing if we doing common/rare/wall cards goes here (eventually)
 	var card_pool : Array[CardState] = common_cards
 
-	if draft_size > card_pool.size():
+	if requested_draft_size > card_pool.size():
 		var small_offerings_output : Array[CardState] = []
 		for cardState in card_pool:
 			small_offerings_output.append(cardState)
@@ -57,7 +57,7 @@ func get_draft(draft_size:int) -> Array[CardState]:
 
 	var while_counter = 0
 	var output : Array[CardState] = []
-	while(output.size() < draft_size or while_counter > 30) :
+	while(output.size() < requested_draft_size or while_counter > 30) :
 		var chosenCardState : CardState = card_pool[rng.rand_weighted(cardWeights)]
 		if output.find(chosenCardState) == -1:
 			output.append(chosenCardState)

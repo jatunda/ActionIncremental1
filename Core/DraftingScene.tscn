@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=18 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
-[ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="2_hdtuk"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_fewhq"]
 [ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="5_fewhq"]
+[ext_resource type="Script" uid="uid://dnp78asdedngw" path="res://Core/RenderedCardManager.gd" id="12_e4gm8"]
+[ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="12_p0t5m"]
 [ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="23_ixidi"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="24_w5b5c"]
 [ext_resource type="Script" uid="uid://b7y1btgwrbfee" path="res://One-off Scripts/capacity_label.gd" id="25_ymio7"]
@@ -28,7 +29,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_navk4")
-_rendered_card_scene = ExtResource("2_hdtuk")
 
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("3_r85dy")
@@ -110,6 +110,9 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
+script = ExtResource("12_e4gm8")
+_rendered_card_scene = ExtResource("12_p0t5m")
+metadata/_custom_type_script = "uid://dnp78asdedngw"
 
 [node name="Control2" type="Control" parent="VBoxContainer"]
 layout_mode = 2
