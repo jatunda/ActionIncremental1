@@ -27,8 +27,6 @@ func get_count() -> int:
 		print_debug("no elements selected, automatically returning -1")
 		return -1
 
-	print_debug(counts)
-	
 	return counts.values().min()
 
 

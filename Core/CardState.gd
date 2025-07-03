@@ -58,10 +58,16 @@ func _to_string():
 	return name
 
 func get_description() -> String:
-	if effects.size() < 1:
-		return "no effect"
+
 	
 	var output : String = ""
+
+	if play_condition != null:
+		output += "To play, must %s. " % play_condition.description
+
+	if effects.size() < 1:
+		output += "no effect."
+
 	var is_first_effect : bool = true
 	for effect in effects: 
 		if is_first_effect:
@@ -70,7 +76,7 @@ func get_description() -> String:
 			output += ", "
 		output += effect.description
 
-	return output
+	return output + "."
 
 func get_effects(p_class) -> Array[CardEffect]:
 	var output : Array[CardEffect] = []

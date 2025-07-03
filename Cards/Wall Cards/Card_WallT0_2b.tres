@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="Card" load_steps=9 format=3 uid="uid://bb0r0t0e6lh7"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_hsmog"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_cmvqk"]
+[ext_resource type="Script" uid="uid://bqepadurnsjlr" path="res://Card Effect Helper Scripts/CounterCardHistoryMulticolorSets.gd" id="2_fq8f5"]
+[ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="3_is32r"]
+[ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="4_sji7d"]
+
+[sub_resource type="Resource" id="Resource_db2ew"]
+script = ExtResource("2_fq8f5")
+elements = 15
+metadata/_custom_type_script = "uid://bqepadurnsjlr"
+
+[sub_resource type="Resource" id="Resource_sab6h"]
+script = ExtResource("3_is32r")
+number = 1
+metadata/_custom_type_script = "uid://dpsaemrg0nshs"
+
+[sub_resource type="Resource" id="Resource_u4gdv"]
+script = ExtResource("4_sji7d")
+counter_a = SubResource("Resource_db2ew")
+comparison_mode = 4
+counter_b = SubResource("Resource_sab6h")
+metadata/_custom_type_script = "uid://ctyuy7784sdc2"
+
+[resource]
+script = ExtResource("2_cmvqk")
+name = "Break the Wall"
+cost = 0
+rarity = 0
+element = 0
+play_condition = SubResource("Resource_u4gdv")
+effects = Array[ExtResource("1_hsmog")]([])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

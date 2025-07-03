@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Card" load_steps=9 format=3 uid="uid://cm40glyn08mao"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_v6l31"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_eb4it"]
+[ext_resource type="Script" uid="uid://cskd6f57mqb0m" path="res://Card Effect Helper Scripts/CounterGemsThisRound.gd" id="2_gg5o1"]
+[ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="3_tbrl5"]
+[ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="4_3enak"]
+
+[sub_resource type="Resource" id="Resource_bqgwk"]
+script = ExtResource("2_gg5o1")
+metadata/_custom_type_script = "uid://cskd6f57mqb0m"
+
+[sub_resource type="Resource" id="Resource_3w61q"]
+script = ExtResource("3_tbrl5")
+number = 10
+metadata/_custom_type_script = "uid://dpsaemrg0nshs"
+
+[sub_resource type="Resource" id="Resource_g1soy"]
+script = ExtResource("4_3enak")
+counter_a = SubResource("Resource_bqgwk")
+comparison_mode = 4
+counter_b = SubResource("Resource_3w61q")
+metadata/_custom_type_script = "uid://ctyuy7784sdc2"
+
+[resource]
+script = ExtResource("2_eb4it")
+name = "Reach the Wall"
+cost = 0
+rarity = 0
+element = 6
+play_condition = SubResource("Resource_g1soy")
+effects = Array[ExtResource("1_v6l31")]([])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

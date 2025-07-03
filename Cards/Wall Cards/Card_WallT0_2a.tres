@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://bhl43tvene2vg"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_2ow41"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_pyj5a"]
+
+[resource]
+script = ExtResource("2_pyj5a")
+name = "Break the Wall"
+cost = 3
+rarity = 0
+element = 6
+effects = Array[ExtResource("1_2ow41")]([])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"
