@@ -6,7 +6,7 @@ extends Counter
 ## to be overridden by child classes
 func get_count() -> int:
 	return GameplayManager.card_history.filter(
-				func(x:Card): return x.element==element
+				func(x:CardState): return x.element==element
 			).size()
 	
 
