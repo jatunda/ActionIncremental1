@@ -7,7 +7,7 @@
 script = ExtResource("2_h2d8y")
 name = "Reach the Wall"
 cost = 3
-rarity = 0
+rarity = 3
 element = 6
 effects = Array[ExtResource("1_6v768")]([])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

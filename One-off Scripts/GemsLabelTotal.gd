@@ -8,9 +8,14 @@ func _ready() -> void:
 
 func _on_gems_changed() -> void:
 	# update the label text to show the current number of gems
+	var is_first : bool = true
 	var output = ""
 	for gem_tier in Constants.GemTier.values():
 		if GameplayManager.gems_total.has(gem_tier):
+			if is_first:
+				is_first = false
+			else:
+				output += ", "
 			output += "%s Gems: %s" % [
 					Constants.gem_tier_to_string(gem_tier),  
 					str(GameplayManager.gems_total[gem_tier])]

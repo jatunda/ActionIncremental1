@@ -56,3 +56,10 @@ static func gem_tier_to_string(gem_tier : GemTier) -> String:
     var output : String = GemTier.keys()[gem_tier].to_lower()
     return output.replace("_", " ")
 
+enum WallTier {
+    TIER_0 = 0,
+    TIER_1 = 1,
+    TIER_2 = 2,
+    TIER_3 = 3,
+    ENDLESS = 4,
+}

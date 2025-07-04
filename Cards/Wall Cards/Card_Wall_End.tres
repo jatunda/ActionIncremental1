@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Card" load_steps=7 format=3 uid="uid://k7qx24lmq2gx"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_hs3m0"]
+[ext_resource type="Script" uid="uid://c1y1iiqqnot4y" path="res://Card Effect Scripts/CardEffectSetWallGem.gd" id="2_0ywjg"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_pywrn"]
+[ext_resource type="Script" uid="uid://xiy4nbplxcj0" path="res://Card Effect Scripts/CardEffectEndRun.gd" id="3_xs6i0"]
+
+[sub_resource type="Resource" id="Resource_ajub1"]
+script = ExtResource("2_0ywjg")
+amount = 1
+metadata/_custom_type_script = "uid://c1y1iiqqnot4y"
+
+[sub_resource type="Resource" id="Resource_l0vw1"]
+script = ExtResource("3_xs6i0")
+metadata/_custom_type_script = "uid://xiy4nbplxcj0"
+
+[resource]
+script = ExtResource("2_pywrn")
+name = "Absorb the Wall"
+cost = 0
+rarity = 3
+element = 6
+effects = Array[ExtResource("1_hs3m0")]([SubResource("Resource_ajub1"), SubResource("Resource_l0vw1")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

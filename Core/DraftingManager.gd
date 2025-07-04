@@ -3,6 +3,8 @@
 class_name DraftingManager
 extends Control
 
+signal on_turn_number_change
+
 const STARTING_CAPACITY : int = 1
 const STARTING_DRAFT_SIZE : int = 1
 const STARTING_TIME : int = 2
@@ -15,8 +17,19 @@ const STARTING_SKIPS : int = 0
 @onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
 
 var _current_offered_cards : Array[CardState]  
+var wall_tier : Constants.WallTier
 var num_cards_played_this_turn : int
-var turn_number : int = 0
+var turn_number : int :
+	get:
+		return turn_number
+	set(value):
+		turn_number = value
+		on_turn_number_change.emit()
+
+
+func _init() -> void:
+	GameplayManager.drafting_manager = self
+
 
 func _ready() -> void:
 	SceneManager.current_scene = self
@@ -51,6 +64,7 @@ func start_run() -> void:
 	StatusManager.clear_all_statuses()
 	GameplayManager.card_offering_manager.populate_starting_offerings()
 	turn_number = 0
+	wall_tier = Constants.WallTier.TIER_0
 
 	# apply upgrades
 	UpgradeManager.apply_upgrades()
@@ -59,11 +73,15 @@ func start_run() -> void:
 	start_turn()
 
 func start_turn() -> void:
+
+	# turn counter
+	turn_number += 1
+
 	# initialize variables
 	num_cards_played_this_turn = 0
 
 	# get the next draft from card_offering_manager, fill in _current_offered_cards
-	var cardStates : Array[CardState] = GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
+	var cardStates : Array[CardState] = _get_draft()
 	var num_cards_to_show = min(GameplayManager.draft_size, cardStates.size())
 	_current_offered_cards = []
 	for i in range(num_cards_to_show):
@@ -73,7 +91,7 @@ func start_turn() -> void:
 	# render cards
 	rendered_card_manager.render_cards(_current_offered_cards)
 
-	# start of turn effects go here. Statuses?
+	# start of turn effects go here. 
 	StatusManager.trigger_status_effects(Status.TriggerTiming.START_OF_TURN)
 
 	# (re)enable card buttons (or the flag that makes the signal do nothing?)
@@ -91,7 +109,6 @@ func end_turn() -> void:
 	StatusManager.tick_statuses()
 
 	# tick turn count and time
-	turn_number += 1
 	GameplayManager.time_left -= 1
 
 	# check if game should end
@@ -112,8 +129,49 @@ func end_run() -> void:
 		var value : int = GameplayManager.gems_this_run[key]
 		if not GameplayManager.gems_total.has(key):
 			GameplayManager.gems_total[key] = 0
-		GameplayManager.gems_total[key] += value
+		if key == Constants.GemTier.WALL: 
+			# wall gems are special, they do not add on top of each other
+			GameplayManager.gems_total[key] = max(GameplayManager.gems_total[key], value)
+		else:
+			GameplayManager.gems_total[key] += value
 	GameplayManager.gems_updated.emit()
+
+func _get_draft() -> Array[CardState]:
+	# sometimes we want wall / artifacts
+	if wall_tier == Constants.WallTier.TIER_0:
+		if turn_number >= 10:
+			return GameplayManager.card_offering_manager.get_wall_draft(
+					GameplayManager.draft_size, Constants.WallTier.TIER_0)
+	
+	elif wall_tier == Constants.WallTier.TIER_1:
+		if turn_number == 10:
+			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+		elif turn_number >= 20:
+			return GameplayManager.card_offering_manager.get_wall_draft(
+					GameplayManager.draft_size, Constants.WallTier.TIER_1)
+
+	elif wall_tier == Constants.WallTier.TIER_2:
+		if turn_number == 10 or turn_number == 20:
+			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+		elif turn_number >= 30:
+			return GameplayManager.card_offering_manager.get_wall_draft(
+					GameplayManager.draft_size, Constants.WallTier.TIER_2)		
+
+	elif wall_tier == Constants.WallTier.TIER_3:
+		if turn_number == 10 or turn_number == 20 or turn_number == 30:
+			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+		elif turn_number >= 40:
+			return GameplayManager.card_offering_manager.get_wall_draft(
+					GameplayManager.draft_size, Constants.WallTier.TIER_3)
+
+	elif wall_tier == Constants.WallTier.ENDLESS:
+		if turn_number % 10 == 0:
+			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+		elif turn_number >= 40 and turn_number % 10 == 1:
+			return GameplayManager.card_offering_manager.get_wall_draft(
+					GameplayManager.draft_size, Constants.WallTier.ENDLESS)		
+
+	return GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
 
 ## return true if card was successfully played, else false
 ## only for the backend of playing a card
