@@ -170,7 +170,7 @@ func _get_parent_unlock_threshold() -> int:
 		threshold = _parent_upgrade_button.max_level
 	elif prerequisite_type == ParentUnlockPrerequisite.HalfLevel:
 		threshold = int(_parent_upgrade_button.max_level/2.0) 
-	return threshold
+	return max(threshold, 1)
 
 
 func _get_tooltip_text_internal() -> String:
