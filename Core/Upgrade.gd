@@ -87,7 +87,7 @@ func apply_effect() -> void:
 			# using _add_status here instead of _apply_status because we want it to happen
 			# immediately, regardless of the type of status_type
 			# because it's the start of the game
-			StatusManager._add_status(Status.Type.GEM_ADD, level)
+			StatusManager._add_status(status_type, level)
 
 		Type.CARD_ADD:
 			GameplayManager.card_offering_manager.add_common_offering(card_1)
