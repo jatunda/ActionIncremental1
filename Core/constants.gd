@@ -63,3 +63,20 @@ enum WallTier {
     TIER_3 = 3,
     ENDLESS = 4,
 }
+
+static func get_next_wall_tier(wall_tier : WallTier) -> WallTier:
+    match wall_tier:
+        WallTier.TIER_0:
+            return WallTier.TIER_1 
+        WallTier.TIER_1:
+            return WallTier.TIER_2 
+        WallTier.TIER_2:
+            return WallTier.TIER_3 
+        WallTier.TIER_3:
+            return WallTier.ENDLESS 
+        WallTier.ENDLESS:
+            return WallTier.ENDLESS
+
+    # should never reach here
+    print_debug("GETTING NEXT WALL TIER OF AN UNDEFINED WALLTIER!!!")
+    return WallTier.ENDLESS

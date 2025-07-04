@@ -17,7 +17,6 @@ const STARTING_SKIPS : int = 0
 @onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
 
 var _current_offered_cards : Array[CardState]  
-var wall_tier : Constants.WallTier
 var num_cards_played_this_turn : int
 var turn_number : int :
 	get:
@@ -63,8 +62,8 @@ func start_run() -> void:
 	GameplayManager.card_history_reset.emit()
 	StatusManager.clear_all_statuses()
 	GameplayManager.card_offering_manager.populate_starting_offerings()
+	GameplayManager.wall_tier = Constants.WallTier.TIER_0
 	turn_number = 0
-	wall_tier = Constants.WallTier.TIER_0
 
 	# apply upgrades
 	UpgradeManager.apply_upgrades()
@@ -137,39 +136,47 @@ func end_run() -> void:
 	GameplayManager.gems_updated.emit()
 
 func _get_draft() -> Array[CardState]:
-	# sometimes we want wall / artifacts
-	if wall_tier == Constants.WallTier.TIER_0:
-		if turn_number >= 10:
-			return GameplayManager.card_offering_manager.get_wall_draft(
-					GameplayManager.draft_size, Constants.WallTier.TIER_0)
+	# there are ways to make this less copy paste, but honestly, 
+	# this level of copy paste makes design iterations really quick, without being TOO ugly. 
+	# engineering a "more elegant" solution at this state would take less lines, but would
+	# probably be slower, and definitely harder to read. 
+
+
+	# based on what tier we are in, check if we want a wall or artifact instead of a
+	# normal draft (commons/rares)
+	match GameplayManager.wall_tier:
+		Constants.WallTier.TIER_0:
+			if turn_number >= 10:
+				return GameplayManager.card_offering_manager.get_wall_draft(
+						GameplayManager.draft_size, Constants.WallTier.TIER_0)
 	
-	elif wall_tier == Constants.WallTier.TIER_1:
-		if turn_number == 10:
-			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
-		elif turn_number >= 20:
-			return GameplayManager.card_offering_manager.get_wall_draft(
-					GameplayManager.draft_size, Constants.WallTier.TIER_1)
+		Constants.WallTier.TIER_1:
+			if turn_number == 10:
+				return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+			elif turn_number >= 20:
+				return GameplayManager.card_offering_manager.get_wall_draft(
+						GameplayManager.draft_size, Constants.WallTier.TIER_1)
 
-	elif wall_tier == Constants.WallTier.TIER_2:
-		if turn_number == 10 or turn_number == 20:
-			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
-		elif turn_number >= 30:
-			return GameplayManager.card_offering_manager.get_wall_draft(
-					GameplayManager.draft_size, Constants.WallTier.TIER_2)		
+		Constants.WallTier.TIER_2:
+			if turn_number == 10 or turn_number == 20:
+				return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+			elif turn_number >= 30:
+				return GameplayManager.card_offering_manager.get_wall_draft(
+						GameplayManager.draft_size, Constants.WallTier.TIER_2)		
 
-	elif wall_tier == Constants.WallTier.TIER_3:
-		if turn_number == 10 or turn_number == 20 or turn_number == 30:
-			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
-		elif turn_number >= 40:
-			return GameplayManager.card_offering_manager.get_wall_draft(
-					GameplayManager.draft_size, Constants.WallTier.TIER_3)
+		Constants.WallTier.TIER_3:
+			if turn_number == 10 or turn_number == 20 or turn_number == 30:
+				return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+			elif turn_number >= 40:
+				return GameplayManager.card_offering_manager.get_wall_draft(
+						GameplayManager.draft_size, Constants.WallTier.TIER_3)
 
-	elif wall_tier == Constants.WallTier.ENDLESS:
-		if turn_number % 10 == 0:
-			return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
-		elif turn_number >= 40 and turn_number % 10 == 1:
-			return GameplayManager.card_offering_manager.get_wall_draft(
-					GameplayManager.draft_size, Constants.WallTier.ENDLESS)		
+		Constants.WallTier.ENDLESS:
+			if turn_number % 10 == 0:
+				return GameplayManager.card_offering_manager.get_artifact_draft(GameplayManager.draft_size)
+			elif turn_number >= 40 and turn_number % 10 == 1:
+				return GameplayManager.card_offering_manager.get_wall_draft(
+						GameplayManager.draft_size, Constants.WallTier.ENDLESS)		
 
 	return GameplayManager.card_offering_manager.get_draft(GameplayManager.draft_size)
 

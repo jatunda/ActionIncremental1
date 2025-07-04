@@ -73,14 +73,14 @@ func _on_pressed() -> void:
 		print_debug("can't buy maxed upgrade: %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
-	if GameplayManager.gems_total.get_or_add(Constants.GemTier.TIER1,0) < cost_per_level[upgrade.level]:
+	if GameplayManager.gems_total.get_or_add(cost_gem_type,0) < cost_per_level[upgrade.level]:
 		print_debug("can't afford %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
 	# if we are here, we can press
 
 	# subtract cost
-	GameplayManager.gems_total[Constants.GemTier.TIER1] -= cost_per_level[upgrade.level]
+	GameplayManager.gems_total[cost_gem_type] -= cost_per_level[upgrade.level]
 	GameplayManager.gems_updated.emit()
 
 	# add/update upgrade
@@ -188,7 +188,10 @@ func _get_tooltip_text_internal() -> String:
 		if upgrade.level >= max_level:
 			output += "\nMax Level"
 		else:
-			output += 	"\nCost: %s Gems" % [cost_per_level[upgrade.level]]
+			var gem_type_string : String = "Gems"
+			if cost_gem_type == Constants.GemTier.WALL:
+				gem_type_string = "Wall Gems"
+			output += 	"\nCost: %s %s" % [cost_per_level[upgrade.level], gem_type_string]
 	return output 
 
 func _set_button_alpha(a : float) -> void:

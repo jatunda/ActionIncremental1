@@ -52,3 +52,5 @@ var skips : int = 0 :
 		skips_updated.emit()
 	
 var draft_size : int = 2
+
+var wall_tier : Constants.WallTier = Constants.WallTier.TIER_0

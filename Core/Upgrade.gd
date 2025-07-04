@@ -32,6 +32,7 @@ enum UBID
 	STATUS_FLOW_T0_1,
 
 	# wall
+	WALL_T0 = 7000,
 
 	# start of run drafts
 
@@ -46,6 +47,7 @@ enum Type {
 	STATUS = 400,
 	CARD_ADD = 500,
 	CARD_REPLACE = 600,
+	WALL = 700,
 	# ?? Card upgrade?
 }
 
@@ -92,6 +94,9 @@ func apply_effect() -> void:
 
 		Type.CARD_REPLACE:
 			GameplayManager.card_offering_manager.replace_card(card_1, card_2)
+		
+		Type.WALL:
+			GameplayManager.wall_tier = Constants.get_next_wall_tier(GameplayManager.wall_tier)
 		_:
 			pass
 

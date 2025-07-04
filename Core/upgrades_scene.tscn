@@ -37,6 +37,8 @@ script = ExtResource("3_3xrho")
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+scroll_horizontal = 85
+scroll_vertical = 60
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 scroll_deadzone = 1
