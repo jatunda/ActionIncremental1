@@ -37,21 +37,17 @@ func replace_card(old_card:Card, new_card:Card) -> bool:
 	common_cards[i] = CardState.new(new_card)
 	return true
 
-func get_artifact_draft(requested_draft_size:int) -> Array[CardState]:
-	print_debug("this is an artifact draft!!!")
-	return get_draft(requested_draft_size)
-
-func get_wall_draft(requested_draft_size:int, tier:Constants.WallTier) -> Array[CardState]:
+func get_wall_draft(requested_draft_size:int, wall_tier:int) -> Array[CardState]:
 	wall_draft_count += 1
 
 	if requested_draft_size < 1:	
 		return []
 
 	# very ugly because godot does not allow nested collections.
-	# if I could, I would have Dict[WallTier, Array[Array[Card]]]
+	# if I could, I would have Dict[wall_tier:int, Array[Array[Card]]]
 	# where each wall tier has an array of drafts, 
 	# and each draft has an array of cards 
-	if tier == Constants.WallTier.TIER_0:
+	if wall_tier == 0:
 		if wall_draft_count == 1:
 			return _card_array_to_card_state_array(t0_wall_cards_1)
 		elif wall_draft_count == 2:

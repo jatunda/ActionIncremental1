@@ -11,6 +11,7 @@ signal skips_updated()
 signal card_history_add_one()
 @warning_ignore("unused_signal")
 signal card_history_reset()
+signal wall_tier_updated()
 
 var drafting_manager : DraftingManager = null
 var card_offering_manager : CardOfferingManager = null
@@ -53,4 +54,10 @@ var skips : int = 0 :
 	
 var draft_size : int = 2
 
-var wall_tier : Constants.WallTier = Constants.WallTier.TIER_0
+var wall_tier : int = 0 :
+	get: 
+		return wall_tier
+	set(value):
+		wall_tier = value
+		wall_tier_updated.emit()
+

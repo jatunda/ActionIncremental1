@@ -5,6 +5,7 @@ extends TextureButton
 @export var upgrade : Upgrade = null
 @export var _parent_upgrade_button : UpgradeButton
 @export var prerequisite_type : ParentUnlockPrerequisite = ParentUnlockPrerequisite.SingleLevel
+@export var wall_tier_prereq : int
 @export var cost_gem_type : Constants.GemTier
 @export var cost_per_level : Array[int] = [1]
 
@@ -36,25 +37,32 @@ var _state : State = State.NotShown
 var children_upgrade_buttons : Array[UpgradeButton] = []
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		pressed.connect(_on_pressed)
+	if Engine.is_editor_hint():
+		_update_line_locations()
+		return 
 
-		# assign self as child of parent button
-		if _parent_upgrade_button:
-			if _parent_upgrade_button.children_upgrade_buttons == null:
-				_parent_upgrade_button.children_upgrade_buttons = []
-			_parent_upgrade_button.children_upgrade_buttons.append(self)
-		
-		# two-way link of my upgrade to my parent's upgrade
-		if _parent_upgrade_button and upgrade and _parent_upgrade_button.upgrade:
-			upgrade.parent_ubid = _parent_upgrade_button.upgrade.ubid
-			_parent_upgrade_button.upgrade.children_upgrades[upgrade.ubid] = upgrade
+	pressed.connect(_on_pressed)
 
-		# register upgrade with UpgradeManager
-		if upgrade.level > 0:
-			UpgradeManager.upgrades[upgrade.ubid] = upgrade
+	# assign self as child of parent button
+	if _parent_upgrade_button:
+		if _parent_upgrade_button.children_upgrade_buttons == null:
+			_parent_upgrade_button.children_upgrade_buttons = []
+		_parent_upgrade_button.children_upgrade_buttons.append(self)
+	
+	# two-way link of my upgrade to my parent's upgrade
+	if _parent_upgrade_button and upgrade and _parent_upgrade_button.upgrade:
+		upgrade.parent_ubid = _parent_upgrade_button.upgrade.ubid
+		_parent_upgrade_button.upgrade.children_upgrades[upgrade.ubid] = upgrade
 
-		_update_button()
+	# register upgrade with UpgradeManager
+	if upgrade.level > 0:
+		UpgradeManager.upgrades[upgrade.ubid] = upgrade
+
+	# if i am a root node, register with wall_tier updates
+	if not _parent_upgrade_button:
+		GameplayManager.wall_tier_updated.connect(_update_button)
+
+	_update_button()
 	_update_line_locations()
 
 func _process(_delta: float) -> void:
@@ -86,6 +94,11 @@ func _on_pressed() -> void:
 	# add/update upgrade
 	upgrade.level += 1
 	UpgradeManager.upgrades[upgrade.ubid] = upgrade
+
+	# wall upgrades need to be immediately applied so that buttons of the tier can be unlocked
+	if upgrade.upgrade_type == Upgrade.Type.WALL:
+		GameplayManager.wall_tier = int(upgrade.magnitude)
+	
 	_update_button()
 	_update_line_locations()
  
@@ -103,7 +116,9 @@ func _update_button() -> void:
 
 	_state = _get_state_based_on_parent()
 
-	_print_debug(_state)
+	_print_debug("update button %s: %s" % [
+			Upgrade.ubid_to_string(upgrade.ubid),
+			state_to_string(_state)])
 
 	# disable/enable color
 	if _state == State.Enabled:
@@ -143,7 +158,11 @@ func _update_button() -> void:
 			child_upgrade_button._update_button()
 
 
+
 func _get_state_based_on_parent() -> State:
+
+	if wall_tier_prereq > GameplayManager.wall_tier:
+		return State.NotShown
 
 	# no parent means are are enabled (root upgrade)
 	if _parent_upgrade_button == null:
@@ -203,3 +222,6 @@ func _set_button_alpha(a : float) -> void:
 func _print_debug(v : Variant) -> void:
 	if should_print_debug:
 		print_debug(v)
+
+static func state_to_string(p_state: State) -> String:
+	return State.keys()[State.values().find(p_state)]

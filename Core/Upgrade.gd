@@ -16,6 +16,7 @@ enum UBID
 
 	# basic stats - draft size
 	DRAFT_SIZE_T0 = 3000,
+	DRAFT_SIZE_T1,
 
 	# adding cards 
 	CARD_ADD_WIND_1 = 4000,
@@ -96,7 +97,7 @@ func apply_effect() -> void:
 			GameplayManager.card_offering_manager.replace_card(card_1, card_2)
 		
 		Type.WALL:
-			GameplayManager.wall_tier = Constants.get_next_wall_tier(GameplayManager.wall_tier)
+			GameplayManager.wall_tier = int(magnitude)
 		_:
 			pass
 
