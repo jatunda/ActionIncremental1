@@ -4,6 +4,8 @@ extends HBoxContainer
 
 @export var _rendered_card_scene : PackedScene 
 
+@export var keyboard_shortcuts : Array[Shortcut] 
+
 func render_cards(cards : Array[CardState]) -> void:
 
 	# get current renderedCards
@@ -26,6 +28,7 @@ func render_cards(cards : Array[CardState]) -> void:
 			if rendered_cards[i].visible:
 				rendered_cards[i].visible = false
 				rendered_cards[i].card_clicked.disconnect(GameplayManager.drafting_manager._on_card_clicked)
+				rendered_cards[i].set_shortcut(null)
 				num_left_to_hide -= 1
 				if(num_left_to_hide <= 0):
 					break
@@ -34,7 +37,9 @@ func render_cards(cards : Array[CardState]) -> void:
 	elif num_cards_showing < cards.size():
 		var num_left_to_show : int = cards.size() - num_cards_showing
 		# unhide
-		for rendered_card in rendered_cards:
+		for i in range(rendered_cards.size()):
+			var rendered_card : RenderedCard = rendered_cards[i] 
+			rendered_card.set_shortcut(keyboard_shortcuts[i])
 			if(rendered_card.visible == false):
 				rendered_card.visible = true
 				rendered_card.card_clicked.connect(GameplayManager.drafting_manager._on_card_clicked)
@@ -42,11 +47,12 @@ func render_cards(cards : Array[CardState]) -> void:
 				if num_left_to_show <= 0:
 					break
 		# add more
-		for _i in range(num_left_to_show): 
+		for i in range(num_left_to_show): 
 			var new_rendered_card : RenderedCard = _rendered_card_scene.instantiate()
 			self.add_child(new_rendered_card)
 			rendered_cards.append(new_rendered_card)
 			new_rendered_card.card_clicked.connect(GameplayManager.drafting_manager._on_card_clicked)
+			new_rendered_card.set_shortcut(keyboard_shortcuts[rendered_cards.size()-1])
 
 	for i in range(cards.size()):
 		rendered_cards[i].spawnCard(cards[i])

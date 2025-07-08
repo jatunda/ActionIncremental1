@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=36 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
@@ -12,9 +12,17 @@
 [ext_resource type="Script" uid="uid://bu43qg6eh670x" path="res://One-off Scripts/turn_label.gd" id="9_p0t5m"]
 [ext_resource type="Script" uid="uid://dnp78asdedngw" path="res://Core/RenderedCardManager.gd" id="12_e4gm8"]
 [ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="12_p0t5m"]
-[ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats.gd" id="23_ixidi"]
+[ext_resource type="Shortcut" uid="uid://bxfulkwom6jce" path="res://Shortcuts/shortcut_card_1.tres" id="19_bh5af"]
+[ext_resource type="Shortcut" uid="uid://s6rqnqww3ce3" path="res://Shortcuts/shortcut_card_2.tres" id="20_wqv3f"]
+[ext_resource type="Shortcut" uid="uid://djxss13onrmue" path="res://Shortcuts/shortcut_card_3.tres" id="21_navk4"]
+[ext_resource type="Shortcut" uid="uid://c10b2ldh21cmc" path="res://Shortcuts/shortcut_card_4.tres" id="22_hdtuk"]
+[ext_resource type="Script" uid="uid://cvcaktadcbd3y" path="res://keyboard_cheats_drafting.gd" id="23_ixidi"]
+[ext_resource type="Shortcut" uid="uid://d64ru43d3otn" path="res://Shortcuts/shortcut_card_5.tres" id="23_r85dy"]
+[ext_resource type="Shortcut" uid="uid://dbsy5etsb3g6w" path="res://Shortcuts/shortcut_card_6.tres" id="24_out8n"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="24_w5b5c"]
+[ext_resource type="Shortcut" uid="uid://b3v32ddqacti4" path="res://Shortcuts/shortcut_card_7.tres" id="25_imfhw"]
 [ext_resource type="Script" uid="uid://b7y1btgwrbfee" path="res://One-off Scripts/capacity_label.gd" id="25_ymio7"]
+[ext_resource type="Shortcut" uid="uid://caeqx61734vx4" path="res://Shortcuts/shortcut_card_8.tres" id="26_b3jjt"]
 [ext_resource type="Script" uid="uid://ctsn1qeeq2f22" path="res://One-off Scripts/draws_left_label.gd" id="26_ilw77"]
 [ext_resource type="Script" path="res://One-off Scripts/GemsLabelThisRun.gd" id="27_md253"]
 [ext_resource type="Script" uid="uid://dbp8lb5gbdril" path="res://One-off Scripts/status_label.gd" id="28_8uvl3"]
@@ -22,6 +30,18 @@
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="30_db78w"]
 [ext_resource type="PackedScene" uid="uid://clg2pxw68uk01" path="res://Core/run_summary.tscn" id="31_qkybh"]
 [ext_resource type="PackedScene" uid="uid://dejqsh6ify1ik" path="res://altered_cards_screen.tscn" id="32_jli5d"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ip3ek"]
+action = &"skip"
+
+[sub_resource type="Shortcut" id="Shortcut_ip3ek"]
+events = [SubResource("InputEventAction_ip3ek")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_6wxnd"]
+action = &"end_run"
+
+[sub_resource type="Shortcut" id="Shortcut_lx7h1"]
+events = [SubResource("InputEventAction_6wxnd")]
 
 [sub_resource type="Theme" id="Theme_iq3rl"]
 
@@ -132,6 +152,7 @@ size_flags_vertical = 3
 alignment = 1
 script = ExtResource("12_e4gm8")
 _rendered_card_scene = ExtResource("12_p0t5m")
+keyboard_shortcuts = Array[Shortcut]([ExtResource("19_bh5af"), ExtResource("20_wqv3f"), ExtResource("21_navk4"), ExtResource("22_hdtuk"), ExtResource("23_r85dy"), ExtResource("24_out8n"), ExtResource("25_imfhw"), ExtResource("26_b3jjt")])
 metadata/_custom_type_script = "uid://dnp78asdedngw"
 
 [node name="Control2" type="Control" parent="VBoxContainer"]
@@ -154,6 +175,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("24_w5b5c")
+shortcut = SubResource("Shortcut_ip3ek")
 text = "Skip"
 script = ExtResource("29_t2qhj")
 
@@ -180,6 +202,7 @@ metadata/_custom_type_script = "uid://cjqlg3wyix45s"
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("24_w5b5c")
+shortcut = SubResource("Shortcut_lx7h1")
 text = "End Run"
 
 [node name="RunSummary" parent="." instance=ExtResource("31_qkybh")]

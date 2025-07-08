@@ -55,12 +55,12 @@ func _ready() -> void:
 		_parent_upgrade_button.upgrade.children_upgrades[upgrade.ubid] = upgrade
 
 	# register upgrade with UpgradeManager
-	if upgrade.level > 0:
-		UpgradeManager.upgrades[upgrade.ubid] = upgrade
+	UpgradeManager.upgrades[upgrade.ubid] = upgrade
 
 	# if i am a root node, register with wall_tier updates
 	if not _parent_upgrade_button:
 		GameplayManager.wall_tier_updated.connect(_update_button)
+		UpgradeManager.loaded_upgrades.connect(_update_button)
 
 	_update_button()
 	_update_line_locations()

@@ -39,6 +39,10 @@ func _on_pressed():
 	audioStreamPlayer.play()
 	pass
 
+
+func set_shortcut(shortcut:Shortcut) -> void:
+	textureButton.shortcut = shortcut
+
 # add effect for can't be played
 
 # add displaying End of Life Effect

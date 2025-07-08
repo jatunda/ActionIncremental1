@@ -1,12 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhgjtk1jbky62"]
+[gd_scene load_steps=12 format=3 uid="uid://dhgjtk1jbky62"]
 
 [ext_resource type="Script" uid="uid://jjcp4flbeuyr" path="res://Core/RenderedCard.gd" id="1_7m0i5"]
+[ext_resource type="Shortcut" uid="uid://bxfulkwom6jce" path="res://Shortcuts/shortcut_card_1.tres" id="2_b7vkl"]
 [ext_resource type="FontFile" uid="uid://bahq6ivdmqjtj" path="res://m5x7.ttf" id="2_grb7p"]
+[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="2_ojsdm"]
 [ext_resource type="Texture2D" uid="uid://b4vlm5komak6x" path="res://rune images/fire 1.png" id="3_grb7p"]
 [ext_resource type="Texture2D" uid="uid://bcr7ex1njawhf" path="res://card prototype (1).png" id="4_grb7p"]
 [ext_resource type="AudioStream" uid="uid://n5q6dhqfy814" path="res://Kenny Interface Audio/select_008.ogg" id="5_nthc7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j85ja"]
+
+[sub_resource type="VisualShaderNodeVec4Constant" id="VisualShaderNodeVec4Constant_68urs"]
+constant = Quaternion(1, 0, 0, 1)
+
+[sub_resource type="VisualShader" id="VisualShader_b7vkl"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/3/node = SubResource("VisualShaderNodeVec4Constant_68urs")
+nodes/fragment/3/position = Vector2(-180, 280)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b7vkl"]
+shader = SubResource("VisualShader_b7vkl")
 
 [node name="RenderedCard" type="PanelContainer" node_paths=PackedStringArray("nameLabel", "descriptionLabel", "sprite", "costLabel", "textureButton", "audioStreamPlayer")]
 offset_right = 40.0
@@ -22,6 +42,8 @@ audioStreamPlayer = NodePath("AudioStreamPlayer")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 2
+theme = ExtResource("2_ojsdm")
+shortcut = ExtResource("2_b7vkl")
 texture_normal = ExtResource("4_grb7p")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -65,6 +87,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_b7vkl")
 custom_minimum_size = Vector2(30, 50)
 layout_mode = 2
 mouse_filter = 2

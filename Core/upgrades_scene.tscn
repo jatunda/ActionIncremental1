@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbkutwyta3rpl"]
+[gd_scene load_steps=9 format=3 uid="uid://dbkutwyta3rpl"]
 
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_30eoe"]
 [ext_resource type="Script" uid="uid://c04bj1txwqyur" path="res://Core/UpgradesScene.gd" id="1_38nk8"]
 [ext_resource type="Script" uid="uid://4hwe6ecx61b1" path="res://Core/StartRunButton.gd" id="2_06gj8"]
 [ext_resource type="Script" uid="uid://dg6ftg6vs62so" path="res://One-off Scripts/GemsLabelTotal.gd" id="3_3xrho"]
 [ext_resource type="PackedScene" uid="uid://bxrc3vl8sxnpv" path="res://UpgradesPane.tscn" id="4_gpnv5"]
+[ext_resource type="Script" uid="uid://c0c8h6igh6o01" path="res://keyboard_cheats_upgrades.gd" id="6_3xrho"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_gpnv5"]
+action = &"start_run"
+
+[sub_resource type="Shortcut" id="Shortcut_3xrho"]
+events = [SubResource("InputEventAction_gpnv5")]
 
 [node name="UpgradesScene" type="Control"]
 layout_mode = 3
@@ -14,6 +21,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_38nk8")
+
+[node name="Keyboard Cheats" type="Node" parent="."]
+script = ExtResource("6_3xrho")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -50,6 +60,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_30eoe")
+shortcut = SubResource("Shortcut_3xrho")
 text = "Start Next Run"
 script = ExtResource("2_06gj8")
 

@@ -1,5 +1,7 @@
 extends Node
 
+signal loaded_upgrades
+
 var upgrades : Dictionary[Upgrade.UBID, Upgrade] = {}
 
 # use a breadth-first search to apply upgrades
@@ -34,3 +36,24 @@ func apply_upgrades() -> void:
 			# requeue at the end for later
 			queue.append(current_upgrade)
 		
+func get_savable_upgrades() -> Dictionary[Upgrade.UBID, int]:
+	var output : Dictionary[Upgrade.UBID, int] = {}
+	for upgrade : Upgrade in upgrades.values():
+		output[upgrade.ubid] = upgrade.level
+	return output
+
+func load_saved_upgrades(saved_upgrades:Dictionary[Upgrade.UBID, int]) -> void:
+	
+	print(upgrades)
+
+	# go through all existing upgrades and set their level to the saved upgrade
+	for upgrade:Upgrade in upgrades.values():
+		if saved_upgrades.has(upgrade.ubid):
+			upgrade.level = saved_upgrades[upgrade.ubid]
+		else:
+			upgrade.level = 0
+
+	# possible issue: upgrades is not yet loaded and is empty... then the above algorithm wouldn't work...
+
+	# refresh update buttons
+	loaded_upgrades.emit()

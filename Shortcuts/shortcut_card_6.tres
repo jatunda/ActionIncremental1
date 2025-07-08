@@ -1,0 +1,7 @@
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://dbsy5etsb3g6w"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_54ma5"]
+action = &"card_6"
+
+[resource]
+events = [SubResource("InputEventAction_54ma5")]
