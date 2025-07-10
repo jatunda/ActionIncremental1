@@ -13,7 +13,7 @@ func apply_upgrades() -> void:
 
 	# add all root upgrades to the queue
 	for upgrade:Upgrade in upgrades.values():
-		if upgrade.parent_ubid == Upgrade.UBID.NONE:
+		if upgrade.parent_ubid == Upgrade.UBID.NONE and upgrade.level > 0:
 			queue.append(upgrade)
 
 	# while queue has stuff

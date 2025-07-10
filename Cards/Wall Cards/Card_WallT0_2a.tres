@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_pyj5a")
 name = "Break the Wall"
-cost = 3
+cost = 5
 rarity = 3
 element = 6
 effects = Array[ExtResource("1_2ow41")]([])

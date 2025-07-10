@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://dmgwk3o1t26kk"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_ccquk"]
-[ext_resource type="Script" uid="uid://dfjx50jslsn1i" path="res://Card Effect Scripts/CardEffectPlayOtherCards.gd" id="2_ccquk"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_ccquk"]
 [ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="3_ccquk"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_yf1rl"]
 
 [sub_resource type="Resource" id="Resource_fykpy"]
 script = ExtResource("2_ccquk")
-should_play_with_zero_cost = false
-card_name_that_this_effect_is_on = "Wind 1"
-metadata/_custom_type_script = "uid://dfjx50jslsn1i"
+_gem_tier = 0
+_gemsToGain = 1
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 
 [resource]
 script = ExtResource("4_yf1rl")
 name = "Wind 1"
-cost = 1
+cost = 0
 image = ExtResource("3_ccquk")
 rarity = 0
 element = 3

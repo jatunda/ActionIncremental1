@@ -92,7 +92,7 @@ func apply_effect() -> void:
 
 		Type.CARD_ADD:
 			GameplayManager.card_offering_manager.add_common_offering(card_1)
-
+			#print("adding card from Ubid:%s, card:%s" % [ubid_to_string(ubid), card_1.name])
 		Type.CARD_REPLACE:
 			GameplayManager.card_offering_manager.replace_card(card_1, card_2)
 		

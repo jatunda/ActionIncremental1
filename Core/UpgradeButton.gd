@@ -68,6 +68,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): # only in editor
 		_update_line_locations()
+		_label.text = "%s/%s" % [0, max_level]
+
 
 func _on_pressed() -> void:
 	if Engine.is_editor_hint(): return

@@ -59,7 +59,7 @@ texture_normal = ExtResource("3_vlqc3")
 upgrade = ExtResource("5_s26su")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
-cost_per_level = Array[int]([2, 2, 2, 3, 4])
+cost_per_level = Array[int]([2, 3, 4, 5, 6])
 
 [node name="DraftSize1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -71,6 +71,7 @@ texture_normal = ExtResource("4_si66j")
 upgrade = ExtResource("7_wi5ca")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 2
+cost_per_level = Array[int]([5])
 
 [node name="Fire1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -82,7 +83,7 @@ texture_normal = ExtResource("4_cn55x")
 upgrade = ExtResource("9_blcsj")
 _parent_upgrade_button = NodePath("../Wind1")
 prerequisite_type = 1
-cost_per_level = Array[int]([10])
+cost_per_level = Array[int]([5])
 
 [node name="Capacity1" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -93,7 +94,7 @@ offset_bottom = 258.0
 texture_normal = ExtResource("5_dlmuu")
 upgrade = ExtResource("11_1vkrj")
 _parent_upgrade_button = NodePath("../Fire1")
-cost_per_level = Array[int]([4, 5, 6, 7, 8])
+cost_per_level = Array[int]([2, 4, 6, 8, 10])
 
 [node name="Fire1Plus" parent="Tier 0" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
@@ -189,10 +190,10 @@ offset_bottom = 40.0
 
 [node name="DraftSizeT1" parent="Tier 1" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
 layout_mode = 0
-offset_left = 447.0
-offset_top = 4.0
-offset_right = 511.0
-offset_bottom = 68.0
+offset_left = 553.0
+offset_top = 8.0
+offset_right = 617.0
+offset_bottom = 72.0
 texture_normal = ExtResource("4_si66j")
 upgrade = ExtResource("24_wi5ca")
 _parent_upgrade_button = NodePath("../../Tier 0/DraftSize1")

@@ -1,30 +1,22 @@
-[gd_resource type="Resource" script_class="Card" load_steps=9 format=3 uid="uid://ggi0soht0rvq"]
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://ggi0soht0rvq"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_iy2tw"]
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_u3wfv"]
 [ext_resource type="Texture2D" uid="uid://b4vlm5komak6x" path="res://rune images/fire 1.png" id="3_iy2tw"]
-[ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="3_urn30"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_ptngq"]
-[ext_resource type="Script" uid="uid://d3015pktn23aj" path="res://Card Effect Scripts/CardEffectPlayCard.gd" id="4_urn30"]
 
 [sub_resource type="Resource" id="Resource_jv40g"]
 script = ExtResource("2_u3wfv")
 _gem_tier = 0
-_gemsToGain = 1
+_gemsToGain = 3
 metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
-
-[sub_resource type="Resource" id="Resource_hubld"]
-script = ExtResource("4_urn30")
-card = ExtResource("3_urn30")
-should_randomize_element = true
-metadata/_custom_type_script = "uid://d3015pktn23aj"
 
 [resource]
 script = ExtResource("4_ptngq")
 name = "Fire 1"
-cost = 1
+cost = 2
 image = ExtResource("3_iy2tw")
 rarity = 0
 element = 0
-effects = Array[ExtResource("1_iy2tw")]([SubResource("Resource_jv40g"), SubResource("Resource_hubld")])
+effects = Array[ExtResource("1_iy2tw")]([SubResource("Resource_jv40g")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

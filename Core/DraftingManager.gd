@@ -5,9 +5,9 @@ extends Control
 
 signal on_turn_number_change
 
-const STARTING_CAPACITY : int = 1
+const STARTING_CAPACITY : int = 3
 const STARTING_DRAFT_SIZE : int = 1
-const STARTING_TIME : int = 2
+const STARTING_TIME : int = 3
 const STARTING_SKIPS : int = 0
 
 @onready var rendered_card_manager : RenderedCardManager = $VBoxContainer/RenderedCardsHolder

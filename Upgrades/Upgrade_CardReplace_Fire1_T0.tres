@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/card_fire_1.tres" id="1_knx3n"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_3umrn"]
-[ext_resource type="Resource" uid="uid://dumb3xbymtlxr" path="res://Cards/card_fire_2.tres" id="2_5wpop"]
+[ext_resource type="Resource" uid="uid://nwka2xi7wfsg" path="res://Cards/card_fire_1_plus.tres" id="2_knx3n"]
 
 [resource]
 script = ExtResource("2_3umrn")
@@ -11,5 +11,5 @@ upgrade_type = 600
 magnitude = 1.0
 status_type = 5
 card_1 = ExtResource("1_knx3n")
-card_2 = ExtResource("2_5wpop")
+card_2 = ExtResource("2_knx3n")
 metadata/_custom_type_script = "uid://sgth25wex5mo"
