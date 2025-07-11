@@ -2,6 +2,8 @@
 class_name UpgradeButton
 extends TextureButton
 
+const DISABLE_COLOR : Color = Color("777777ff")
+
 @export var upgrade : Upgrade = null
 @export var _parent_upgrade_button : UpgradeButton
 @export var prerequisite_type : ParentUnlockPrerequisite = ParentUnlockPrerequisite.SingleLevel
@@ -61,6 +63,7 @@ func _ready() -> void:
 	if not _parent_upgrade_button:
 		GameplayManager.wall_tier_updated.connect(_update_button)
 		UpgradeManager.loaded_upgrades.connect(_update_button)
+		GameplayManager.gems_updated.connect(_update_button)
 
 	_update_button()
 	_update_line_locations()
@@ -70,6 +73,11 @@ func _process(_delta: float) -> void:
 		_update_line_locations()
 		_label.text = "%s/%s" % [0, max_level]
 
+
+func _can_afford_cost() -> bool:
+	if max_level == upgrade.level: 
+		return false
+	return GameplayManager.gems_total.get_or_add(cost_gem_type,0) >= cost_per_level[upgrade.level]
 
 func _on_pressed() -> void:
 	if Engine.is_editor_hint(): return
@@ -83,7 +91,7 @@ func _on_pressed() -> void:
 		print_debug("can't buy maxed upgrade: %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
-	if GameplayManager.gems_total.get_or_add(cost_gem_type,0) < cost_per_level[upgrade.level]:
+	if not _can_afford_cost():
 		print_debug("can't afford %s" % Upgrade.ubid_to_string(upgrade.ubid))
 		return
 
@@ -122,15 +130,27 @@ func _update_button() -> void:
 			Upgrade.ubid_to_string(upgrade.ubid),
 			state_to_string(_state)])
 
-	# disable/enable color
-	if _state == State.Enabled:
+	# border/label/icon/line color
+	if _state != State.Enabled: 
+		_label.self_modulate = DISABLE_COLOR
+		self_modulate = DISABLE_COLOR
+		_border.self_modulate = DISABLE_COLOR
+	
+	elif max_level == upgrade.level:
+		_border.self_modulate = Color.CYAN
+		_label.self_modulate = Color.CYAN
 		self_modulate = Color.WHITE
+	
+	elif _can_afford_cost():
 		_label.self_modulate = Color.WHITE
+		self_modulate = Color.WHITE
 		_border.self_modulate = Color.WHITE
-	else:
-		self_modulate = Color.GRAY
-		_label.self_modulate = Color.GRAY
-		_border.self_modulate = Color.GRAY
+	
+	else: # enabled, not maxed, can't afford
+		_label.self_modulate = DISABLE_COLOR
+		self_modulate = DISABLE_COLOR
+		_border.self_modulate = DISABLE_COLOR
+
 
 	# show or no show
 	if _state == State.NotShown:
@@ -140,13 +160,18 @@ func _update_button() -> void:
 		_set_button_alpha(1.0)
 		tooltip_text = _get_tooltip_text_internal()
 
-	# line or no line
+	# line 
 	if _parent_upgrade_button:
 		if _parent_upgrade_button._state == State.NotShown:
 			_line.self_modulate.a = 0
 		else:
 			_line.self_modulate.a = 1
 			_line.gradient = null
+			if max_level == upgrade.level:
+				_line.self_modulate = Color.CYAN
+			else:
+				_line.self_modulate = Color.WHITE
+
 			if _state == State.NotShown:
 				_line.gradient = faded_line_gradient
 
