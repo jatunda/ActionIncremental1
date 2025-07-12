@@ -9,3 +9,7 @@ extends Resource
 @export var play_condition : Conditional = null
 @export var effects: Array[CardEffect] = []
 #@export var flavor_text: String = ""
+
+func reset_card() -> void:
+	for effect : CardEffect in effects:
+		effect.reset_effect()

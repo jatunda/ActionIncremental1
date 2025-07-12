@@ -93,3 +93,8 @@ func _card_array_to_card_state_array(cards : Array[Card]) -> Array[CardState]:
 	for card : Card in cards:
 		output.append(CardState.new(card))
 	return output
+
+## resets cards to their start-of-game state
+func reset_cards() -> void:
+	for card_state : CardState in common_cards:
+		card_state.reset_card_state()

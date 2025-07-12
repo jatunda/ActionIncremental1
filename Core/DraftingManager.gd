@@ -67,6 +67,8 @@ func start_run() -> void:
 	# apply upgrades
 	UpgradeManager.apply_upgrades()
 
+	GameplayManager.card_offering_manager.reset_cards()
+
 	# start of turn stuff
 	start_turn()
 
@@ -256,6 +258,3 @@ func get_current_offered_cards(card_names_to_exclude:Array[String] = []) -> Arra
 func add_card_to_history(card_state:CardState) -> void:
 	GameplayManager.card_history.append(card_state)
 	GameplayManager.card_history_add_one.emit()
-
-
-

@@ -7,8 +7,11 @@ var modifier:
 	get:
 		return StatusManager.get_status_value(Status.Type.GEM_ADD)
 
+var gems_to_gain_modified:
+	get: return counter.get_count() + modifier
+
 func apply_effect() -> void:
-	GameplayManager.gems_this_run[gem_tier] += counter.get_count() + modifier
+	GameplayManager.gems_this_run[gem_tier] += gems_to_gain_modified
 	GameplayManager.gems_updated.emit()
 
 func _get_description() -> String:

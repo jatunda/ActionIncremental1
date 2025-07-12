@@ -8,11 +8,11 @@ func apply_effect() -> void:
 	var drafting_manager : DraftingManager = GameplayManager.drafting_manager
 	if drafting_manager == null:
 		return
-	var card_to_play : Card = card.duplicate()
+	var card_to_play : CardState = CardState.new(card)
 	if should_randomize_element:
 		var random_element : Constants.Element = randi() % Constants.Element.size() as Constants.Element
 		card_to_play.element = random_element
-	drafting_manager.try_play_card(CardState.new(card_to_play))
+	drafting_manager.try_play_card(card_to_play)
 
 func _get_description() -> String:
 	# this method is to be overridden by subclasses

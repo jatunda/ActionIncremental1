@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://cdeogtvmt5a6d"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_pynon"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_k0vxq"]
+[ext_resource type="Script" uid="uid://didf3uwie7t0l" path="res://Card Effect Scripts/CardEffectGainGemsGrowing.gd" id="2_r8alr"]
+[ext_resource type="Texture2D" uid="uid://1vc543kfcseb" path="res://icon.svg" id="4_yfor4"]
+
+[sub_resource type="Resource" id="Resource_aqfa6"]
+script = ExtResource("2_r8alr")
+starting_gems = 1
+growth_rate = 3
+metadata/_custom_type_script = "uid://didf3uwie7t0l"
+
+[resource]
+script = ExtResource("2_k0vxq")
+name = "TEST"
+cost = 0
+image = ExtResource("4_yfor4")
+rarity = 0
+element = 6
+effects = Array[ExtResource("1_pynon")]([SubResource("Resource_aqfa6")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

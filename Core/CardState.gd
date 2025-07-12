@@ -92,3 +92,13 @@ func remove_effects_of_type(p_class) -> void:
 	for effect in effects:
 		if is_instance_of(effect, p_class):
 			effects.erase(effect)
+
+func reset_card_state() -> void:
+	occurance_rate = 1.0
+	name = __original_card.name
+	cost = __original_card.cost
+	image = __original_card.image
+	rarity = __original_card.rarity
+	element = __original_card.element
+	for effect : CardEffect in effects:
+		effect.reset_effect()
