@@ -3,7 +3,7 @@ extends Node
 
 @export var starting_common_cards : Array[Card]
 var common_cards : Array[CardState] 
-#var rare_cards: Array[CardState]
+var rare_cards: Array[CardState]
 @export var end_wall_card : Card
 @export var t0_wall_cards_1 : Array[Card]
 @export var t0_wall_cards_2 : Array[Card]
@@ -21,6 +21,8 @@ func get_altered_common_cards() -> Array[CardState]:
 			func(c): return c.occurance_rate < 0.9999 or c.occurance_rate > 1.0001)
 
 func populate_starting_offerings() -> void:
+	common_cards = []
+	rare_cards = []
 	for card : Card in starting_common_cards:
 		common_cards.append(CardState.new(card))
 
@@ -63,10 +65,28 @@ func get_draft(requested_draft_size:int) -> Array[CardState]:
 	if requested_draft_size < 1:
 		return []
 
-	# logic for choosing if we doing common/rare/wall cards goes here (eventually)
+	# choose between common or rare cards
 	var card_pool : Array[CardState] = common_cards
+	var should_give_rares : bool = false
+	if should_give_rares:
+		card_pool = rare_cards
 
-	if requested_draft_size > card_pool.size():
+	# innundation effects
+	var innundated_elements : Array[Constants.Element] = StatusManager.get_innundated_elements()
+	if innundated_elements.size() > 0:
+		card_pool = card_pool.filter( func (cs:CardState): return cs.element in innundated_elements)
+	var heavy_presence_active : bool = StatusManager.has_status(Status.Type.HEAVY_PRESENCE)
+	var weightless_presence_active : bool = StatusManager.has_status(Status.Type.WEIGHTLESS_PRESENCE)
+	if heavy_presence_active:
+		card_pool = card_pool.filter( func (cs:CardState): return cs.cost >= 5)
+	if weightless_presence_active:
+		card_pool = card_pool.filter( func (cs:CardState): return cs.cost <= 1)
+
+	return _get_random_cards_from_pool(card_pool, requested_draft_size)
+
+
+func _get_random_cards_from_pool(card_pool:Array[CardState], num_cards_requested:int) -> Array[CardState]:
+	if num_cards_requested > card_pool.size():
 		var small_offerings_output : Array[CardState] = []
 		for cardState in card_pool:
 			small_offerings_output.append(cardState)
@@ -79,7 +99,7 @@ func get_draft(requested_draft_size:int) -> Array[CardState]:
 
 	var while_counter = 0
 	var output : Array[CardState] = []
-	while(output.size() < requested_draft_size or while_counter > 30) :
+	while(output.size() < num_cards_requested or while_counter > 30) :
 		var chosenCardState : CardState = card_pool[rng.rand_weighted(cardWeights)]
 		if output.find(chosenCardState) == -1:
 			output.append(chosenCardState)

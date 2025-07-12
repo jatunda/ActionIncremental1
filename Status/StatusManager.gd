@@ -8,14 +8,14 @@ var status_queue : Array[Status] = []
 
 ## applys the given status type, with counter if relevant
 func apply_status(status_type : Status.Type, counter:int = 0, ) -> void:
-	var status: Status = _generate_status(status_type, counter)
+	var status: Status = Status.new(status_type, counter)
 	if status.application_timing == Status.ApplicationTiming.IMMEDIATE:
 		_add_status(status_type, counter)
 	elif status.application_timing == Status.ApplicationTiming.NEXT_TURN:
 		_queue_status(status_type, counter)
 	
 func _queue_status(status_type: Status.Type, counter:int):
-	var status : Status = _generate_status(status_type, counter)
+	var status : Status = Status.new(status_type, counter)
 	status_queue.append(status)
 
 func _add_status(status_type: Status.Type, counter:int) -> void:
@@ -30,9 +30,35 @@ func _add_status(status_type: Status.Type, counter:int) -> void:
 			# do nothing
 			pass
 	else: # no existing status of this type
-		var status : Status = _generate_status(status_type, counter)
+		var status : Status = Status.new(status_type, counter)
 		active_statuses.append(status)
+
+	_cancel_opposites(status_type)
+	
 	on_status_update.emit(active_statuses)
+
+func _cancel_opposites(status_type: Status.Type) -> void:
+	var opposite_type : Status.Type = Status.get_opposite_type(status_type)
+	
+	# type has no opposite, don't do anything
+	if opposite_type == Status.Type.NONE:
+		return
+	
+	# only do canceling if we have both opposites active
+	if not has_status(status_type) or not has_status(opposite_type):
+		return
+
+	# no counter statuses both get destroyed
+	if get_status_value(status_type) == 0:
+		remove_status(status_type)
+		remove_status(opposite_type)
+		return
+	
+	var status_1_count : int = get_status_value(status_type)
+	var status_2_count : int = get_status_value(opposite_type)
+	decrease_status(status_type, status_2_count)
+	decrease_status(opposite_type, status_1_count)
+
 
 func remove_status(status_type : Status.Type) -> void:
 	var status : Status = _get_status(status_type)
@@ -48,7 +74,7 @@ func decrease_status(status_type: Status.Type, counter: int) -> void:
 	if status.counter_type == Status.CounterType.NO_COUNTER:
 		return
 	status.counter -= counter
-	if status.counter == 0:
+	if status.counter <= 0:
 		active_statuses.erase(status)
 	on_status_update.emit(active_statuses)
 
@@ -69,54 +95,9 @@ func get_status_value(status_type : Status.Type) -> int:
 	return status.counter
 	
 ## returns true if the status is active. returns false otherwise.
-func has_status(status_type : Status.Type) -> int:
+func has_status(status_type : Status.Type) -> bool:
 	var status = _get_status(status_type)
 	return status != null
-
-static func _generate_status(status_type : Status.Type, counter : int = 0) -> Status:
-	match status_type:
-		Status.Type.REDUCE_NEXT_CARD_COST:
-			return Status.new(Status.Type.REDUCE_NEXT_CARD_COST,
-					Status.Positivity.POSTIVE,
-					Status.DurationType.ONE_TURN,
-					Status.CounterType.COUNTER,
-					Status.ApplicationTiming.NEXT_TURN,
-					Status.TriggerTiming.NONE,
-					counter)
-		Status.Type.GEM_ADD:
-			return Status.new(Status.Type.GEM_ADD,
-					Status.Positivity.POSTIVE,
-					Status.DurationType.INFINITE,
-					Status.CounterType.COUNTER,
-					Status.ApplicationTiming.IMMEDIATE,
-					Status.TriggerTiming.NONE,
-					counter)
-		Status.Type.DRAFT_SIZE:
-			return Status.new(Status.Type.DRAFT_SIZE,
-					Status.Positivity.POSTIVE,
-					Status.DurationType.INFINITE,
-					Status.CounterType.COUNTER,
-					Status.ApplicationTiming.IMMEDIATE,
-					Status.TriggerTiming.NONE,
-					counter)
-		Status.Type.GEMS_PER_TURN:
-			return Status.new(Status.Type.GEMS_PER_TURN,
-					Status.Positivity.POSTIVE,
-					Status.DurationType.COUNT_DOWN,
-					Status.CounterType.COUNTER,
-					Status.ApplicationTiming.IMMEDIATE,
-					Status.TriggerTiming.END_OF_TURN,
-					counter)
-		Status.Type.MOTES:
-			return Status.new(Status.Type.MOTES,
-					Status.Positivity.POSTIVE,
-					Status.DurationType.INFINITE,
-					Status.CounterType.COUNTER,
-					Status.ApplicationTiming.IMMEDIATE,
-					Status.TriggerTiming.NONE,
-					counter)
-		_:
-			return null
 
 func trigger_status_effects(trigger_timing: Status.TriggerTiming):
 	# apply any end of turn effects
@@ -125,14 +106,13 @@ func trigger_status_effects(trigger_timing: Status.TriggerTiming):
 			_trigger_status_effect(status.type)
 
 func tick_statuses() -> void:
-
 	var statuses_to_remove : Array[Status] = []
 	for status in active_statuses:
 		if status.duration_type == Status.DurationType.ONE_TURN:
 			statuses_to_remove.append(status)
 		if status.duration_type == Status.DurationType.COUNT_DOWN:
 			status.counter -= 1
-			if status.counter < 0:
+			if status.counter <= 0:
 				statuses_to_remove.append(status)
 		# the only other type is infinite, so we don't count those down
 
@@ -157,3 +137,38 @@ func _trigger_status_effect(type: Status.Type) -> void:
 			print_debug("adding %s gems" % [get_status_value(Status.Type.GEMS_PER_TURN)])
 			GameplayManager.gems_this_run[Constants.GemTier.TIER1] += get_status_value(Status.Type.GEMS_PER_TURN)
 			GameplayManager.gems_updated.emit()
+		Status.Type.INNUNDATE:
+			var most_recent_card_played:CardState = GameplayManager.card_history[-1]
+			var new_innundate_status_type = Status.Type.NONE
+			match most_recent_card_played.element:
+				Constants.Element.WATER:
+					new_innundate_status_type = Status.Type.INNUNDATE_WATER
+				Constants.Element.FIRE:
+					new_innundate_status_type = Status.Type.INNUNDATE_FIRE
+				Constants.Element.AIR:
+					new_innundate_status_type = Status.Type.INNUNDATE_AIR
+				Constants.Element.EARTH:
+					new_innundate_status_type = Status.Type.INNUNDATE_EARTH
+				Constants.Element.DARK:
+					new_innundate_status_type = Status.Type.INNUNDATE_DARK
+				Constants.Element.LIGHT:
+					new_innundate_status_type = Status.Type.INNUNDATE_LIGHT
+			var counter : int = get_status_value(Status.Type.INNUNDATE)
+			StatusManager.apply_status(new_innundate_status_type, counter)
+			StatusManager.remove_status(Status.Type.INNUNDATE)
+
+func get_innundated_elements() -> Array[Constants.Element]:
+	var output : Array[Constants.Element] = []
+	if has_status(Status.Type.INNUNDATE_AIR):
+		output.append(Constants.Element.AIR)
+	if has_status(Status.Type.INNUNDATE_EARTH):
+		output.append(Constants.Element.EARTH)
+	if has_status(Status.Type.INNUNDATE_WATER):
+		output.append(Constants.Element.WATER)
+	if has_status(Status.Type.INNUNDATE_FIRE):
+		output.append(Constants.Element.FIRE)
+	if has_status(Status.Type.INNUNDATE_DARK):
+		output.append(Constants.Element.DARK)
+	if has_status(Status.Type.INNUNDATE_LIGHT):
+		output.append(Constants.Element.LIGHT)
+	return output

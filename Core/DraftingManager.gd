@@ -182,10 +182,9 @@ func try_play_card(card_state : CardState) -> bool:
 	add_card_to_history(card_state)
 	num_cards_played_this_turn += 1
 	GameplayManager.capacity_left -= card_state.cost
+	StatusManager.trigger_status_effects(Status.TriggerTiming.CARD_PLAYED)
 	card_state.applyEffects()
 
-	# effect for playing created cards here?
-	
 	return true
 
 
