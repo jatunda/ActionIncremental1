@@ -2,6 +2,7 @@ class_name CardOfferingManager
 extends Node
 
 @export var starting_common_cards : Array[Card]
+@export var starting_rare_cards : Array[Card]
 var common_cards : Array[CardState] 
 var rare_cards: Array[CardState]
 @export var end_wall_card : Card
@@ -9,6 +10,7 @@ var rare_cards: Array[CardState]
 @export var t0_wall_cards_2 : Array[Card]
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var wall_draft_count :int = 0
+var rounds_since_last_rare : int = 0
 
 
 func _ready() -> void:
@@ -23,8 +25,11 @@ func get_altered_common_cards() -> Array[CardState]:
 func populate_starting_offerings() -> void:
 	common_cards = []
 	rare_cards = []
+	rounds_since_last_rare = -3
 	for card : Card in starting_common_cards:
 		common_cards.append(CardState.new(card))
+	for rare_card : Card in starting_rare_cards:
+		rare_cards.append(CardState.new(rare_card))
 
 func add_common_offering(card:Card) -> void:
 	common_cards.append(CardState.new(card))
@@ -67,9 +72,12 @@ func get_draft(requested_draft_size:int) -> Array[CardState]:
 
 	# choose between common or rare cards
 	var card_pool : Array[CardState] = common_cards
-	var should_give_rares : bool = false
+	var should_give_rares : bool = randf() < max(rounds_since_last_rare, 0) * 0.01
+	should_give_rares = should_give_rares and UpgradeManager.has_bought_upgrade(Upgrade.UBID.UNLOCK_RARES)
+	#print_debug("rare chance: %s" % [max(rounds_since_last_rare, 0) * 0.01])
 	if should_give_rares:
 		card_pool = rare_cards
+		rounds_since_last_rare = -3
 
 	# innundation effects
 	var innundated_elements : Array[Constants.Element] = StatusManager.get_innundated_elements()
@@ -82,6 +90,7 @@ func get_draft(requested_draft_size:int) -> Array[CardState]:
 	if weightless_presence_active:
 		card_pool = card_pool.filter( func (cs:CardState): return cs.cost <= 1)
 
+	rounds_since_last_rare += 1
 	return _get_random_cards_from_pool(card_pool, requested_draft_size)
 
 

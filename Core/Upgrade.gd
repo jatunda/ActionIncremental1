@@ -35,6 +35,9 @@ enum UBID
 	# wall
 	WALL_T0 = 7000,
 
+	# Feature Unlocks
+	UNLOCK_RARES = 8000,
+	
 	# start of run drafts
 
 	# other?
@@ -49,7 +52,7 @@ enum Type {
 	CARD_ADD = 500,
 	CARD_REPLACE = 600,
 	WALL = 700,
-	# ?? Card upgrade?
+	UNLOCK_FEATURE = 800,
 }
 
 

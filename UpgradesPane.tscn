@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bxrc3vl8sxnpv"]
+[gd_scene load_steps=26 format=3 uid="uid://bxrc3vl8sxnpv"]
 
 [ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="1_slhsx"]
 [ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="2_si66j"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://d207mj4dfrp2o" path="res://Upgrades/Upgrade_Status_FLOW_T0_1.tres" id="22_cefxt"]
 [ext_resource type="Resource" uid="uid://bdrwxqmsknnxo" path="res://Upgrades/Upgrade_Wall_T0.tres" id="23_s26su"]
 [ext_resource type="Resource" uid="uid://c7clpsq7ftmm2" path="res://Upgrades/Upgrade_DraftSize_2.tres" id="24_wi5ca"]
+[ext_resource type="Resource" uid="uid://uitmr2swjw6b" path="res://Upgrades/Upgrade_Unlock_Rares.tres" id="25_blcsj"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(1000, 1000)
@@ -196,6 +197,18 @@ offset_right = 617.0
 offset_bottom = 72.0
 texture_normal = ExtResource("4_si66j")
 upgrade = ExtResource("24_wi5ca")
+_parent_upgrade_button = NodePath("../../Tier 0/DraftSize1")
+prerequisite_type = 1
+wall_tier_prereq = 1
+cost_per_level = Array[int]([20])
+
+[node name="UnlockRares" parent="Tier 1" node_paths=PackedStringArray("_parent_upgrade_button") instance=ExtResource("1_slhsx")]
+layout_mode = 0
+offset_left = 466.0
+offset_top = -2.0
+offset_right = 530.0
+offset_bottom = 62.0
+upgrade = ExtResource("25_blcsj")
 _parent_upgrade_button = NodePath("../../Tier 0/DraftSize1")
 prerequisite_type = 1
 wall_tier_prereq = 1

@@ -1,3 +1,4 @@
+## Singleton
 extends Node
 
 signal loaded_upgrades
@@ -57,3 +58,13 @@ func load_saved_upgrades(saved_upgrades:Dictionary[Upgrade.UBID, int]) -> void:
 
 	# refresh update buttons
 	loaded_upgrades.emit()
+
+## returns true if the upgrade has at least 1 level
+func has_bought_upgrade(ubid: Upgrade.UBID) -> bool:
+	return get_upgrade_level(ubid) > 0
+
+## returns level of upgrade. returns -1 if upgrade is not found.
+func get_upgrade_level(ubid : Upgrade.UBID) -> int:
+	if not (ubid in upgrades):
+		return -1
+	return upgrades[ubid].level

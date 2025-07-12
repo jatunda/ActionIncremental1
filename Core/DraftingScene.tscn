@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=40 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
@@ -6,7 +6,9 @@
 [ext_resource type="Resource" uid="uid://dectovoqqlp5" path="res://Cards/Wall Cards/Card_WallT0_1a.tres" id="5_d7kal"]
 [ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="5_fewhq"]
 [ext_resource type="Resource" uid="uid://k7qx24lmq2gx" path="res://Cards/Wall Cards/Card_Wall_End.tres" id="5_ip3ek"]
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="5_wqv3f"]
 [ext_resource type="Resource" uid="uid://cm40glyn08mao" path="res://Cards/Wall Cards/Card_WallT0_1b.tres" id="6_6pxqe"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="6_navk4"]
 [ext_resource type="Resource" uid="uid://bhl43tvene2vg" path="res://Cards/Wall Cards/Card_WallT0_2a.tres" id="8_6wxnd"]
 [ext_resource type="Resource" uid="uid://bb0r0t0e6lh7" path="res://Cards/Wall Cards/Card_WallT0_2b.tres" id="9_lx7h1"]
 [ext_resource type="Script" uid="uid://bu43qg6eh670x" path="res://One-off Scripts/turn_label.gd" id="9_p0t5m"]
@@ -30,6 +32,21 @@
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="30_db78w"]
 [ext_resource type="PackedScene" uid="uid://clg2pxw68uk01" path="res://Core/run_summary.tscn" id="31_qkybh"]
 [ext_resource type="PackedScene" uid="uid://dejqsh6ify1ik" path="res://altered_cards_screen.tscn" id="32_jli5d"]
+
+[sub_resource type="Resource" id="Resource_hdtuk"]
+script = ExtResource("6_navk4")
+_gem_tier = 0
+_gemsToGain = 1
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
+
+[sub_resource type="Resource" id="Resource_r85dy"]
+script = ExtResource("4_fewhq")
+name = "TEST RARE"
+cost = 0
+rarity = 2
+element = 6
+effects = Array[ExtResource("5_wqv3f")]([SubResource("Resource_hdtuk")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"
 
 [sub_resource type="InputEventAction" id="InputEventAction_ip3ek"]
 action = &"skip"
@@ -59,6 +76,7 @@ script = ExtResource("1_navk4")
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("3_r85dy")
 starting_common_cards = Array[ExtResource("4_fewhq")]([ExtResource("5_fewhq")])
+starting_rare_cards = Array[ExtResource("4_fewhq")]([SubResource("Resource_r85dy")])
 end_wall_card = ExtResource("5_ip3ek")
 t0_wall_cards_1 = Array[ExtResource("4_fewhq")]([ExtResource("5_d7kal"), ExtResource("6_6pxqe")])
 t0_wall_cards_2 = Array[ExtResource("4_fewhq")]([ExtResource("8_6wxnd"), ExtResource("9_lx7h1")])
