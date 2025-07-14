@@ -47,14 +47,16 @@ script = ExtResource("3_3xrho")
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_horizontal = 85
-scroll_vertical = 60
+scroll_horizontal = 100
+scroll_vertical = 100
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 scroll_deadzone = 1
 
 [node name="UpgradesPane" parent="VBoxContainer/ScrollContainer" instance=ExtResource("4_gpnv5")]
 layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2

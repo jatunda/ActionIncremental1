@@ -1,29 +1,22 @@
-[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://biublqmt6st8o"]
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://biublqmt6st8o"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_y5xia"]
-[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_5v4it"]
 [ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="3_5v4it"]
 [ext_resource type="Texture2D" uid="uid://cvl6hlde6asn6" path="res://rune images/water 3.png" id="3_y5xia"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_cv53k"]
 
-[sub_resource type="Resource" id="Resource_jv40g"]
-script = ExtResource("2_5v4it")
-_gem_tier = 0
-_gemsToGain = 1
-metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
-
 [sub_resource type="Resource" id="Resource_nd118"]
 script = ExtResource("3_5v4it")
-statusType = 0
-counter = 10
+statusType = 6
+counter = 1
 metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_cv53k")
-name = "Water 3"
+name = "Stream"
 cost = 4
 image = ExtResource("3_y5xia")
 rarity = 0
 element = 1
-effects = Array[ExtResource("1_y5xia")]([SubResource("Resource_jv40g"), SubResource("Resource_nd118")])
+effects = Array[ExtResource("1_y5xia")]([SubResource("Resource_nd118")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

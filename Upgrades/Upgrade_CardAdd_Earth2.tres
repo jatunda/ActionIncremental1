@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bm3bjc2558060"]
+
+[ext_resource type="Resource" uid="uid://cigwers3by8gj" path="res://Cards/card_earth_2.tres" id="1_0wuqp"]
+[ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_ypqnf"]
+
+[resource]
+script = ExtResource("2_ypqnf")
+ubid = 4301
+upgrade_type = 500
+magnitude = 1.0
+status_type = 5
+card_1 = ExtResource("1_0wuqp")
+metadata/_custom_type_script = "uid://sgth25wex5mo"

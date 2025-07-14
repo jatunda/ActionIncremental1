@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6mxemoh3uttm"
-path="res://.godot/imported/upgrade_icon_capacity.png-6c84cce441886f5408ea42a8303690de.ctex"
+uid="uid://d36bkraktlou5"
+path="res://.godot/imported/upgrade_icon_cores.png-a9b416b201c1567c4c1f66c1d5e81ebc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://upgrade_icon_capacity.png"
-dest_files=["res://.godot/imported/upgrade_icon_capacity.png-6c84cce441886f5408ea42a8303690de.ctex"]
+source_file="res://icons/upgrade_icon_cores.png"
+dest_files=["res://.godot/imported/upgrade_icon_cores.png-a9b416b201c1567c4c1f66c1d5e81ebc.ctex"]
 
 [params]
 

@@ -7,38 +7,95 @@ enum UBID
 	NONE = 0,
 
 	# basic stats - capacity
+	# hundreds represent tiers
 	CAPACITY_T0_1 = 1000,
 	CAPACITY_T0_2,
 
+	CAPACITY_T1_1 = 1100,
+	CAPACITY_T1_2,
+	CAPACITY_T1_3,
+	CAPACITY_T1_4,
+
 	# basic stats - time
+	# hundreds represent tiers
 	TIME_T0_1 = 2000,
 	TIME_T0_2,
+	
+	TIME_T1_1 = 2100,
+	TIME_T1_2,
+	TIME_T1_3,
+	TIME_T1_4,
 
 	# basic stats - draft size
 	DRAFT_SIZE_T0 = 3000,
-	DRAFT_SIZE_T1,
+	DRAFT_SIZE_T1 = 3001,
 
+	RARE_DRAFT_SIZE_1 = 3100,
+
+	# basic stats - skips
+	SKIPS_T1_1 = 3500,
+	
 	# adding cards 
+	# hundreds groups represent elements
 	CARD_ADD_WIND_1 = 4000,
-	CARD_ADD_FIRE_1,
-	CARD_ADD_EARTH_1,
-	CARD_ADD_WATER_1,
+	CARD_ADD_WIND_2,
+	CARD_ADD_WIND_3,
+
+	CARD_ADD_FIRE_1 = 4100,
+	CARD_ADD_FIRE_2,
+	CARD_ADD_FIRE_3,
+	
+	CARD_ADD_WATER_1 = 4200,
+	CARD_ADD_WATER_2,
+	CARD_ADD_WATER_3,
+	
+	CARD_ADD_EARTH_1 = 4300,
+	CARD_ADD_EARTH_2,
+	CARD_ADD_EARTH_3,
+
+	CARD_ADD_LIGHT_1 = 4400,
+	CARD_ADD_LIGHT_2,
+	CARD_ADD_LIGHT_3,
+
+	CARD_ADD_DARK_1 = 4500,
+	CARD_ADD_DARK_2,
+	CARD_ADD_DARK_3,
 	
 	# upgrade cards
-	CARD_UPGRADE_FIRE_1_1 = 5000,
+	# hundreds grouped by element
+	# every new card in the element goes up by 10
+	CARD_UPGRADE_FIRE_1_p = 5000,
+	CARD_UPGRADE_FIRE_1_pp,
+	
+	CARD_UPGRADE_WIND_1_p = 5100,
+	
+	CARD_UPGRADE_WATER_1_p = 5200,
+	
+	CARD_UPGRADE_EARTH_1_p = 5300,
 
 		
 	# start of run statuses
+	# +100 for each status type
+	# 
 	STATUS_STR_T0_1 = 6000,
-	STATUS_FLOW_T0_1,
+	STATUS_STR_T1_1,
+	STATUS_STR_T1_2,
+
+	STATUS_FLOW_T0_1 = 6100,
+	STATUS_FLOW_T1_1,
+	STATUS_FLOW_T1_2,
+
+	STATUS_CORES_T1_1 = 6200,
+	STATUS_CORES_T1_2,
+
 
 	# wall
 	WALL_T0 = 7000,
+	WALL_T1,
 
 	# Feature Unlocks
 	UNLOCK_RARES = 8000,
-	
-	# start of run drafts
+	# start of run drafts ?
 
 	# other?
 }
@@ -48,6 +105,8 @@ enum Type {
 	CAPACITY = 100,
 	TIME = 200,
 	DRAFT_SIZE = 300,
+	RARE_DRAFT_SIZE = 301,
+	SKIP = 310,
 	STATUS = 400,
 	CARD_ADD = 500,
 	CARD_REPLACE = 600,
@@ -86,6 +145,10 @@ func apply_effect() -> void:
 			GameplayManager.time_left += int(magnitude * level)
 		Type.DRAFT_SIZE:
 			GameplayManager.draft_size += int(magnitude * level)
+		Type.RARE_DRAFT_SIZE:
+			GameplayManager.rare_draft_size += int(magnitude * level)
+		Type.SKIP:
+			GameplayManager.skips += int(magnitude * level)
 
 		Type.STATUS:
 			# using _add_status here instead of _apply_status because we want it to happen

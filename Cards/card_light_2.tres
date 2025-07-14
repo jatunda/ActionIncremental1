@@ -1,41 +1,29 @@
-[gd_resource type="Resource" script_class="Card" load_steps=12 format=3 uid="uid://hquexhvq7xhs"]
+[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://hquexhvq7xhs"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_4wgil"]
+[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_7loh7"]
 [ext_resource type="Texture2D" uid="uid://d0puke3lx5oc8" path="res://rune images/light 2.png" id="3_4wgil"]
-[ext_resource type="Script" uid="uid://kr3xcc75mp3k" path="res://Card Effect Helper Scripts/CounterStatusValue.gd" id="3_d6nna"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="3_rask4"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_d6nna"]
-[ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="4_i3g6p"]
-[ext_resource type="Script" uid="uid://b66wxltlug1lg" path="res://Card Effect Scripts/CardEffectGainGemsCounter.gd" id="4_uf1h2"]
-[ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="5_4ssb6"]
 
-[sub_resource type="Resource" id="Resource_yxosk"]
-script = ExtResource("4_i3g6p")
-number = 2
-metadata/_custom_type_script = "uid://dpsaemrg0nshs"
+[sub_resource type="Resource" id="Resource_d6nna"]
+script = ExtResource("2_7loh7")
+_gem_tier = 0
+_gemsToGain = 3
+metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 
-[sub_resource type="Resource" id="Resource_i3g6p"]
-script = ExtResource("3_d6nna")
-status_type = 4
-metadata/_custom_type_script = "uid://kr3xcc75mp3k"
-
-[sub_resource type="Resource" id="Resource_x4402"]
-script = ExtResource("4_uf1h2")
-gem_tier = 0
-counter = SubResource("Resource_i3g6p")
-metadata/_custom_type_script = "uid://b66wxltlug1lg"
-
-[sub_resource type="Resource" id="Resource_k0nen"]
-script = ExtResource("5_4ssb6")
-counter = SubResource("Resource_yxosk")
-effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_x4402")])
-metadata/_custom_type_script = "uid://bop3h6rky6gor"
+[sub_resource type="Resource" id="Resource_uf1h2"]
+script = ExtResource("3_rask4")
+statusType = 3
+counter = 3
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_d6nna")
-name = "Light 2"
+name = "Luster"
 cost = 3
 image = ExtResource("3_4wgil")
 rarity = 0
 element = 4
-effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_k0nen")])
+effects = Array[ExtResource("1_4wgil")]([SubResource("Resource_d6nna"), SubResource("Resource_uf1h2")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

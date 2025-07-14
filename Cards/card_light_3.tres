@@ -1,41 +1,22 @@
-[gd_resource type="Resource" script_class="Card" load_steps=12 format=3 uid="uid://bjfwwd8emidhu"]
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://bjfwwd8emidhu"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_5i0q3"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_5i0q3"]
 [ext_resource type="Texture2D" uid="uid://w1jojeu08au7" path="res://rune images/light 3.png" id="3_5i0q3"]
-[ext_resource type="Script" uid="uid://kr3xcc75mp3k" path="res://Card Effect Helper Scripts/CounterStatusValue.gd" id="3_pyc41"]
-[ext_resource type="Script" uid="uid://b66wxltlug1lg" path="res://Card Effect Scripts/CardEffectGainGemsCounter.gd" id="4_mr8u8"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_pyc41"]
-[ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="4_q83ax"]
-[ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="5_02bja"]
 
-[sub_resource type="Resource" id="Resource_8wvv0"]
-script = ExtResource("4_q83ax")
-number = 5
-metadata/_custom_type_script = "uid://dpsaemrg0nshs"
-
-[sub_resource type="Resource" id="Resource_q83ax"]
-script = ExtResource("3_pyc41")
-status_type = 4
-metadata/_custom_type_script = "uid://kr3xcc75mp3k"
-
-[sub_resource type="Resource" id="Resource_uy8g1"]
-script = ExtResource("4_mr8u8")
-gem_tier = 0
-counter = SubResource("Resource_q83ax")
-metadata/_custom_type_script = "uid://b66wxltlug1lg"
-
-[sub_resource type="Resource" id="Resource_t0fqk"]
-script = ExtResource("5_02bja")
-counter = SubResource("Resource_8wvv0")
-effects = Array[ExtResource("1_5i0q3")]([SubResource("Resource_uy8g1")])
-metadata/_custom_type_script = "uid://bop3h6rky6gor"
+[sub_resource type="Resource" id="Resource_eqam0"]
+script = ExtResource("2_5i0q3")
+statusType = 3
+counter = 9
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_pyc41")
-name = "Light 3"
-cost = 5
+name = "Luminescence"
+cost = 8
 image = ExtResource("3_5i0q3")
 rarity = 0
 element = 4
-effects = Array[ExtResource("1_5i0q3")]([SubResource("Resource_t0fqk")])
+effects = Array[ExtResource("1_5i0q3")]([SubResource("Resource_eqam0")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

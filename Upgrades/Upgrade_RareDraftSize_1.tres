@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://n00jqeuc8qqs"]
+
+[ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="1_prics"]
+
+[resource]
+script = ExtResource("1_prics")
+ubid = 3100
+upgrade_type = 301
+magnitude = 1.0
+status_type = 5
+metadata/_custom_type_script = "uid://sgth25wex5mo"

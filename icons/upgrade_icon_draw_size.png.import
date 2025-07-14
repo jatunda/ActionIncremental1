@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cglfvhc7abway"
-path="res://.godot/imported/upgrade_icon_draw_size.png-63665936665485e587dbeb81855fba42.ctex"
+path="res://.godot/imported/upgrade_icon_draw_size.png-53995d9bf8c40b35d661a256617bf1b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://upgrade_icon_draw_size.png"
-dest_files=["res://.godot/imported/upgrade_icon_draw_size.png-63665936665485e587dbeb81855fba42.ctex"]
+source_file="res://icons/upgrade_icon_draw_size.png"
+dest_files=["res://.godot/imported/upgrade_icon_draw_size.png-53995d9bf8c40b35d661a256617bf1b5.ctex"]
 
 [params]
 

@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_o1kl1")
-name = "Earth 1"
+name = "Loam"
 cost = 3
 image = ExtResource("3_gvbjt")
 rarity = 0

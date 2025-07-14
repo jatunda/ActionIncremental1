@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyex0do8vm8xx"
-path="res://.godot/imported/upgrade_icon_flow.png-9c2751e90634461b4f4ab1d1aec5ea9c.ctex"
+uid="uid://ima8qdtj81fo"
+path="res://.godot/imported/upgrade_icon_skip.png-c3e7dfd3ef22df3a7ffb86745cbf9c33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://upgrade_icon_flow.png"
-dest_files=["res://.godot/imported/upgrade_icon_flow.png-9c2751e90634461b4f4ab1d1aec5ea9c.ctex"]
+source_file="res://icons/upgrade_icon_skip.png"
+dest_files=["res://.godot/imported/upgrade_icon_skip.png-c3e7dfd3ef22df3a7ffb86745cbf9c33.ctex"]
 
 [params]
 

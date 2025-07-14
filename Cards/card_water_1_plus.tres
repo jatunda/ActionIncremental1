@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://bcsp0xib7v631"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_rk8fd"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_64ojh"]
+[ext_resource type="Texture2D" uid="uid://c6jv4wwuv6a5a" path="res://rune images/water 1.png" id="3_c71se"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_7blsc"]
+
+[sub_resource type="Resource" id="Resource_fhrf2"]
+script = ExtResource("2_64ojh")
+statusType = 0
+counter = 5
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[resource]
+script = ExtResource("4_7blsc")
+name = "Dew+"
+cost = 1
+image = ExtResource("3_c71se")
+rarity = 0
+element = 1
+effects = Array[ExtResource("1_rk8fd")]([SubResource("Resource_fhrf2")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

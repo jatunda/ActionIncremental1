@@ -1,29 +1,22 @@
-[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://d23xyf5j8x2q4"]
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://d23xyf5j8x2q4"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_00rfb"]
 [ext_resource type="Script" uid="uid://dfjx50jslsn1i" path="res://Card Effect Scripts/CardEffectPlayOtherCards.gd" id="2_00rfb"]
-[ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_fougf"]
 [ext_resource type="Texture2D" uid="uid://jwkim8iwvs5u" path="res://rune images/wind 2.png" id="3_00rfb"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_sqfal"]
 
-[sub_resource type="Resource" id="Resource_1fxyq"]
-script = ExtResource("2_fougf")
-_gem_tier = 0
-_gemsToGain = 3
-metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
-
-[sub_resource type="Resource" id="Resource_fougf"]
+[sub_resource type="Resource" id="Resource_00rfb"]
 script = ExtResource("2_00rfb")
 should_play_with_zero_cost = false
-card_name_that_this_effect_is_on = "Wind 2"
+card_name_that_this_effect_is_on = ""
 metadata/_custom_type_script = "uid://dfjx50jslsn1i"
 
 [resource]
 script = ExtResource("4_sqfal")
-name = "Wind 2"
-cost = 3
+name = "Squall"
+cost = 2
 image = ExtResource("3_00rfb")
 rarity = 0
 element = 3
-effects = Array[ExtResource("1_00rfb")]([SubResource("Resource_1fxyq"), SubResource("Resource_fougf")])
+effects = Array[ExtResource("1_00rfb")]([SubResource("Resource_00rfb")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

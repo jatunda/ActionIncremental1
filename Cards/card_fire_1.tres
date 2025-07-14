@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 
 [resource]
 script = ExtResource("4_ptngq")
-name = "Fire 1"
+name = "Ember"
 cost = 2
 image = ExtResource("3_iy2tw")
 rarity = 0

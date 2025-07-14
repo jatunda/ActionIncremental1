@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://bbcbguhghj0aa"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_24tt1"]
-[ext_resource type="Script" uid="uid://dfjx50jslsn1i" path="res://Card Effect Scripts/CardEffectPlayOtherCards.gd" id="2_24tt1"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_24tt1"]
 [ext_resource type="Texture2D" uid="uid://b5ynmsnuogccx" path="res://rune images/wind 3.png" id="3_24tt1"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_djbfx"]
 
 [sub_resource type="Resource" id="Resource_2edqe"]
 script = ExtResource("2_24tt1")
-should_play_with_zero_cost = true
-card_name_that_this_effect_is_on = "Wind 3"
-metadata/_custom_type_script = "uid://dfjx50jslsn1i"
+statusType = 13
+counter = 2
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_djbfx")
-name = "Wind 3"
-cost = 5
+name = "Foehn"
+cost = 1
 image = ExtResource("3_24tt1")
 rarity = 0
 element = 3

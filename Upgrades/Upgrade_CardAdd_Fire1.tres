@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_4omee")
-ubid = 4001
+ubid = 4100
 upgrade_type = 500
 magnitude = 1.0
 status_type = 5

@@ -1,43 +1,58 @@
-[gd_resource type="Resource" script_class="Card" load_steps=13 format=3 uid="uid://rgflvu6vvbrh"]
+[gd_resource type="Resource" script_class="Card" load_steps=17 format=3 uid="uid://rgflvu6vvbrh"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_fk641"]
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_hj7qx"]
 [ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="3_em4bk"]
 [ext_resource type="Texture2D" uid="uid://djaixlacpmyku" path="res://rune images/fire 3.png" id="3_fk641"]
+[ext_resource type="Script" uid="uid://dxpr2sftgcqpf" path="res://Card Effect Helper Scripts/Conditional.gd" id="3_s35if"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_c685f"]
-[ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="4_fnhyj"]
-[ext_resource type="Script" uid="uid://d3015pktn23aj" path="res://Card Effect Scripts/CardEffectPlayCard.gd" id="5_s35if"]
-[ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="6_k2l1d"]
+[ext_resource type="Script" uid="uid://cs5dcfhgwu3ts" path="res://Card Effect Helper Scripts/CounterGemsGained.gd" id="4_k2l1d"]
+[ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="6_q75wr"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="7_3cipa"]
+[ext_resource type="Script" uid="uid://cox177eioo477" path="res://Card Effect Scripts/CardEffectConditionalEffect.gd" id="8_qj80j"]
 
 [sub_resource type="Resource" id="Resource_jv40g"]
 script = ExtResource("2_hj7qx")
 _gem_tier = 0
-_gemsToGain = 1
+_gemsToGain = 5
 metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 
-[sub_resource type="Resource" id="Resource_q75wr"]
+[sub_resource type="Resource" id="Resource_uedx3"]
+script = ExtResource("4_k2l1d")
+card_effect_gain_gems = SubResource("Resource_jv40g")
+metadata/_custom_type_script = "uid://cs5dcfhgwu3ts"
+
+[sub_resource type="Resource" id="Resource_yv0ik"]
 script = ExtResource("3_em4bk")
-number = 4
+number = 10
 metadata/_custom_type_script = "uid://dpsaemrg0nshs"
 
-[sub_resource type="Resource" id="Resource_3cipa"]
-script = ExtResource("5_s35if")
-card = ExtResource("4_fnhyj")
-should_randomize_element = true
-metadata/_custom_type_script = "uid://d3015pktn23aj"
+[sub_resource type="Resource" id="Resource_ti1ia"]
+script = ExtResource("6_q75wr")
+counter_a = SubResource("Resource_uedx3")
+comparison_mode = 4
+counter_b = SubResource("Resource_yv0ik")
+metadata/_custom_type_script = "uid://ctyuy7784sdc2"
 
-[sub_resource type="Resource" id="Resource_qj80j"]
-script = ExtResource("6_k2l1d")
-counter = SubResource("Resource_q75wr")
-effects = Array[ExtResource("1_fk641")]([SubResource("Resource_3cipa")])
-metadata/_custom_type_script = "uid://bop3h6rky6gor"
+[sub_resource type="Resource" id="Resource_b3rqq"]
+script = ExtResource("7_3cipa")
+statusType = 3
+counter = 5
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[sub_resource type="Resource" id="Resource_il8t0"]
+script = ExtResource("8_qj80j")
+conditional_mode = 0
+conditionals = Array[ExtResource("3_s35if")]([SubResource("Resource_ti1ia")])
+effects = Array[ExtResource("1_fk641")]([SubResource("Resource_b3rqq")])
+metadata/_custom_type_script = "uid://cox177eioo477"
 
 [resource]
 script = ExtResource("4_c685f")
-name = "Fire 3"
+name = "Kindle"
 cost = 5
 image = ExtResource("3_fk641")
 rarity = 0
 element = 0
-effects = Array[ExtResource("1_fk641")]([SubResource("Resource_jv40g"), SubResource("Resource_qj80j")])
+effects = Array[ExtResource("1_fk641")]([SubResource("Resource_jv40g"), SubResource("Resource_il8t0")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

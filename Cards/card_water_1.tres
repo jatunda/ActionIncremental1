@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dge5i6pegbnt0"
 
 [resource]
 script = ExtResource("4_c06gf")
-name = "Water 1"
+name = "Dew"
 cost = 1
 image = ExtResource("3_od5ky")
 rarity = 0

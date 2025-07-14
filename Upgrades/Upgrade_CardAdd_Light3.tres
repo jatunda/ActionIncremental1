@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bw31omi7bpyyp"]
+
+[ext_resource type="Resource" uid="uid://bjfwwd8emidhu" path="res://Cards/card_light_3.tres" id="1_ig6pk"]
+[ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_wgapr"]
+
+[resource]
+script = ExtResource("2_wgapr")
+ubid = 4402
+upgrade_type = 500
+magnitude = 1.0
+status_type = 5
+card_1 = ExtResource("1_ig6pk")
+metadata/_custom_type_script = "uid://sgth25wex5mo"

@@ -1,29 +1,35 @@
-[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://c682lpwiwqng2"]
+[gd_resource type="Resource" script_class="Card" load_steps=10 format=3 uid="uid://c682lpwiwqng2"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_icl0e"]
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_tc3mo"]
+[ext_resource type="Script" uid="uid://cs5dcfhgwu3ts" path="res://Card Effect Helper Scripts/CounterGemsGained.gd" id="3_d2451"]
 [ext_resource type="Texture2D" uid="uid://dsi6513lqyecc" path="res://rune images/water 2.png" id="3_icl0e"]
-[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="3_tc3mo"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_7564t"]
+[ext_resource type="Script" uid="uid://ctqifwcdyjqgu" path="res://Card Effect Scripts/CardEffectGainCapacity.gd" id="4_nluf3"]
 
-[sub_resource type="Resource" id="Resource_d2451"]
+[sub_resource type="Resource" id="Resource_bo0nu"]
 script = ExtResource("2_tc3mo")
 _gem_tier = 0
-_gemsToGain = 1
+_gemsToGain = 2
 metadata/_custom_type_script = "uid://bgb8rgbo2ssp6"
 
-[sub_resource type="Resource" id="Resource_7564t"]
-script = ExtResource("3_tc3mo")
-statusType = 0
-counter = 4
-metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+[sub_resource type="Resource" id="Resource_osme1"]
+script = ExtResource("3_d2451")
+card_effect_gain_gems = SubResource("Resource_bo0nu")
+metadata/_custom_type_script = "uid://cs5dcfhgwu3ts"
+
+[sub_resource type="Resource" id="Resource_frdfu"]
+script = ExtResource("4_nluf3")
+counter = SubResource("Resource_osme1")
+const_value = 0
+metadata/_custom_type_script = "uid://ctqifwcdyjqgu"
 
 [resource]
 script = ExtResource("4_7564t")
-name = "Water 2"
-cost = 1
+name = "Quench"
+cost = 4
 image = ExtResource("3_icl0e")
 rarity = 0
 element = 1
-effects = Array[ExtResource("1_icl0e")]([SubResource("Resource_d2451"), SubResource("Resource_7564t")])
+effects = Array[ExtResource("1_icl0e")]([SubResource("Resource_bo0nu"), SubResource("Resource_frdfu")])
 metadata/_custom_type_script = "uid://bd1p563yanp5h"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://0o15ci0kdxqx"]
+
+[ext_resource type="Resource" uid="uid://d23xyf5j8x2q4" path="res://Cards/card_wind_2.tres" id="1_ony7a"]
+[ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_cpeax"]
+
+[resource]
+script = ExtResource("2_cpeax")
+ubid = 4001
+upgrade_type = 500
+magnitude = 1.0
+status_type = 5
+card_1 = ExtResource("1_ony7a")
+metadata/_custom_type_script = "uid://sgth25wex5mo"

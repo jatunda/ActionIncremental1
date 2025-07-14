@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_p2pgb")
-ubid = 4002
+ubid = 4300
 upgrade_type = 500
 magnitude = 1.0
 status_type = 5
