@@ -29,11 +29,11 @@ func _input(event: InputEvent) -> void:
 				print_debug("Cheat: gain 100 capacity, time, gems")
 
 		KEY_X:
-			var status_type : Status.Type = Status.Type.INNUNDATE
-			StatusManager.apply_status(status_type, 2)
+			var status_type : Status.Type = Status.Type.LIGHT_GIVES_CORES
+			StatusManager.apply_status(status_type, 3)
 			print_debug("Cheat: gain status %s" % Status.type_to_string(status_type))
 		KEY_Z:
 			var status_type : Status.Type = Status.Type.WEIGHTLESS_PRESENCE
 			StatusManager.apply_status(status_type, 1)
-			print_debug("Cheat: decrease status %s" % Status.type_to_string(status_type))
+			print_debug("Cheat: gain status %s" % Status.type_to_string(status_type))
 		

@@ -182,7 +182,7 @@ func try_play_card(card_state : CardState) -> bool:
 	add_card_to_history(card_state)
 	num_cards_played_this_turn += 1
 	GameplayManager.capacity_left -= card_state.cost
-	StatusManager.trigger_status_effects(Status.TriggerTiming.CARD_PLAYED)
+	StatusManager.trigger_status_effects(Status.TriggerTiming.EVERY_CARD_PLAYED)
 	card_state.applyEffects()
 
 	return true
@@ -214,6 +214,7 @@ func can_play_card(card_state: CardState) -> bool:
 
 func _on_card_clicked(renderedCard: RenderedCard) -> void:
 	var was_card_played : bool = try_play_card(renderedCard.card_state)
+	StatusManager.trigger_status_effects(Status.TriggerTiming.CLICKED_CARD_PLAYED)
 	if(was_card_played == false) :
 		# play card effect for trying to play a card you can't
 		return

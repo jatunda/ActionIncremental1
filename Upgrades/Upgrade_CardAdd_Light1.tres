@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://bobmtt8rx7mfd"]
 
-[ext_resource type="Resource" uid="uid://wgm68pwoogbv" path="res://Cards/card_earth_1.tres" id="1_rfi4s"]
+[ext_resource type="Resource" uid="uid://xm84qd1ueidu" path="res://Cards/card_light_1.tres" id="1_rfi4s"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_c68v8"]
 
 [resource]
 script = ExtResource("2_c68v8")
-ubid = 4300
+ubid = 4400
 upgrade_type = 500
 magnitude = 1.0
 status_type = 5

@@ -18,6 +18,9 @@ static func _get_modified_card_name(card: CardState) -> String:
 
 static func _get_modified_card_cost(card : CardState) -> int:
 	var cost = card.cost
+	if StatusManager.has_status(Status.Type.LOW_COST_LOWER):
+		if cost == 1 or cost == 2:
+			cost -= 1
 	if(StatusManager.has_status(Status.Type.REDUCE_NEXT_CARD_COST)):
 		cost -= StatusManager.get_status_value(Status.Type.REDUCE_NEXT_CARD_COST)
 	return max(0, cost) 

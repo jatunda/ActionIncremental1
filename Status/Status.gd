@@ -16,6 +16,11 @@ enum Type {
 	INNUNDATE_DARK,
 	WEIGHTLESS_PRESENCE,
 	HEAVY_PRESENCE,
+	DOUBLE_FIRE,
+	MULTI_FLOW,
+	LOW_COST_LOWER,
+	BUILDING_STRENGTH,
+	LIGHT_GIVES_CORES,
 }
 
 enum Positivity {
@@ -44,7 +49,9 @@ enum TriggerTiming {
 	END_OF_TURN,
 	NONE,
 	START_OF_TURN,
-	CARD_PLAYED,
+	EVERY_CARD_PLAYED,
+	STATUS_EXPIRED,
+	CLICKED_CARD_PLAYED,
 }
 
 
@@ -113,7 +120,7 @@ func _init(p_status_type : Status.Type, p_counter : int = 0):
 			self.duration_type = Status.DurationType.INFINITE
 			self.counter_type =	Status.CounterType.COUNTER
 			self.application_timing = Status.ApplicationTiming.NEXT_TURN
-			self.trigger_timing = Status.TriggerTiming.CARD_PLAYED
+			self.trigger_timing = Status.TriggerTiming.CLICKED_CARD_PLAYED
 		Status.Type.INNUNDATE_WATER, Status.Type.INNUNDATE_AIR, Status.Type.INNUNDATE_FIRE, Status.Type.INNUNDATE_EARTH, Status.Type.INNUNDATE_LIGHT, Status.Type.INNUNDATE_DARK:
 			self.positivity = Status.Positivity.POSTIVE
 			self.duration_type = Status.DurationType.COUNT_DOWN
@@ -126,6 +133,36 @@ func _init(p_status_type : Status.Type, p_counter : int = 0):
 			self.counter_type =	Status.CounterType.COUNTER
 			self.application_timing = Status.ApplicationTiming.NEXT_TURN
 			self.trigger_timing = Status.TriggerTiming.NONE
+		Status.Type.DOUBLE_FIRE:
+			self.positivity = Status.Positivity.POSTIVE
+			self.duration_type = Status.DurationType.INFINITE
+			self.counter_type =	Status.CounterType.NO_COUNTER
+			self.application_timing = Status.ApplicationTiming.IMMEDIATE
+			self.trigger_timing = Status.TriggerTiming.CLICKED_CARD_PLAYED		
+		Status.Type.MULTI_FLOW:
+			self.positivity = Status.Positivity.POSTIVE
+			self.duration_type = Status.DurationType.COUNT_DOWN
+			self.counter_type =	Status.CounterType.COUNTER
+			self.application_timing = Status.ApplicationTiming.NEXT_TURN
+			self.trigger_timing = Status.TriggerTiming.STATUS_EXPIRED	
+		Status.Type.LOW_COST_LOWER:
+			self.positivity = Status.Positivity.POSTIVE
+			self.duration_type = Status.DurationType.INFINITE
+			self.counter_type =	Status.CounterType.NO_COUNTER
+			self.application_timing = Status.ApplicationTiming.IMMEDIATE
+			self.trigger_timing = Status.TriggerTiming.NONE		
+		Status.Type.BUILDING_STRENGTH:
+			self.positivity = Status.Positivity.POSTIVE
+			self.duration_type = Status.DurationType.INFINITE
+			self.counter_type =	Status.CounterType.COUNTER
+			self.application_timing = Status.ApplicationTiming.NEXT_TURN
+			self.trigger_timing = Status.TriggerTiming.EVERY_CARD_PLAYED	
+		Status.Type.LIGHT_GIVES_CORES:
+			self.positivity = Status.Positivity.POSTIVE
+			self.duration_type = Status.DurationType.INFINITE
+			self.counter_type =	Status.CounterType.COUNTER
+			self.application_timing = Status.ApplicationTiming.IMMEDIATE
+			self.trigger_timing = Status.TriggerTiming.EVERY_CARD_PLAYED			
 	pass
 
 func _to_string() -> String:

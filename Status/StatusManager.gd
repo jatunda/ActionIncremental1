@@ -67,7 +67,7 @@ func remove_status(status_type : Status.Type) -> void:
 	active_statuses.erase(status)
 	on_status_update.emit(active_statuses)
 	
-func decrease_status(status_type: Status.Type, counter: int) -> void:
+func decrease_status(status_type: Status.Type, counter: int = 1) -> void:
 	var status : Status = _get_status(status_type)
 	if status == null:
 		return
@@ -118,6 +118,7 @@ func tick_statuses() -> void:
 
 	# remove expired statuses
 	for status_to_remove in statuses_to_remove:
+		StatusManager._trigger_status_effect(status_to_remove.type)
 		active_statuses.erase(status_to_remove)
 
 	# add queued statuses
@@ -137,6 +138,7 @@ func _trigger_status_effect(type: Status.Type) -> void:
 			print_debug("adding %s gems" % [get_status_value(Status.Type.GEMS_PER_TURN)])
 			GameplayManager.gems_this_run[Constants.GemTier.TIER1] += get_status_value(Status.Type.GEMS_PER_TURN)
 			GameplayManager.gems_updated.emit()
+		
 		Status.Type.INNUNDATE:
 			var most_recent_card_played:CardState = GameplayManager.card_history[-1]
 			var new_innundate_status_type = Status.Type.NONE
@@ -156,6 +158,32 @@ func _trigger_status_effect(type: Status.Type) -> void:
 			var counter : int = get_status_value(Status.Type.INNUNDATE)
 			StatusManager.apply_status(new_innundate_status_type, counter)
 			StatusManager.remove_status(Status.Type.INNUNDATE)
+
+		Status.Type.DOUBLE_FIRE:
+			var most_recent_card_played:CardState = GameplayManager.card_history[-1]
+			if most_recent_card_played.element == Constants.Element.FIRE:
+				var duplicated_card : CardState = CardState.new_from_other_card_state(most_recent_card_played)
+				duplicated_card.played = false
+				GameplayManager.drafting_manager.try_play_card(duplicated_card)
+
+		Status.Type.MULTI_FLOW:
+			StatusManager.apply_status(Status.Type.REDUCE_NEXT_CARD_COST, 3)
+			StatusManager.apply_status(Status.Type.MULTI_FLOW, 5)
+
+		Status.Type.BUILDING_STRENGTH:
+			var most_recent_card_played:CardState = GameplayManager.card_history[-1]
+			if most_recent_card_played.element == Constants.Element.EARTH:
+				StatusManager.decrease_status(Status.Type.BUILDING_STRENGTH, 1)
+				if not StatusManager.has_status(Status.Type.BUILDING_STRENGTH):
+					StatusManager.apply_status(Status.Type.GEM_ADD, 1)
+					StatusManager.apply_status(Status.Type.BUILDING_STRENGTH, 3)
+
+		Status.Type.LIGHT_GIVES_CORES:
+			var most_recent_card_played:CardState = GameplayManager.card_history[-1]
+			if most_recent_card_played.element == Constants.Element.LIGHT:
+				var amount : int = StatusManager.get_status_value(Status.Type.LIGHT_GIVES_CORES)
+				StatusManager.apply_status(Status.Type.GEMS_PER_TURN, amount)
+		
 
 func get_innundated_elements() -> Array[Constants.Element]:
 	var output : Array[Constants.Element] = []
