@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://bdwa0ss7h6y0a"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_sqhvs"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_ode5a"]
+
+[resource]
+script = ExtResource("4_ode5a")
+name = "No Rune"
+cost = 0
+rarity = 0
+element = 6
+effects = Array[ExtResource("1_sqhvs")]([])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

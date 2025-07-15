@@ -1,8 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=43 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_fewhq"]
+[ext_resource type="Resource" uid="uid://bdwa0ss7h6y0a" path="res://Cards/empty rune.tres" id="5_b3jjt"]
 [ext_resource type="Resource" uid="uid://dectovoqqlp5" path="res://Cards/Wall Cards/Card_WallT0_1a.tres" id="5_d7kal"]
 [ext_resource type="Resource" uid="uid://bm3h1p7rctewg" path="res://Cards/basic rune.tres" id="5_fewhq"]
 [ext_resource type="Resource" uid="uid://k7qx24lmq2gx" path="res://Cards/Wall Cards/Card_Wall_End.tres" id="5_ip3ek"]
@@ -15,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://bb0r0t0e6lh7" path="res://Cards/Wall Cards/Card_WallT0_2b.tres" id="9_lx7h1"]
 [ext_resource type="Script" uid="uid://bu43qg6eh670x" path="res://One-off Scripts/turn_label.gd" id="9_p0t5m"]
 [ext_resource type="Resource" uid="uid://db7hkk3sqnl6n" path="res://Cards/Rare Cards/Card_rare_wind_1.tres" id="9_rwgyj"]
+[ext_resource type="Resource" uid="uid://d3dk16gi6vw28" path="res://Cards/Rare Cards/Card_rare_backup.tres" id="11_oyo5w"]
 [ext_resource type="Script" uid="uid://dnp78asdedngw" path="res://Core/RenderedCardManager.gd" id="12_e4gm8"]
 [ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="12_p0t5m"]
 [ext_resource type="Shortcut" uid="uid://bxfulkwom6jce" path="res://Shortcuts/shortcut_card_1.tres" id="19_bh5af"]
@@ -64,7 +66,9 @@ script = ExtResource("1_navk4")
 [node name="CardOfferingManager" type="Node" parent="."]
 script = ExtResource("3_r85dy")
 starting_common_cards = Array[ExtResource("4_fewhq")]([ExtResource("5_fewhq")])
+backup_common_card = ExtResource("5_b3jjt")
 starting_rare_cards = Array[ExtResource("4_fewhq")]([ExtResource("5_out8n"), ExtResource("6_imfhw"), ExtResource("7_b3jjt"), ExtResource("8_oyo5w"), ExtResource("9_rwgyj")])
+backup_rare_card = ExtResource("11_oyo5w")
 end_wall_card = ExtResource("5_ip3ek")
 t0_wall_cards_1 = Array[ExtResource("4_fewhq")]([ExtResource("5_d7kal"), ExtResource("6_6pxqe")])
 t0_wall_cards_2 = Array[ExtResource("4_fewhq")]([ExtResource("8_6wxnd"), ExtResource("9_lx7h1")])

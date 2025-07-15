@@ -2,10 +2,15 @@ class_name CardOfferingManager
 extends Node
 
 @export var starting_common_cards : Array[Card]
+@export var backup_common_card: Card
 @export var starting_rare_cards : Array[Card]
+@export var backup_rare_card: Card
 var common_cards : Array[CardState] 
 var rare_cards: Array[CardState]
+
+@export_group("Wall Cards")
 @export var end_wall_card : Card
+@export_subgroup("Tier 0")
 @export var t0_wall_cards_1 : Array[Card]
 @export var t0_wall_cards_2 : Array[Card]
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -48,7 +53,7 @@ func get_wall_draft(requested_draft_size:int, wall_tier:int) -> Array[CardState]
 	wall_draft_count += 1
 
 	if requested_draft_size < 1:	
-		return []
+		requested_draft_size = 1
 
 	# very ugly because godot does not allow nested collections.
 	# if I could, I would have Dict[wall_tier:int, Array[Array[Card]]]
@@ -61,14 +66,20 @@ func get_wall_draft(requested_draft_size:int, wall_tier:int) -> Array[CardState]
 			return _card_array_to_card_state_array(t0_wall_cards_2)
 		else:
 			return [CardState.new(end_wall_card)]
+	# TODO wall cards for t1 wall
+	if wall_tier == 1:
+		if wall_draft_count == 1:
+			return _card_array_to_card_state_array(t0_wall_cards_1)
+		elif wall_draft_count == 2:
+			return _card_array_to_card_state_array(t0_wall_cards_2)
+		else:
+			return [CardState.new(end_wall_card)]
 
 	return [] # should never reach here
 
 
 
 func get_draft(requested_draft_size:int) -> Array[CardState]:
-	if requested_draft_size < 1:
-		return []
 
 	# choose between common or rare cards
 	var card_pool : Array[CardState] = common_cards
@@ -78,6 +89,12 @@ func get_draft(requested_draft_size:int) -> Array[CardState]:
 	if should_give_rares:
 		card_pool = rare_cards
 		rounds_since_last_rare = -3
+
+	if requested_draft_size < 1:
+		if should_give_rares:
+			return [CardState.new(backup_rare_card)]
+		else:
+			return [CardState.new(backup_common_card)]
 
 	# innundation effects
 	var innundated_elements : Array[Constants.Element] = StatusManager.get_innundated_elements()

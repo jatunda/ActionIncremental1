@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Card" load_steps=8 format=3 uid="uid://d3dk16gi6vw28"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_rnpha"]
+[ext_resource type="Texture2D" uid="uid://o7sw857dttg4" path="res://rune images/rune_rare_basic.png" id="2_2tlix"]
+[ext_resource type="Script" uid="uid://b3adth4jeigog" path="res://Card Effect Helper Scripts/CounterNumUpgrades.gd" id="2_p22oi"]
+[ext_resource type="Script" uid="uid://b66wxltlug1lg" path="res://Card Effect Scripts/CardEffectGainGemsCounter.gd" id="3_vxg3m"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_3t8fq"]
+
+[sub_resource type="Resource" id="Resource_3t8fq"]
+script = ExtResource("2_p22oi")
+metadata/_custom_type_script = "uid://b3adth4jeigog"
+
+[sub_resource type="Resource" id="Resource_8osfk"]
+script = ExtResource("3_vxg3m")
+gem_tier = 0
+counter = SubResource("Resource_3t8fq")
+metadata/_custom_type_script = "uid://b66wxltlug1lg"
+
+[resource]
+script = ExtResource("4_3t8fq")
+name = "Pure Sieve"
+cost = 0
+image = ExtResource("2_2tlix")
+rarity = 2
+element = 6
+effects = Array[ExtResource("1_rnpha")]([SubResource("Resource_8osfk")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"
