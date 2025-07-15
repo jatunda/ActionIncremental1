@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bw6bslu5s3rsa"]
+[gd_scene load_steps=45 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
 [ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Cards/CardOfferingManager.gd" id="3_r85dy"]
@@ -37,6 +37,8 @@
 [ext_resource type="Script" uid="uid://dawafdw8fwsyr" path="res://One-off Scripts/ChosenRunesDisplayLive.gd" id="30_db78w"]
 [ext_resource type="PackedScene" uid="uid://clg2pxw68uk01" path="res://Core/run_summary.tscn" id="31_qkybh"]
 [ext_resource type="PackedScene" uid="uid://dejqsh6ify1ik" path="res://altered_cards_screen.tscn" id="32_jli5d"]
+[ext_resource type="Script" uid="uid://dbrcdbujx2lv2" path="res://Core/end_run_button.gd" id="36_rwgyj"]
+[ext_resource type="PackedScene" uid="uid://bpxeulf3iy5eh" path="res://confirm_end_run.tscn" id="38_oyo5w"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_ip3ek"]
 action = &"skip"
@@ -208,12 +210,14 @@ image_overlap_x = 16
 image_overlap_y = 12
 metadata/_custom_type_script = "uid://cjqlg3wyix45s"
 
-[node name="EndRunButton" type="Button" parent="VBoxContainer"]
+[node name="EndRunButton" type="Button" parent="VBoxContainer" node_paths=PackedStringArray("end_run_screen")]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("24_w5b5c")
 shortcut = SubResource("Shortcut_lx7h1")
 text = "End Run"
+script = ExtResource("36_rwgyj")
+end_run_screen = NodePath("../../ConfirmEndRun")
 
 [node name="RunSummary" parent="." instance=ExtResource("31_qkybh")]
 visible = false
@@ -221,5 +225,9 @@ layout_mode = 1
 theme = SubResource("Theme_iq3rl")
 
 [node name="AlteredCardsScreen" parent="." instance=ExtResource("32_jli5d")]
+visible = false
+layout_mode = 1
+
+[node name="ConfirmEndRun" parent="." instance=ExtResource("38_oyo5w")]
 visible = false
 layout_mode = 1

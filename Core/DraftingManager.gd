@@ -11,7 +11,7 @@ const STARTING_TIME : int = 3
 const STARTING_SKIPS : int = 0
 
 @onready var rendered_card_manager : RenderedCardManager = $VBoxContainer/RenderedCardsHolder
-@onready var _end_run_button : Button = $VBoxContainer/EndRunButton
+@onready var _end_run_confirm_screen : ConfirmEndRunScreen = $ConfirmEndRun
 @onready var _run_summary : RunSummary = $RunSummary
 @onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
 @onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
@@ -33,7 +33,7 @@ func _init() -> void:
 func _ready() -> void:
 	SceneManager.current_scene = self
 	GameplayManager.drafting_manager = self
-	_end_run_button.pressed.connect(end_run)
+	_end_run_confirm_screen.end_run_pressed.connect(end_run)
 	_run_summary.start_new_run.connect(start_run)
 	_skip_button.pressed.connect(try_skip)
 	GameplayManager.card_history_add_one.connect(_runes_chosen_display._on_card_history_add_one)

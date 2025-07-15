@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpxeulf3iy5eh"]
+
+[ext_resource type="Script" uid="uid://cyuc2kt3ojxdl" path="res://Core/ConfirmEndRunScreen.gd" id="1_0klye"]
+[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_qj6yf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj6yf"]
+bg_color = Color(0, 0, 0, 0.254902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0klye"]
+bg_color = Color(0, 0.215686, 0.290196, 1)
+
+[sub_resource type="InputEventAction" id="InputEventAction_qj6yf"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_0klye"]
+events = [SubResource("InputEventAction_qj6yf")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_0klye"]
+action = &"end_run"
+
+[sub_resource type="Shortcut" id="Shortcut_v1t35"]
+events = [SubResource("InputEventAction_0klye")]
+
+[node name="ConfirmEndRun" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0klye")
+metadata/_custom_type_script = "uid://cyuc2kt3ojxdl"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qj6yf")
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Panel/CenterContainer"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0klye")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -20.0
+offset_right = 148.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_qj6yf")
+text = "Are you sure you want to end the run?"
+
+[node name="SpacerControl" type="Control" parent="Panel/CenterContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ContinueRunButton" type="Button" parent="Panel/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_qj6yf")
+shortcut = SubResource("Shortcut_0klye")
+text = "Continue Run"
+
+[node name="ButtonSpacerControl" type="Control" parent="Panel/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="EndRunButton" type="Button" parent="Panel/CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_qj6yf")
+shortcut = SubResource("Shortcut_v1t35")
+text = "End Run"
