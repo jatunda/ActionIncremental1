@@ -34,7 +34,7 @@ func _init() -> void:
 func _ready() -> void:
 	SceneManager.current_scene = self
 	GameplayManager.drafting_manager = self
-	_end_run_confirm_screen.end_run_pressed.connect(end_run)
+	_end_run_confirm_screen.end_run_pressed.connect(_on_end_run_button_pressed)
 	_run_summary.start_new_run.connect(start_run)
 	_skip_button.pressed.connect(try_skip)
 	GameplayManager.card_history_add_one.connect(_runes_chosen_display._on_card_history_add_one)
@@ -49,8 +49,7 @@ func _notification(what: int) -> void:
 
 func start_run() -> void:
 	# hide run summary
-	_run_summary.hide()
-	_run_summary.mouse_filter = Control.MOUSE_FILTER_STOP
+	_run_summary.disable_screen()
 	
 	# initialize variables
 	GameplayManager.gems_this_run = {Constants.GemTier.TIER1:0}
@@ -117,15 +116,12 @@ func end_turn() -> void:
 	# check if game should end
 	if(GameplayManager.time_left < 1):
 		print_debug("no time left! ending run")
-		end_run()
+		end_run(Constants.EndRunReason.OUT_OF_TIME)
 		return
 		
 	start_turn()
 	
-func end_run() -> void:
-	# show run summary
-	_run_summary.show()
-	_run_summary.mouse_filter = Control.MOUSE_FILTER_IGNORE
+func end_run(reason : Constants.EndRunReason) -> void:
 
 	_end_run_button.disable_button()
 
@@ -140,6 +136,13 @@ func end_run() -> void:
 		else:
 			GameplayManager.gems_total[key] += value
 	GameplayManager.gems_updated.emit()
+
+	# show run summary
+	# do this after updating gem counts because it relies on gem counts
+	_run_summary.enable_screen(reason)
+
+func _on_end_run_button_pressed() -> void:
+	end_run(Constants.EndRunReason.MANUAL_END)
 
 func _get_draft() -> Array[CardState]:
 

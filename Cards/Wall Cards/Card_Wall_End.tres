@@ -12,6 +12,7 @@ metadata/_custom_type_script = "uid://c1y1iiqqnot4y"
 
 [sub_resource type="Resource" id="Resource_l0vw1"]
 script = ExtResource("3_xs6i0")
+end_run_reason = 3
 metadata/_custom_type_script = "uid://xiy4nbplxcj0"
 
 [resource]

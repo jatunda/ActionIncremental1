@@ -56,4 +56,9 @@ static func gem_tier_to_string(gem_tier : GemTier) -> String:
     var output : String = GemTier.keys()[gem_tier].to_lower()
     return output.replace("_", " ")
 
-
+enum EndRunReason {
+    UNDEFINED,
+    OUT_OF_TIME,
+    MANUAL_END,
+    WALL_CLEARED,
+}

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://clg2pxw68uk01"]
+[gd_scene load_steps=10 format=3 uid="uid://clg2pxw68uk01"]
 
 [ext_resource type="Script" uid="uid://dtvmh070rdupt" path="res://One-off Scripts/run_summary.gd" id="1_vobyg"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="2_jb5pl"]
+[ext_resource type="Script" uid="uid://cjqlg3wyix45s" path="res://OverlappingImageDisplay.gd" id="3_lkt7b"]
 
 [sub_resource type="Gradient" id="Gradient_m3gt1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -21,7 +22,7 @@ action = &"upgrades_screen"
 [sub_resource type="Shortcut" id="Shortcut_0ayao"]
 events = [SubResource("InputEventAction_7yctq")]
 
-[node name="RunSummary" type="Control"]
+[node name="RunSummary" type="Control" node_paths=PackedStringArray("end_run_reason_label", "num_runes_invoked_label", "runes_image_display", "gems_this_run_label", "gems_total_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,19 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_vobyg")
+end_run_reason_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/EndRunReason")
+num_runes_invoked_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/NumRunesInvoked")
+runes_image_display = NodePath("MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/OverlappingImageDisplay")
+gems_this_run_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/Gems")
+gems_total_label = NodePath("MarginContainer/MarginContainer/VBoxContainer/Gems2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -63,10 +77,31 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Runes Captured Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="EndRunReason" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jb5pl")
+text = "End Run reason here"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Runes Captured Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("2_jb5pl")
 text = "Runes Captured:"
+
+[node name="OverlappingImageDisplay" type="Control" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_lkt7b")
+image_overlap_x = 16
+image_overlap_y = 12
+metadata/_custom_type_script = "uid://cjqlg3wyix45s"
+
+[node name="NumRunesInvoked" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jb5pl")
+text = "Runes Invoked: "
 
 [node name="Gems" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
