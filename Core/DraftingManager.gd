@@ -11,6 +11,7 @@ const STARTING_TIME : int = 3
 const STARTING_SKIPS : int = 0
 
 @onready var rendered_card_manager : RenderedCardManager = $VBoxContainer/RenderedCardsHolder
+@onready var _end_run_button : EndRunButton = $VBoxContainer/EndRunButton
 @onready var _end_run_confirm_screen : ConfirmEndRunScreen = $ConfirmEndRun
 @onready var _run_summary : RunSummary = $RunSummary
 @onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
@@ -63,6 +64,8 @@ func start_run() -> void:
 	StatusManager.clear_all_statuses()
 	GameplayManager.card_offering_manager.populate_starting_offerings()
 	turn_number = 0
+
+	_end_run_button.enable_button()
 
 	# apply upgrades
 	UpgradeManager.apply_upgrades()
@@ -123,6 +126,8 @@ func end_run() -> void:
 	# show run summary
 	_run_summary.show()
 	_run_summary.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	_end_run_button.disable_button()
 
 	# add our earned gems to the gem total
 	for key in GameplayManager.gems_this_run.keys():
