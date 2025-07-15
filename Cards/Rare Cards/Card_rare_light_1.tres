@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://dpwmg6lmgnx5k"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_xa27a"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_8m08l"]
+[ext_resource type="Texture2D" uid="uid://cdovmwscbvjet" path="res://rune images/rune_rare_light_1.png" id="3_xa27a"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_4ta1f"]
+
+[sub_resource type="Resource" id="Resource_828an"]
+script = ExtResource("2_8m08l")
+statusType = 19
+counter = 2
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[resource]
+script = ExtResource("4_4ta1f")
+name = "Stray Light"
+cost = 0
+image = ExtResource("3_xa27a")
+rarity = 2
+element = 2
+effects = Array[ExtResource("1_xa27a")]([SubResource("Resource_828an")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"

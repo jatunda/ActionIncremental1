@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Card" load_steps=6 format=3 uid="uid://bp6kgyp2qcxdd"]
+
+[ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_mxujc"]
+[ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_6b70c"]
+[ext_resource type="Texture2D" uid="uid://ctqy17e4lbu17" path="res://rune images/rune_rare_water_1.png" id="3_mxujc"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_ffygs"]
+
+[sub_resource type="Resource" id="Resource_mxujc"]
+script = ExtResource("2_6b70c")
+statusType = 16
+counter = 5
+metadata/_custom_type_script = "uid://dge5i6pegbnt0"
+
+[resource]
+script = ExtResource("4_ffygs")
+name = "Laminar Flow"
+cost = 0
+image = ExtResource("3_mxujc")
+rarity = 2
+element = 1
+effects = Array[ExtResource("1_mxujc")]([SubResource("Resource_mxujc")])
+metadata/_custom_type_script = "uid://bd1p563yanp5h"
