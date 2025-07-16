@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=4 format=3 uid="uid://yrr03i5tr65w"]
 
-[ext_resource type="Resource" uid="uid://nwka2xi7wfsg" path="res://Cards/card_fire_1_plus.tres" id="2_1twav"]
-[ext_resource type="Resource" uid="uid://c4w2rxe3th6lq" path="res://Cards/card_fire_1_plusplus.tres" id="2_2vnog"]
+[ext_resource type="Resource" uid="uid://nwka2xi7wfsg" path="res://Cards/Common Cards/card_fire_1_plus.tres" id="2_1twav"]
+[ext_resource type="Resource" uid="uid://c4w2rxe3th6lq" path="res://Cards/Common Cards/card_fire_1_plusplus.tres" id="2_2vnog"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="3_hdjqa"]
 
 [resource]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Card" load_steps=9 format=3 uid="uid://cm40glyn08mao"]
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_v6l31"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_eb4it"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="2_eb4it"]
 [ext_resource type="Script" uid="uid://cskd6f57mqb0m" path="res://Card Effect Helper Scripts/CounterGemsThisRound.gd" id="2_gg5o1"]
 [ext_resource type="Script" uid="uid://dpsaemrg0nshs" path="res://Card Effect Helper Scripts/CounterConstant.gd" id="3_tbrl5"]
 [ext_resource type="Script" uid="uid://ctyuy7784sdc2" path="res://Card Effect Helper Scripts/ConditionalCompareCounters.gd" id="4_3enak"]

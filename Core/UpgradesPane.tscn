@@ -1,6 +1,6 @@
 [gd_scene load_steps=69 format=3 uid="uid://bxrc3vl8sxnpv"]
 
-[ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://upgrade_button.tscn" id="1_slhsx"]
+[ext_resource type="PackedScene" uid="uid://b6c36uop4f47l" path="res://Core/upgrade_button.tscn" id="1_slhsx"]
 [ext_resource type="Texture2D" uid="uid://bg2ldjtwo010l" path="res://rune images/wind 1.png" id="2_si66j"]
 [ext_resource type="Resource" uid="uid://dqekaf1521tq0" path="res://Upgrades/Upgrade_CardAdd_Wind1.tres" id="3_2skrs"]
 [ext_resource type="Texture2D" uid="uid://cpr7keadbaf6p" path="res://icons/upgrade_icon_clock.png" id="3_vlqc3"]

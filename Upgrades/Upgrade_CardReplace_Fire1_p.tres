@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=4 format=3 uid="uid://bjtnuujsgjlee"]
 
-[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/card_fire_1.tres" id="1_knx3n"]
+[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/Common Cards/card_fire_1.tres" id="1_knx3n"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_3umrn"]
-[ext_resource type="Resource" uid="uid://nwka2xi7wfsg" path="res://Cards/card_fire_1_plus.tres" id="2_knx3n"]
+[ext_resource type="Resource" uid="uid://nwka2xi7wfsg" path="res://Cards/Common Cards/card_fire_1_plus.tres" id="2_knx3n"]
 
 [resource]
 script = ExtResource("2_3umrn")

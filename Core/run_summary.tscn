@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtvmh070rdupt" path="res://One-off Scripts/run_summary.gd" id="1_vobyg"]
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="2_jb5pl"]
-[ext_resource type="Script" uid="uid://cjqlg3wyix45s" path="res://OverlappingImageDisplay.gd" id="3_lkt7b"]
+[ext_resource type="Script" uid="uid://cjqlg3wyix45s" path="res://Util/OverlappingImageDisplay.gd" id="3_lkt7b"]
 
 [sub_resource type="Gradient" id="Gradient_m3gt1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_lod2n"]
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_5oni3"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="2_ayeyd"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="2_ayeyd"]
 [ext_resource type="Texture2D" uid="uid://260irdfk5u8k" path="res://rune images/no effect rune.png" id="2_rxiii"]
 
 [sub_resource type="Resource" id="Resource_62vdi"]

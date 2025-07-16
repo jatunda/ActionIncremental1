@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://cijh8t2jvw5v2"]
 
-[ext_resource type="Resource" uid="uid://c728fcdm5sta1" path="res://Cards/card_earth_3.tres" id="1_w13gq"]
+[ext_resource type="Resource" uid="uid://c728fcdm5sta1" path="res://Cards/Common Cards/card_earth_3.tres" id="1_w13gq"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_shaxa"]
 
 [resource]

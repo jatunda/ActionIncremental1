@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bgb8rgbo2ssp6" path="res://Card Effect Scripts/CardEffectGainGems.gd" id="2_tc3mo"]
 [ext_resource type="Script" uid="uid://cs5dcfhgwu3ts" path="res://Card Effect Helper Scripts/CounterGemsGained.gd" id="3_d2451"]
 [ext_resource type="Texture2D" uid="uid://dsi6513lqyecc" path="res://rune images/water 2.png" id="3_icl0e"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_7564t"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="4_7564t"]
 [ext_resource type="Script" uid="uid://ctqifwcdyjqgu" path="res://Card Effect Scripts/CardEffectGainCapacity.gd" id="4_nluf3"]
 
 [sub_resource type="Resource" id="Resource_bo0nu"]

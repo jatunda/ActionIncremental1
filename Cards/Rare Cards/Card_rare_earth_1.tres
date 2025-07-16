@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbiy2bt51p17a" path="res://Card Effect Scripts/cardEffect.gd" id="1_828an"]
 [ext_resource type="Script" uid="uid://dge5i6pegbnt0" path="res://Card Effect Scripts/CardEffectAddStatus.gd" id="2_cs1es"]
 [ext_resource type="Texture2D" uid="uid://dhxftrk8qojny" path="res://rune images/rune_rare_earth_1.png" id="3_828an"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_mkv63"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="4_mkv63"]
 
 [sub_resource type="Resource" id="Resource_828an"]
 script = ExtResource("2_cs1es")

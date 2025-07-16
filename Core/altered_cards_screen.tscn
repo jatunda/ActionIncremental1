@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dejqsh6ify1ik"]
 
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_iae51"]
-[ext_resource type="Script" uid="uid://s4oj721eatj4" path="res://altered_cards_screen.gd" id="1_xgdg0"]
+[ext_resource type="Script" uid="uid://s4oj721eatj4" path="res://Core/altered_cards_screen.gd" id="1_xgdg0"]
 [ext_resource type="PackedScene" uid="uid://dhgjtk1jbky62" path="res://Core/rendered_card.tscn" id="2_xgdg0"]
 
 [node name="AlteredCardsScreen" type="Control"]

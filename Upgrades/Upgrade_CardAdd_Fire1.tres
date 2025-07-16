@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://dywqled0hc11b"]
 
-[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/card_fire_1.tres" id="1_nvmhp"]
+[ext_resource type="Resource" uid="uid://ggi0soht0rvq" path="res://Cards/Common Cards/card_fire_1.tres" id="1_nvmhp"]
 [ext_resource type="Script" uid="uid://sgth25wex5mo" path="res://Core/Upgrade.gd" id="2_4omee"]
 
 [resource]

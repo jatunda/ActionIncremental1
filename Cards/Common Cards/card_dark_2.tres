@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://kgy8jn5i42t3" path="res://Card Effect Helper Scripts/CounterCardHistoryElement.gd" id="2_hqu6b"]
 [ext_resource type="Texture2D" uid="uid://cnpw7vamyc4s" path="res://rune images/dark 2.png" id="3_ub7va"]
 [ext_resource type="Script" uid="uid://bop3h6rky6gor" path="res://Card Effect Scripts/CardEffectRepeat.gd" id="4_dkwtr"]
-[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Cards/card.gd" id="4_war1g"]
+[ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="4_war1g"]
 
 [sub_resource type="Resource" id="Resource_iy57b"]
 script = ExtResource("2_hqu6b")
