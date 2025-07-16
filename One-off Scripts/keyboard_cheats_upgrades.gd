@@ -24,8 +24,8 @@ func _input(event: InputEvent) -> void:
 			GameplayManager.gems_updated.emit()
 			print_debug("Cheat: Wall Gems set to 1")
 		KEY_Q: 
-			SaveLoadManager.save()
+			SaveLoadManager.save(GameplayManager.current_file_number)
 		KEY_W:
-			SaveLoadManager.load()
+			SaveLoadManager.load_save(GameplayManager.current_file_number)
 
 		

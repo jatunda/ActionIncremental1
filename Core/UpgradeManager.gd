@@ -43,18 +43,19 @@ func get_savable_upgrades() -> Dictionary[Upgrade.UBID, int]:
 		output[upgrade.ubid] = upgrade.level
 	return output
 
+## only works during actual gameplay, once upgrades have been loaded already
 func load_saved_upgrades(saved_upgrades:Dictionary[Upgrade.UBID, int]) -> void:
-	
-	print(upgrades)
+
+	# used to load upgrades before upgrades are initialized
+	GameplayManager.saved_upgrade_levels = saved_upgrades
 
 	# go through all existing upgrades and set their level to the saved upgrade
+	# this is only for overriding upgrade levels once upgrades are initialized
 	for upgrade:Upgrade in upgrades.values():
 		if saved_upgrades.has(upgrade.ubid):
 			upgrade.level = saved_upgrades[upgrade.ubid]
 		else:
 			upgrade.level = 0
-
-	# possible issue: upgrades is not yet loaded and is empty... then the above algorithm wouldn't work...
 
 	# refresh update buttons
 	loaded_upgrades.emit()

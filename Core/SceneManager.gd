@@ -2,7 +2,8 @@ extends Node
 
 const drafting_scene_path : String = "res://Core/DraftingScene.tscn"
 const upgrades_scene_path : String = "res://Core/upgrades_scene.tscn"
-const start_scene_path : String = ""
+const start_scene_path : String = "res://Core/StartScreen.tscn"
+const save_load_scene_path : String = "res://Core/save_load_scene.tscn"
 
 var current_scene : Node
 
@@ -20,6 +21,9 @@ func go_to_start_scene() -> void:
 	#print_debug("go to start scene")
 	_go_to_scene(start_scene_path)
 	pass
+
+func go_to_save_load_scene() -> void:
+	_go_to_scene(save_load_scene_path)
 
 func _go_to_scene(scene_path: String) -> void:
 	current_scene.queue_free()

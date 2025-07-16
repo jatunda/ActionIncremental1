@@ -61,3 +61,5 @@ var wall_tier : int = 0 :
 		wall_tier = value
 		wall_tier_updated.emit()
 
+var current_file_number = 0
+var saved_upgrade_levels : Dictionary[Upgrade.UBID, int] = {}

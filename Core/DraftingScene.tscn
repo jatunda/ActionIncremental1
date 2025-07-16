@@ -1,7 +1,7 @@
 [gd_scene load_steps=45 format=3 uid="uid://bw6bslu5s3rsa"]
 
 [ext_resource type="Script" uid="uid://dx1ghneu78scs" path="res://Core/DraftingManager.gd" id="1_navk4"]
-[ext_resource type="Script" uid="uid://bn2ljivsrcld1" path="res://Core/CardOfferingManager.gd" id="3_r85dy"]
+[ext_resource type="Script" path="res://Core/CardOfferingManager.gd" id="3_r85dy"]
 [ext_resource type="Script" uid="uid://bd1p563yanp5h" path="res://Core/card.gd" id="4_fewhq"]
 [ext_resource type="Resource" uid="uid://bdwa0ss7h6y0a" path="res://Cards/Common Cards/empty rune.tres" id="5_b3jjt"]
 [ext_resource type="Resource" uid="uid://dectovoqqlp5" path="res://Cards/Wall Cards/Card_WallT0_1a.tres" id="5_d7kal"]

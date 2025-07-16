@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtpl5lr5f1rhk"]
+
+[ext_resource type="Script" uid="uid://y3k8tf84vwgh" path="res://Core/save_load_screen.gd" id="1_bbksq"]
+[ext_resource type="PackedScene" uid="uid://7uktc4lfsupx" path="res://Core/save_file_display.tscn" id="2_ehrc3"]
+
+[node name="SaveLoadScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bbksq")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="SaveFileDisplay" parent="CenterContainer/HBoxContainer" instance=ExtResource("2_ehrc3")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SaveFileDisplay2" parent="CenterContainer/HBoxContainer" instance=ExtResource("2_ehrc3")]
+layout_mode = 2
+_file_number = 2
+
+[node name="SaveFileDisplay3" parent="CenterContainer/HBoxContainer" instance=ExtResource("2_ehrc3")]
+layout_mode = 2
+_file_number = 3

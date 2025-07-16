@@ -1,14 +1,24 @@
 extends Node
 
-var _file_number : int = 1
-var file_path: String : 
-	get:
-		return "user://RuneWeaverSaveGame%s.save" % str(_file_number)
+func get_file_path(file_number:int) -> String:
+	return "user://RuneWeaverSaveGame%s.save" % str(file_number)
 
-func set_file_number(num : int) -> void:
-	_file_number = clampi(num, 1, 3)
+func delete_save(file_number:int) -> void:
+	var file_path = get_file_path(file_number)
+	if FileAccess.file_exists(file_path):
+		var dir = DirAccess.open("user://")
+		if dir:
+			var err = dir.remove(file_path)
+			if err == OK:
+				print("Save file deleted successfully.")
+			else:
+				print("Error deleting save file: ", err)
+		else:
+			print("Could not open directory.")
+	else:
+		print("Save file does not exist.")
 
-func save() -> void:
+func save(file_number:int) -> void:
 
 	# fill in our save dictionary
 	var save_dict : Dictionary[String,Variant] = {
@@ -20,13 +30,27 @@ func save() -> void:
 	var json_string = JSON.stringify(save_dict, "\t")
 
 	# Store the save dictionary as a new line in the save file.
-	var save_file = FileAccess.open(file_path, FileAccess.WRITE)
+	var save_file = FileAccess.open(get_file_path(file_number), FileAccess.WRITE)
 	save_file.store_line(json_string)
 
 ## returns true if load successful, false otherwise
-func load() -> bool:	
+func load_save(file_number:int) -> bool:	
+	var save_file_info : SaveFileInfo = get_save_file_info(file_number)
+
+	# load gems
+	GameplayManager.gems_total = save_file_info.gems.duplicate(true)
+	GameplayManager.gems_updated.emit()
+
+	# load upgrades
+	UpgradeManager.load_saved_upgrades(save_file_info.upgrades)
+
+	return true
+
+## returns null if file not found
+func get_save_file_info(file_number:int) -> SaveFileInfo:
+	var file_path = get_file_path(file_number)
 	if not FileAccess.file_exists(file_path):
-		return false # Error! We don't have a save to load.
+		return null # Error! We don't have a save to load.
 
 	var save_file = FileAccess.open(file_path, FileAccess.READ)
 	var json_string = save_file.get_as_text()
@@ -35,20 +59,19 @@ func load() -> bool:
 
 	if not parse_result == OK:
 		print_debug("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-		return false
+		return null
 
 	# load gems
-	GameplayManager.gems_total = {}
+	var gems : Dictionary[Constants.GemTier, int] = {}
 	for key in json.data["gems"].keys():
 		var gem_tier : Constants.GemTier = int(key) as Constants.GemTier
-		GameplayManager.gems_total[gem_tier] = int(json.data["gems"][key])
-	GameplayManager.gems_updated.emit()
+		gems[gem_tier] = int(json.data["gems"][key])
 
 	# load upgrades
-	var saved_upgrades : Dictionary[Upgrade.UBID, int] = {}
+	var upgrades : Dictionary[Upgrade.UBID, int] = {}
 	for key in json.data["upgrades"].keys():
 		var ubid : Upgrade.UBID = int(key) as Upgrade.UBID
-		saved_upgrades[ubid] = int(json.data["upgrades"][key])
-	UpgradeManager.load_saved_upgrades(saved_upgrades)
+		upgrades[ubid] = int(json.data["upgrades"][key])
 
-	return true
+	var save_file_info : SaveFileInfo = SaveFileInfo.new(gems, upgrades)
+	return save_file_info

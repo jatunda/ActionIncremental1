@@ -58,6 +58,12 @@ func _ready() -> void:
 
 	# register upgrade with UpgradeManager
 	UpgradeManager.upgrades[upgrade.ubid] = upgrade
+	if GameplayManager.saved_upgrade_levels.has(upgrade.ubid):
+		var saved_level : int = GameplayManager.saved_upgrade_levels[upgrade.ubid]
+		upgrade.level = max(saved_level, upgrade.level)
+		# immediate wall upgrades if necessary (so that higher tier upgrades show selves)
+		if upgrade.upgrade_type == Upgrade.Type.WALL and upgrade.level > 0:
+			GameplayManager.wall_tier = int(upgrade.magnitude)
 
 	# if i am a root node, register with wall_tier updates
 	if not _parent_upgrade_button:
