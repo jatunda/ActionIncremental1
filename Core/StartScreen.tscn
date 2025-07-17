@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://lly4j6ky5pto"]
+[gd_scene load_steps=7 format=3 uid="uid://lly4j6ky5pto"]
 
 [ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_g1lpu"]
 [ext_resource type="Script" uid="uid://bcmufhj6ag00x" path="res://Core/StartScreen.gd" id="1_iyhb5"]
 [ext_resource type="Script" uid="uid://dpeovj11mkuoe" path="res://One-off Scripts/DiscordButton.gd" id="2_3vjoy"]
 [ext_resource type="Script" uid="uid://hpyl8tg1ef0o" path="res://One-off Scripts/QuitGameButton.gd" id="2_l3bon"]
 [ext_resource type="Script" uid="uid://qedg78ti05qh" path="res://One-off Scripts/StartGameButton.gd" id="2_teju6"]
+[ext_resource type="PackedScene" uid="uid://b323rogoi7rnc" path="res://Core/options_button.tscn" id="4_jm1ts"]
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
@@ -39,11 +40,11 @@ theme = ExtResource("1_g1lpu")
 text = "Start"
 script = ExtResource("2_teju6")
 
-[node name="Button2" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="OptionsButton" parent="CenterContainer/VBoxContainer" instance=ExtResource("4_jm1ts")]
 layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("1_g1lpu")
-text = "Options"
+should_display_quit_game = false
+should_display_return_to_start_screen = false
+should_confirm_leaving_scene = false
 
 [node name="DiscordButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2

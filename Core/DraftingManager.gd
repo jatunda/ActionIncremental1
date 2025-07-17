@@ -10,12 +10,13 @@ const STARTING_DRAFT_SIZE : int = 1
 const STARTING_TIME : int = 3
 const STARTING_SKIPS : int = 0
 
-@onready var rendered_card_manager : RenderedCardManager = $VBoxContainer/RenderedCardsHolder
-@onready var _end_run_button : EndRunButton = $VBoxContainer/EndRunButton
-@onready var _end_run_confirm_screen : ConfirmEndRunScreen = $ConfirmEndRun
-@onready var _run_summary : RunSummary = $RunSummary
-@onready var _runes_chosen_display : OverlappingImageDisplay = $VBoxContainer/HBoxContainer/OverlappingImageDisplay
-@onready var _skip_button : Button = $VBoxContainer/Control2/HBoxContainer/SkipButton
+@export_group("internal references")
+@export var rendered_card_manager : RenderedCardManager 
+@export var _end_run_button : EndRunButton 
+@export var _end_run_confirm_screen : ConfirmEndRunScreen 
+@export var _run_summary : RunSummary 
+@export var _runes_chosen_display : OverlappingImageDisplay
+@export var _skip_button : Button 
 
 var _current_offered_cards : Array[CardState]  
 var num_cards_played_this_turn : int

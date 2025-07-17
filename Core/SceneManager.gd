@@ -3,8 +3,7 @@ extends Node
 const drafting_scene_path : String = "res://Core/DraftingScene.tscn"
 const upgrades_scene_path : String = "res://Core/upgrades_scene.tscn"
 const start_scene_path : String = "res://Core/StartScreen.tscn"
-const save_load_scene_path : String = "res://Core/save_load_scene.tscn"
-
+const save_load_scene_path : String = "res://Core/save_load_screen.tscn"
 var current_scene : Node
 
 func go_to_drafting_scene() -> void:

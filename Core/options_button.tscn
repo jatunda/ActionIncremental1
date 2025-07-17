@@ -1,0 +1,147 @@
+[gd_scene load_steps=5 format=3 uid="uid://b323rogoi7rnc"]
+
+[ext_resource type="Script" uid="uid://rvidli1nt1b5" path="res://Core/options_button.gd" id="2_comsp"]
+[ext_resource type="Script" uid="uid://vf0e677d0dvu" path="res://One-off Scripts/audio_bus_slider.gd" id="3_sww48"]
+[ext_resource type="Script" uid="uid://diucn5bmijkc2" path="res://One-off Scripts/ScreenResolutionDropdown.gd" id="4_y4drl"]
+[ext_resource type="Script" uid="uid://ce3tfpny1j2mx" path="res://One-off Scripts/fullscreen_check_button.gd" id="5_xgim7"]
+
+[node name="OptionsButton" type="Button" node_paths=PackedStringArray("popup", "return_to_title_screen_button", "return_to_title_dialog", "quit_game_button", "quit_game_dialog", "close_options_button")]
+size_flags_horizontal = 4
+text = "Options"
+script = ExtResource("2_comsp")
+popup = NodePath("PopupPanel")
+return_to_title_screen_button = NodePath("PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/ReturnToStartScreenButton")
+return_to_title_dialog = NodePath("GoToTitleConfirmationDialog")
+quit_game_button = NodePath("PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/QuitGameButton")
+quit_game_dialog = NodePath("QuitConfirmationDialog")
+close_options_button = NodePath("PopupPanel/VBoxContainer/CloseOptionsButton")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+initial_position = 1
+size = Vector2i(300, 300)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 296.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PopupPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LanguageLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Language support"
+
+[node name="HBoxContainerMUSIC" type="HBoxContainer" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerMUSIC"]
+layout_mode = 2
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerMUSIC"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("3_sww48")
+bus_name = "Music"
+
+[node name="HBoxContainerSFX" type="HBoxContainer" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerSFX"]
+layout_mode = 2
+text = "SFX  "
+
+[node name="SFXSlider" type="HSlider" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource("3_sww48")
+bus_name = "SFX"
+
+[node name="KeybindingsLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Keybindings"
+
+[node name="uiScalingOptionsLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add UI Scaling"
+
+[node name="HBoxContainerScreenSize" type="HBoxContainer" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScreenSizeOptionsLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerScreenSize"]
+layout_mode = 2
+text = "Screen Size:"
+
+[node name="OptionButton" type="OptionButton" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerScreenSize"]
+layout_mode = 2
+script = ExtResource("4_y4drl")
+
+[node name="HBoxContainerScreenSize2" type="HBoxContainer" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullscreenLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerScreenSize2"]
+layout_mode = 2
+text = "Fullscreen:"
+
+[node name="FullscreenCheckButton" type="CheckButton" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainerScreenSize2"]
+layout_mode = 2
+script = ExtResource("5_xgim7")
+
+[node name="LowerEffectsLabel2" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Effects Sensitivity Option"
+
+[node name="EasyModeLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Easy Mode Option"
+
+[node name="DyslexiaLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Dyslexia Font Support"
+
+[node name="ColorBlindLabel" type="Label" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO: Add Colorblind support"
+
+[node name="ReturnToStartScreenButton" type="Button" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return To Title Screen"
+
+[node name="QuitGameButton" type="Button" parent="PopupPanel/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="CloseOptionsButton" type="Button" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+text = "Close Options"
+
+[node name="QuitConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = ""
+initial_position = 1
+size = Vector2i(328, 100)
+ok_button_text = "Quit Game"
+dialog_text = "Are you sure you want to quit the game? 
+Any unsaved data will be lost."
+
+[node name="GoToTitleConfirmationDialog" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 1
+title = ""
+initial_position = 1
+size = Vector2i(328, 100)
+ok_button_text = "Return to Title"
+dialog_text = "Are you sure you want to return to the title screen? 
+Any unsaved data will be lost."

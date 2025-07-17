@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtpl5lr5f1rhk"]
+[gd_scene load_steps=5 format=3 uid="uid://dtpl5lr5f1rhk"]
 
 [ext_resource type="Script" uid="uid://y3k8tf84vwgh" path="res://Core/save_load_screen.gd" id="1_bbksq"]
+[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="1_p3tl3"]
 [ext_resource type="PackedScene" uid="uid://7uktc4lfsupx" path="res://Core/save_file_display.tscn" id="2_ehrc3"]
+[ext_resource type="Script" uid="uid://cto1mchrxughh" path="res://return_to_title_button.gd" id="4_c6oo2"]
 
 [node name="SaveLoadScreen" type="Control"]
 layout_mode = 3
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_p3tl3")
 script = ExtResource("1_bbksq")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -35,3 +38,21 @@ _file_number = 2
 [node name="SaveFileDisplay3" parent="CenterContainer/HBoxContainer" instance=ExtResource("2_ehrc3")]
 layout_mode = 2
 _file_number = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.5
+offset_top = -40.0
+offset_right = 59.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="return_to_title_button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Return to Title"
+script = ExtResource("4_c6oo2")
