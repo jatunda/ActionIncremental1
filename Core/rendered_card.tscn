@@ -1,14 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://dhgjtk1jbky62"]
+[gd_scene load_steps=21 format=3 uid="uid://dhgjtk1jbky62"]
 
 [ext_resource type="Script" uid="uid://jjcp4flbeuyr" path="res://Core/RenderedCard.gd" id="1_7m0i5"]
-[ext_resource type="Shortcut" uid="uid://bxfulkwom6jce" path="res://Shortcuts/shortcut_card_1.tres" id="2_b7vkl"]
+[ext_resource type="Texture2D" uid="uid://d26ort1tm4v5e" path="res://rune_circle_cost_1_thick.png" id="2_1govi"]
 [ext_resource type="FontFile" uid="uid://bahq6ivdmqjtj" path="res://m5x7.ttf" id="2_grb7p"]
-[ext_resource type="Theme" uid="uid://h6cb5jsnm20b" path="res://new_theme.tres" id="2_ojsdm"]
-[ext_resource type="Texture2D" uid="uid://b4vlm5komak6x" path="res://rune images/fire 1.png" id="3_grb7p"]
-[ext_resource type="Texture2D" uid="uid://bcr7ex1njawhf" path="res://card prototype (1).png" id="4_grb7p"]
+[ext_resource type="Texture2D" uid="uid://c8gvuh5dmkdaa" path="res://rune_circle_cost_5_thick.png" id="4_a85mh"]
+[ext_resource type="Texture2D" uid="uid://12g4j8rv1jx5" path="res://rune images/rune_rare_fire_1.png" id="4_ojsdm"]
+[ext_resource type="Texture2D" uid="uid://bh7uiqtdwk5qt" path="res://rune_circle_cost_5_filled.png" id="5_1govi"]
 [ext_resource type="AudioStream" uid="uid://n5q6dhqfy814" path="res://Kenny Interface Audio/select_008.ogg" id="5_nthc7"]
+[ext_resource type="Texture2D" uid="uid://bwrijwcn4iecr" path="res://rune_circle_thick.png" id="7_1xp0b"]
+[ext_resource type="Material" uid="uid://dhc1yk527b356" path="res://Shaders/material_magic_blur.tres" id="7_ojsdm"]
+[ext_resource type="Texture2D" uid="uid://bfc3gaa630ths" path="res://rune_circle_thin.png" id="8_g26n4"]
+[ext_resource type="Texture2D" uid="uid://dtbk8550g6kmj" path="res://rune_circle_filled.png" id="8_luw5d"]
+[ext_resource type="Texture2D" uid="uid://bwc0aayf8ycn3" path="res://rune_circle_cost_1_filled.png" id="9_1govi"]
+[ext_resource type="Texture2D" uid="uid://4g4x751tenck" path="res://rune_circle_cost_5.png" id="10_1govi"]
+[ext_resource type="Script" uid="uid://bfreih1qolpx5" path="res://Core/parent_hover_effect.gd" id="11_luw5d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j85ja"]
+content_margin_left = 15.0
+content_margin_right = 15.0
 
 [sub_resource type="VisualShaderNodeVec4Constant" id="VisualShaderNodeVec4Constant_68urs"]
 constant = Quaternion(1, 0, 0, 1)
@@ -28,23 +37,35 @@ nodes/fragment/3/position = Vector2(-180, 280)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7vkl"]
 shader = SubResource("VisualShader_b7vkl")
 
-[node name="RenderedCard" type="PanelContainer" node_paths=PackedStringArray("nameLabel", "descriptionLabel", "sprite", "costLabel", "textureButton", "audioStreamPlayer")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1govi"]
+blend_mode = 3
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a85mh"]
+blend_mode = 2
+
+[node name="RenderedCard" type="PanelContainer" node_paths=PackedStringArray("nameLabel", "descriptionLabel", "sprite", "costLabel", "button", "audioStreamPlayer", "rune_circle", "cost_0_color", "exclude_circles", "cost_circles")]
+custom_minimum_size = Vector2(0, 165)
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_j85ja")
 script = ExtResource("1_7m0i5")
+cost_1_texture = ExtResource("2_1govi")
+cost_1_texture_filled = ExtResource("9_1govi")
+cost_5_texture = ExtResource("4_a85mh")
+cost_5_texture_filled = ExtResource("5_1govi")
+rune_circle_thin = ExtResource("8_g26n4")
+rune_circle_thick = ExtResource("7_1xp0b")
+rune_circle_filled = ExtResource("8_luw5d")
 nameLabel = NodePath("VBoxContainer/HBoxContainer/NameLabel")
 descriptionLabel = NodePath("VBoxContainer/MarginContainer/DescriptionLabel")
-sprite = NodePath("VBoxContainer/TextureRect")
+sprite = NodePath("VBoxContainer/CenterContainer/Rune")
 costLabel = NodePath("VBoxContainer/HBoxContainer/CostLabel")
-textureButton = NodePath("TextureButton")
+button = NodePath("Button")
 audioStreamPlayer = NodePath("AudioStreamPlayer")
-
-[node name="TextureButton" type="TextureButton" parent="."]
-layout_mode = 2
-theme = ExtResource("2_ojsdm")
-shortcut = ExtResource("2_b7vkl")
-texture_normal = ExtResource("4_grb7p")
+rune_circle = NodePath("VBoxContainer/CenterContainer/CanvasGroup/rune circle")
+cost_0_color = NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana0color")
+exclude_circles = [NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude1"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude2"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude3"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude4"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude5"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude6"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude7"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude8"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude9"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude10"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude11"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude12"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude13"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude14"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude15"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/exclude16")]
+cost_circles = [NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana1"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana2"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana3"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana4"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana5"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana6"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana7"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana8"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana9"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana10"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana11"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana12"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana13"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana14"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana15"), NodePath("VBoxContainer/CenterContainer/CanvasGroup/mana16")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_nthc7")
@@ -59,6 +80,7 @@ mouse_filter = 2
 layout_mode = 2
 
 [node name="CostLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 mouse_filter = 2
@@ -79,27 +101,344 @@ mouse_default_cursor_shape = 2
 theme_override_fonts/normal_font = ExtResource("2_grb7p")
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-text = "Default Name
-"
+text = "default title"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="Node" type="Node" parent="VBoxContainer/HBoxContainer/NameLabel"]
+script = ExtResource("11_luw5d")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Rune" type="TextureRect" parent="VBoxContainer/CenterContainer"]
 material = SubResource("ShaderMaterial_b7vkl")
 custom_minimum_size = Vector2(30, 50)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("3_grb7p")
-expand_mode = 1
+texture = ExtResource("4_ojsdm")
 stretch_mode = 3
+
+[node name="Node" type="Node" parent="VBoxContainer/CenterContainer/Rune"]
+script = ExtResource("11_luw5d")
+mode = 1
+frequency = 0.6
+amplitude = 2.0
+
+[node name="CanvasGroup" type="CanvasGroup" parent="VBoxContainer/CenterContainer"]
+position = Vector2(46, 47)
+
+[node name="rune circle" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = ExtResource("7_ojsdm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(45, 45)
+mouse_filter = 2
+texture = ExtResource("8_g26n4")
+
+[node name="mana0color" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_1govi")
+offset_left = -39.0
+offset_top = -38.0
+offset_right = 25.0
+offset_bottom = 26.0
+scale = Vector2(0.24, 0.24)
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="exclude1" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -39.0
+offset_top = -38.0
+offset_right = -23.0
+offset_bottom = -22.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana1" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -39.0
+offset_top = -38.0
+offset_right = -23.0
+offset_bottom = -22.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude2" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -48.0
+offset_top = -25.0
+offset_right = -32.0
+offset_bottom = -9.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana2" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -48.0
+offset_top = -25.0
+offset_right = -32.0
+offset_bottom = -9.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude3" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -51.0
+offset_top = -9.0
+offset_right = -35.0
+offset_bottom = 7.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana3" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -51.0
+offset_top = -9.0
+offset_right = -35.0
+offset_bottom = 7.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude4" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -48.0
+offset_top = 7.0
+offset_right = -32.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana4" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -48.0
+offset_top = 7.0
+offset_right = -32.0
+offset_bottom = 23.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude5" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -38.0
+offset_top = 21.0
+offset_right = -22.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana5" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -38.0
+offset_top = 21.0
+offset_right = -22.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude6" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -25.0
+offset_top = 30.0
+offset_right = -9.0
+offset_bottom = 46.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana6" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -25.0
+offset_top = 30.0
+offset_right = -9.0
+offset_bottom = 46.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude7" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -9.0
+offset_top = 33.0
+offset_right = 7.0
+offset_bottom = 49.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana7" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -9.0
+offset_top = 33.0
+offset_right = 7.0
+offset_bottom = 49.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude8" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 9.0
+offset_top = 29.0
+offset_right = 25.0
+offset_bottom = 45.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana8" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 9.0
+offset_top = 29.0
+offset_right = 25.0
+offset_bottom = 45.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude9" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 22.0
+offset_top = 20.0
+offset_right = 38.0
+offset_bottom = 36.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana9" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 22.0
+offset_top = 20.0
+offset_right = 38.0
+offset_bottom = 36.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude10" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 31.0
+offset_top = 6.0
+offset_right = 47.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana10" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 31.0
+offset_top = 6.0
+offset_right = 47.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude11" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 33.0
+offset_top = -9.0
+offset_right = 49.0
+offset_bottom = 7.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana11" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 33.0
+offset_top = -9.0
+offset_right = 49.0
+offset_bottom = 7.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude12" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 30.0
+offset_top = -24.0
+offset_right = 46.0
+offset_bottom = -8.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana12" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 30.0
+offset_top = -24.0
+offset_right = 46.0
+offset_bottom = -8.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude13" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 21.0
+offset_top = -38.0
+offset_right = 37.0
+offset_bottom = -22.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana13" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 21.0
+offset_top = -38.0
+offset_right = 37.0
+offset_bottom = -22.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude14" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = 7.0
+offset_top = -48.0
+offset_right = 23.0
+offset_bottom = -32.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana14" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = 7.0
+offset_top = -48.0
+offset_right = 23.0
+offset_bottom = -32.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude15" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -8.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -35.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana15" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -8.0
+offset_top = -51.0
+offset_right = 8.0
+offset_bottom = -35.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="exclude16" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+material = SubResource("CanvasItemMaterial_a85mh")
+offset_left = -24.0
+offset_top = -48.0
+offset_right = -8.0
+offset_bottom = -32.0
+mouse_filter = 2
+texture = ExtResource("5_1govi")
+
+[node name="mana16" type="TextureRect" parent="VBoxContainer/CenterContainer/CanvasGroup"]
+offset_left = -24.0
+offset_top = -48.0
+offset_right = -8.0
+offset_bottom = -32.0
+mouse_filter = 2
+texture = ExtResource("10_1govi")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/CenterContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+texture = ExtResource("8_g26n4")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 7
-theme_override_constants/margin_right = 3
+theme_override_constants/margin_left = -7
+theme_override_constants/margin_right = -7
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -110,5 +449,9 @@ theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "Default Description goes here. More text for when it overflows"
 fit_content = true
+scroll_active = false
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2

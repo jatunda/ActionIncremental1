@@ -37,12 +37,17 @@ func save(file_number:int) -> void:
 func load_save(file_number:int) -> bool:	
 	var save_file_info : SaveFileInfo = get_save_file_info(file_number)
 
+	if not save_file_info:
+		return false
+
 	# load gems
-	GameplayManager.gems_total = save_file_info.gems.duplicate(true)
-	GameplayManager.gems_updated.emit()
+	if save_file_info.gems:
+		GameplayManager.gems_total = save_file_info.gems.duplicate(true)
+		GameplayManager.gems_updated.emit()
 
 	# load upgrades
-	UpgradeManager.load_saved_upgrades(save_file_info.upgrades)
+	if save_file_info.upgrades:
+		UpgradeManager.load_saved_upgrades(save_file_info.upgrades)
 
 	return true
 
